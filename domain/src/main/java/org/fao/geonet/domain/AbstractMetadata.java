@@ -118,7 +118,7 @@ public abstract class AbstractMetadata extends GeonetEntity {
     @Column(nullable = false)
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "org.hibernate.type.TextType") // this is a work around for postgres so postgres can correctly load clobs
+    @Type(type = "org.hibernate.type.MaterializedClobType") // this is a work around for postgres so postgres can correctly load clobs
     public String getData() {
         return _data;
     }

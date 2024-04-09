@@ -110,7 +110,7 @@ public class Page extends GeonetEntity implements Serializable {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     @Column(unique = true)
     public String getLink() {
         return link;

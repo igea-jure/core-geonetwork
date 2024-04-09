@@ -163,7 +163,7 @@ public class HarvesterSetting extends GeonetEntity {
      */
     @Lob
     @Column(name = "value", nullable = true)
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     // this is a work around for postgres so postgres can correctly load clobs
     public
     @Nullable

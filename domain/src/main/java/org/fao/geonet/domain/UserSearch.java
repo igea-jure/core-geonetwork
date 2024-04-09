@@ -60,7 +60,7 @@ public class UserSearch extends Localized implements Serializable {
     }
 
     @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     public String getUrl() {
         return url;
     }

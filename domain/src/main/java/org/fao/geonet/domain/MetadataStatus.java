@@ -344,7 +344,7 @@ public class MetadataStatus extends GeonetEntity {
     //      Also remove getTitlesString and setTitlesString - they were only created for JPA
     // https://hibernate.atlassian.net/browse/HHH-10818
     //@Lob
-    //@Type(type = "org.hibernate.type.TextType")
+    //@Type(type = "org.hibernate.type.MaterializedClobType")
     //@Basic(fetch = FetchType.LAZY)
     //@Convert(converter = JpaConverterJson.class)
     @Transient
@@ -354,7 +354,7 @@ public class MetadataStatus extends GeonetEntity {
 
     @Column(name = "titles")
     @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     @Basic(fetch = FetchType.LAZY)
     @JsonProperty(value = "titles")
     @JsonRawValue
@@ -391,7 +391,7 @@ public class MetadataStatus extends GeonetEntity {
     }
 
     @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     @Basic(fetch = FetchType.LAZY)
     public String getPreviousState() {
         return previousState;
@@ -402,7 +402,7 @@ public class MetadataStatus extends GeonetEntity {
     }
 
     @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     @Basic(fetch = FetchType.LAZY)
     public String getCurrentState() {
         return currentState;

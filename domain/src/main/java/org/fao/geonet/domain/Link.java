@@ -186,7 +186,7 @@ public class Link implements Serializable {
      */
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     @Column(unique = true)
     public String getUrl() {
         return _url;

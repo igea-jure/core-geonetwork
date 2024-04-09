@@ -140,7 +140,7 @@ public class Translations extends GeonetEntity implements Serializable {
      */
     @Lob
     @Column(name = "label")
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     // this is a work around for postgres so postgres can correctly load clobs
     public String getValue() {
         return _value;

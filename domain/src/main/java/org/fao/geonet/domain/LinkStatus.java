@@ -133,7 +133,7 @@ public class LinkStatus extends GeonetEntity implements Comparable<LinkStatus> {
     @Column(nullable = true)
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "org.hibernate.type.TextType")
+    @Type(type = "org.hibernate.type.MaterializedClobType")
     public String getStatusInfo() {
         return statusInfo;
     }
