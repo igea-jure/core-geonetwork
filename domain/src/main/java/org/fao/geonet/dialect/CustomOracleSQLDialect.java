@@ -31,7 +31,10 @@ import org.hibernate.dialect.Oracle12cDialect;
 public class CustomOracleSQLDialect extends Oracle12cDialect {
   public CustomOracleSQLDialect() {
     super();
-    registerColumnType(Types.LONGVARCHAR, "clob");
-    registerColumnType(Types.LONGNVARCHAR, "clob");
+//    registerColumnType(Types.LONGVARCHAR, "clob");
+//    registerColumnType(Types.LONGNVARCHAR, "clob");
+    
+    registerColumnType(Types.LONGVARCHAR, "VARCHAR2(4000)");
+    registerColumnType(Types.LONGNVARCHAR, "VARCHAR2(4000)");
   }
 }
