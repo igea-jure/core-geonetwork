@@ -748,7 +748,7 @@ INSERT INTO HarvesterSettings (id, parentid, name, value) VALUES  (1,NULL,'harve
 -- === Table: Users
 -- ======================================================================
 
-INSERT INTO Users (id, username, password, name, surname, profile, kind, organisation, security, authtype, isenabled) VALUES  (0,'nobody','','nobody','nobody',4,'','','','', 'n');
+INSERT INTO Users (id, username, password, name, surname, profile, kind, organisation, security, authtype, isenabled) VALUES  (0,'nobody','nobody','nobody','nobody',4,'','','','', 'n');
 INSERT INTO Address (id, address, city, country, state, zip) VALUES  (0, '', '', '', '', '');
 INSERT INTO UserAddress (userid, addressid) VALUES  (0, 0);
 
