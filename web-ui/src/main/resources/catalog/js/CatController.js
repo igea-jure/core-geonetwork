@@ -110,7 +110,8 @@
               slo: "sk",
               fin: "fi",
               swe: "sv",
-              wel: "cy"
+              wel: "cy",
+              slv: "sl"
             },
             isLogoInHeader: false,
             logoInHeaderPosition: "left",
@@ -1678,7 +1679,8 @@
         slo: "Slovenčina",
         swe: "Svenska",
         dan: "Dansk",
-        wel: "Cymraeg"
+        wel: "Cymraeg",
+        slv: "Slovenščina"
       };
       $scope.url = "";
       $scope.gnUrl = gnGlobalSettings.gnUrl;

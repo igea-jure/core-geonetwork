@@ -102,6 +102,7 @@
     <value>swe</value>
     <value>tur</value>
     <value>wel</value>
+	<value>slv</value>
   </util:set>
 
   <util:map id="jpaPropertyMap">

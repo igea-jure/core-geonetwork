@@ -105,6 +105,7 @@
             <value>file:/${webapp}/WEB-INF/classes/setup/sql/data/loc-spa-default.sql</value>
             <value>file:/${webapp}/WEB-INF/classes/setup/sql/data/loc-tur-default.sql</value>
             <value>file:/${webapp}/WEB-INF/classes/setup/sql/data/loc-vie-default.sql</value>
+			<value>file:/${webapp}/WEB-INF/classes/setup/sql/data/loc-slv-default.sql</value>
           </list>
         </property>
       </bean>
