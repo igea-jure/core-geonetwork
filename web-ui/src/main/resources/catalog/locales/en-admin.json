@@ -1525,6 +1525,10 @@
     "doiserver-euApiText": "Publication Office of the European Union",
     "confirmDoiServerDelete": "Are you sure you want to delete this DOI server?",
     "NoTranslationProvider": "No translation provider",
-    "LibreTranslate": "Libretranslate"
+    "LibreTranslate": "Libretranslate",
+
+  "==== DCAT custom ====": "",
+  "resourceUriPattern": "Resource URI pattern",
+  "resourceUriPatternHelp": "Pattern used to generate URI of the resources during the RDF export. Example of value: https://metadata.vlaanderen.be/srv/resources/{resourceType}/{resourceUuid}"
 }
 

@@ -1507,5 +1507,9 @@
     "fieldEmailNotValid": "Een geldig email adres is vereist",
     "formConfirmExit": "The form has changes, if you exit the changes will be lost. Do you want to exit on the page?",
     "NoTranslationProvider": "No translation provider",
-    "LibreTranslate": "Libretranslate"
+    "LibreTranslate": "Libretranslate",
+
+    "==== DCAT custom ====": "",
+    "resourceUriPattern": "Resource URI pattern",
+    "resourceUriPatternHelp": "Pattern gebruikt om URI van de bronnen te genereren tijdens de RDF export. Bv: https://metadata.vlaanderen.be/srv/resources/{resourceType}/{resourceUuid}"
 }

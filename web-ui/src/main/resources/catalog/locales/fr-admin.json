@@ -1507,5 +1507,10 @@
     "fieldEmailNotValid": "Un email valide est requis",
     "formConfirmExit": "Le formulaire comporte des modifications, si vous quittez, les modifications seront perdues. Voulez-vous quitter la page ?",
     "NoTranslationProvider": "No translation provider",
-    "LibreTranslate": "Libretranslate"
+    "LibreTranslate": "Libretranslate",
+
+    "==== DCAT custom ====": "",
+    "resourceUriPattern": "Patterne de l'URI des resources",
+    "resourceUriPatternHelp": "Patterne utilisé pour générer les URI des resources lors de l'export RDF. Exemple de valeur: https://metadata.vlaanderen.be/srv/resources/{resourceType}/{resourceUuid}"
+
 }
