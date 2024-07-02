@@ -526,6 +526,12 @@
                     id="{$thesaurusId}"
                     uri="{$thesaurusUri}"
                     title="{$thesaurusTitle}">
+                <xsl:if test="not(starts-with($thesaurusTitle, 'otherKeywords'))">
+                  <multilingualTitle>
+                    <xsl:copy-of select="gn-fn-index:add-multilingual-field('multilingualTitle',
+                            gmd:thesaurusName/*/gmd:title, $allLanguages, false(), true())"/>
+                  </multilingualTitle>
+                </xsl:if>
               </info>
               <keywords>
                 <xsl:for-each select="$keywords">
@@ -879,14 +885,10 @@
               </inspireServiceType>
             </xsl:if>
           </xsl:if>
-          <xsl:if test="following-sibling::srv:serviceTypeVersion">
-            <serviceTypeAndVersion>
-              <xsl:value-of select="concat(
-                        text(),
-                        $separator,
-                        following-sibling::srv:serviceTypeVersion/gco:CharacterString/text())"/>
-            </serviceTypeAndVersion>
-          </xsl:if>
+        </xsl:for-each>
+
+        <xsl:for-each select="srv:serviceTypeVersion">
+          <serviceTypeVersion><xsl:value-of select="gco:CharacterString/text()"/></serviceTypeVersion>
         </xsl:for-each>
       </xsl:for-each>
 
