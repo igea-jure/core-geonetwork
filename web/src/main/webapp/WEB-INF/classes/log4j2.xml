@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="debug" dest="out">
+<Configuration status="warn" dest="out">
   <Properties>
     <Property name="log_dir">./logs</Property>
   </Properties>
@@ -115,15 +115,15 @@
     </Logger>
 
     <!-- Check domain/src/main/resources/config-spring-geonetwork.xml show_sql properties. -->
-    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+    <Logger name="org.hibernate.SQL" level="error" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="File"/>
     </Logger>
-    <Logger name="org.hibernate.type" level="debug" additivity="false">
+    <Logger name="org.hibernate.type" level="error" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="File"/>
     </Logger>
-    <Logger name="org.hibernate.tool.hbm2ddl" level="debug" additivity="false">
+    <Logger name="org.hibernate.tool.hbm2ddl" level="error" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="File"/>
     </Logger>

@@ -256,13 +256,11 @@
       <artifactId>mysql-connector-java</artifactId>
     </dependency>
     <!-- Not permitted under oracle licensing rules
-	-->
-          <dependency>
-         <groupId>com.oracle.database.jdbc</groupId>
-         <artifactId>ojdbc8</artifactId>
-         <version>19.6.0.0</version>
-         <!-- Oracle Free Use Terms and Conditions (FUTC) -->
-       </dependency>
+    <dependency>
+      <groupId>ojdbc</groupId>
+      <artifactId>ojdbc</artifactId>
+    </dependency>
+        -->
     <dependency>
       <groupId>eu.medsea.mimeutil</groupId>
       <artifactId>mime-util</artifactId>
