@@ -47,7 +47,8 @@
       dut: "nl",
       ice: "is",
       ita: "it",
-      slo: "sk"
+      slo: "sk",
+      slv: "sl"
     };
     var lang = specialCases[threeCharLang];
     if (angular.isDefined(lang)) {

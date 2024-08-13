@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strings>
+	<schematron.title>IJZ validacije</schematron.title>
+	<!-- IJZ metadata rules translation / START -->
+	<!-- List of pattern title -->
+	<ijzDatasets>IJZ zbirke podatkov</ijzDatasets>
+	<alert.M1001.dateOfCreation>Manjka datum nastanka.</alert.M1001.dateOfCreation>
+	<report.M1001.dateOfCreation>Datum nastanka vnešen.</report.M1001.dateOfCreation>
+	<!-- IJZ metadata rules translation / END -->
+</strings>

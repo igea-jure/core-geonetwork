@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2001-2016 Food and Agriculture Organization of the
+  ~ United Nations (FAO-UN), United Nations World Food Programme (WFP)
+  ~ and United Nations Environment Programme (UNEP)
+  ~
+  ~ This program is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation; either version 2 of the License, or (at
+  ~ your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful, but
+  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software
+  ~ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+  ~
+  ~ Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
+  ~ Rome - Italy. email: geonetwork@osgeo.org
+  -->
+
+<strings>
+  <understandResource>Informacije o zbirki podatkov</understandResource>
+  <relatedResources>Povezane storitve in podatki</relatedResources>
+  <techInfo>Tehnični podatki</techInfo>
+  <contactInfo>Točka za stike</contactInfo>
+  <mdContactInfo>Kontakt za metapodatke</mdContactInfo>
+  <refDate>Referenčni datum</refDate>
+  <temporalRef>Časovno sklicevanje</temporalRef>
+  <constraintInfo>Opis pogojev dostopa</constraintInfo>
+  <xml_iso19139>Shrani metapodatek kot ISO19139 XML datoteko</xml_iso19139>
+  <xml_iso19139Tooai_dc>Shrani metapodatek kot OAI Dublin Core xml</xml_iso19139Tooai_dc>
+
+  <!-- New strings added for the AngularJS editor -->
+  <!-- View and tabs -->
+  <advanced>Celotno</advanced>
+  <default>Enostavno</default>
+  <simple>Enostavno</simple>
+  <inspire>INSPIRE</inspire>
+  <inspire_sds>SDS</inspire_sds>
+
+  <keywordFrom></keywordFrom>
+  <resource>Vir</resource>
+  <xml>XML pogled</xml>
+  <metadata>Metapodatek</metadata>
+  <identificationInfo>Opredelitev</identificationInfo>
+  <distributionInfo>Distribucija</distributionInfo>
+  <dataQualityInfo>Kakovost</dataQualityInfo>
+  <spatialRepresentationInfo>Prostorska predstavitev</spatialRepresentationInfo>
+  <referenceSystemInfo>Referenčni sistem</referenceSystemInfo>
+  <contentInfo>Vsebina</contentInfo>
+  <portrayalCatalogueInfo>Prikaz podatkov kataloga</portrayalCatalogueInfo>
+  <metadataConstraints>Omejitve metapodatka</metadataConstraints>
+  <metadataMaintenance>Informacija o vzdrževanju</metadataMaintenance>
+  <applicationSchemaInfo>Informacije o aplikacijski shemi</applicationSchemaInfo>
+  <noThesaurusName>Ključne besede</noThesaurusName>
+  <bboxesSection>Geografski položaj</bboxesSection>
+  <overviews>Overviews</overviews>
+  <metadataInXML>XML</metadataInXML>
+  <providedBy>Provided by</providedBy>
+  <shareOnSocialSite>Share on social sites</shareOnSocialSite>
+  <viewMode>Views</viewMode>
+  <linkToPortal>Access to the portal</linkToPortal>
+  <linkToPortal-help>Read here the full details and access to the data.</linkToPortal-help>
+  <citationProposal>Citation proposal</citationProposal>
+  <citationProposal-help>This proposal was automatically generated, check if the metadata authors did not specified custom citation requirements.</citationProposal-help>
+																														 
+  <associatedResources>Associated resources</associatedResources>
+  <classificationOfSpatialDataAndServices>Razvrstitev prostorskih podatkov in storitev v zvezi s prostorskimi podatki</classificationOfSpatialDataAndServices>
+  <resolutions>Natančnost</resolutions>
+  <resolution>Natančnost</resolution>
+
+  <!-- XSD error translation -->
+  <invalidElement>Neveljaven element. Najdena je bila neveljavna vsebina, ki se začne z elementom:</invalidElement>
+  <onElementOf>Eden od naštetih elementov</onElementOf>
+  <isExpected>je pričakovan.</isExpected>
+  <isNotComplete>ni popolno.</isNotComplete>
+  <elementLocated>Nadrejeni element je</elementLocated>
+  <missingElement>Manjkajoči element. Vsebina:</missingElement>
+  <invalidValue>Napačna ali manjkajoča vrednost.</invalidValue>
+  <notValidFor>ni prava vrednost za</notValidFor>
+  <xsdErrorIs>XSD napaka:</xsdErrorIs>
+  <inElement>v elementu</inElement>
+  <enum1>Vrednost</enum1>
+  <enum2>ni veljavna vrednost za</enum2>
+  <enum3>Seznam vrednosti:</enum3>
+
+  <!-- INSPIRE view labels and help -->
+  <url>Internetni naslov vira</url>
+  <identifier>Identifikator vira</identifier>
+  <rsIdentifier>Projekcija</rsIdentifier>
+  <referenceDate>Informacija o časovni natančnosti</referenceDate>
+  <creationDate>Nastanek</creationDate>
+  <hierarchyLevel>Vrsta vira</hierarchyLevel>
+  <publicationDate>Objavljeno</publicationDate>
+  <revisionDate>Datum zadnje spremembe</revisionDate>
+  <temporalRangeSection>Časovni obseg</temporalRangeSection>
+  <beginPosition>Začetek</beginPosition>
+  <endPosition>Konec</endPosition>
+  <conformity>Skladnost</conformity>
+  <conformity_title>Naslov</conformity_title>
+  <conformity_date>Datum</conformity_date>
+  <explanation>Pojasnilo</explanation>
+  <pass>Skladnost</pass>
+  <indeterminatePosition>Indeterminate position</indeterminatePosition>
+  <pointOfContact>Odgovorna organizacija</pointOfContact>
+  <metadataPointOfContact>Metapodatkovna točka za stike</metadataPointOfContact>
+  <organisationName>Ime organizacije</organisationName>
+  <electronicMailAddress>E-mail</electronicMailAddress>
+  <role>Vloga</role>
+  <encoding>Kodiranje</encoding>
+  <inspireTheme>INSPIRE tematike</inspireTheme>
+  <inspireThemeURI>INSPIRE tematike</inspireThemeURI>
+  <format>Format</format>
+  <format_version>Verzija</format_version>
+  <format_specification>Specifikacija</format_specification>
+  <lineage>Poreklo</lineage>
+  <spatialResolution>Prostorska ločljivost (merilo)</spatialResolution>
+  <spatialDistance>Prostorska ločljivost (razdalja)</spatialDistance>
+  <spatialResolutionMain>Prostorska ločljivost</spatialResolutionMain>
+  <accessConstraints>Omejitve javnega dostopa</accessConstraints>
+  <useConstraints>Use constraints</useConstraints>
+  <useLimitation>Omejitve uporabe</useLimitation>
+  <add-resource-id>Izračunaj identifikator vira</add-resource-id>
+  <add-resource-idHelp>Sestavi identifikator vira s pomočjo URL kataloga in
+    identifikatorja metapodatka (npr. http://www.organization.org/catalogue/5391bf69-44bc-4ea0-8cc0-6cf6c3bc81ae).
+  </add-resource-idHelp>
+  <add-extent-from-geokeywords>Izračunaj obseg iz ključnih besed</add-extent-from-geokeywords>
+  <add-extent-from-geokeywordsHelp>Analiziraj ključne besede tipa prostor in dodaj ujemajoč obseg.
+																							  
+  </add-extent-from-geokeywordsHelp>
+  <classificationSection>Razvrstitev prostorskih podatkov in storitev v zvezi s prostorskimi podatki</classificationSection>
+  <temporalSection>Časovno sklicevanje</temporalSection>
+  <restrictionsSection>Omejitev, povezana z dostopom in uporabo</restrictionsSection>
+  <metadataSection>Metapodatki o metapodatkih</metadataSection>
+  <responsibleOrganisationSection>Odgovorne organizacije</responsibleOrganisationSection>
+  <responsibleOrganisation>Odgovorne organizacije</responsibleOrganisation>
+  <qualityAndValiditySection>Kakovost in veljavnost</qualityAndValiditySection>
+  <qualityAndValidity>Kakovost in veljavnost</qualityAndValidity>
+  <spatialRepresentationType>Tip prostorske predstavitve</spatialRepresentationType>
+  <topicCategory>Kategorija teme</topicCategory>
+  <metadataLanguage>Metadata language</metadataLanguage>
+  <inspireServiceTaxonomy>INSPIRE Service Taxonomy</inspireServiceTaxonomy>
+  <otherConstraints>Other constraints</otherConstraints>
+  <operatesOn>Povezani viri</operatesOn>
+  <extent>Geografski prostorki obseg</extent>
+											   
+
+  <freeTextKeywords>Ključne besede</freeTextKeywords>
+  <resource_url>URL</resource_url>
+  <resource_protocol>Protocol</resource_protocol>
+  <resource_name>Naziv vira</resource_name>
+  <constraintsRelatedToAccessAndUse>Omejitev, povezana z dostopom in uporabo</constraintsRelatedToAccessAndUse>
+
+  <addCrs>Projekcija</addCrs>
+  <addCrs4936>ETRS89-XYZ</addCrs4936>
+  <addCrs4937>ETRS89-GRS80h</addCrs4937>
+  <addCrs4258>ETRS89-GRS80</addCrs4258>
+  <addCrs3035>ETRS89-LAEA</addCrs3035>
+  <addCrs3034>ETRS89-LCC</addCrs3034>
+  <addCrs3038>ETRS89-TM26N</addCrs3038>
+  <addCrs3039>ETRS89-TM27N</addCrs3039>
+  <addCrs3040>ETRS89-TM28N</addCrs3040>
+  <addCrs3041>ETRS89-TM29N</addCrs3041>
+  <addCrs3042>ETRS89-TM30N</addCrs3042>
+  <addCrs3043>ETRS89-TM31N</addCrs3043>
+  <addCrs3044>ETRS89-TM32N</addCrs3044>
+  <addCrs3045>ETRS89-TM33N</addCrs3045>
+  <addCrs3046>ETRS89-TM34N</addCrs3046>
+  <addCrs3047>ETRS89-TM35N</addCrs3047>
+  <addCrs3048>ETRS89-TM36N</addCrs3048>
+  <addCrs3049>ETRS89-TM37N</addCrs3049>
+  <addCrs3050>ETRS89-TM38N</addCrs3050>
+  <addCrs3051>ETRS89-TM39N</addCrs3051>
+  <addCrs5730>EVRS</addCrs5730>
+  <addCrs7409>ETRS89-GRS80-EVRS</addCrs7409>
+
+  <!-- String for INSPIRE SDS tab -->
+
+  <inspire_sds_cc1>Conformance class 1: invocable</inspire_sds_cc1>
+  <inspire_sds_cc2>Conformance class 2: interoperable</inspire_sds_cc2>
+  <inspire_sds_cc3>Conformance class 3: harmonized</inspire_sds_cc3>
+
+  <sds-category>Category</sds-category>
+  <inspire_add_pass>Add pass element</inspire_add_pass>
+  <sds-add-dataquality>Add DataQuality element</sds-add-dataquality>
+  <sds-add-dataqualityHelp>TG4: For each spatial data service, there shall be one and only one set
+    of quality information (dataQualityInfo element) scoped to “service”.
+  </sds-add-dataqualityHelp>
+  <sds-add-tech-spec>Add a technical specification</sds-add-tech-spec>
+  <sds-add-tech-specHelp>TG8: The Specification metadata element shall at least refer to or contain
+    one technical specification to which the invocable spatial data service fully conforms,
+    providing all the necessary technical elements, to actually invoke the service and enable its
+    usage.
+  </sds-add-tech-specHelp>
+  <sds-tech-spec>Technical specification</sds-tech-spec>
+  <conformity_desc>Tech spec title</conformity_desc>
+  <conformity_linkage>Tech spec URL</conformity_linkage>
+
+
+  <sds-section-qos>Quality of Service</sds-section-qos>
+  <sds-add-qualityofservice>Add missing Quality of Service criteria</sds-add-qualityofservice>
+  <sds-add-qualityofserviceHelp>INSPIRE SDS requires three quality of service criteria to be
+    reported in the metadata: Availability, Performance and Capacity. This button will add the
+    missing criteria.
+  </sds-add-qualityofserviceHelp>
+  <qos_measure>Measure:</qos_measure>
+  <qos_uom>UOM</qos_uom>
+  <qos_description>Description</qos_description>
+  <qos_value>Value</qos_value>
+  <sds-section-crs>Koordinatni referenčni sistem</sds-section-crs>
+
+  <sds-fix-category>Fix the Category element</sds-fix-category>
+  <sds-fix-categoryHelp>(Rec1) Replace gco:CharacterString with gmx:Anchor in the description
+    metadata element.
+  </sds-fix-categoryHelp>
+
+  <sds-accesspoint>Access Point URL</sds-accesspoint>
+  <sds-add-accesspoint>Add Access Point</sds-add-accesspoint>
+
+  <sds-endpoint>Endpoint URL</sds-endpoint>
+  <sds-add-endpoint>Add Endpoint</sds-add-endpoint>
+
+  <sds-addNoConstraints>No Limitation</sds-addNoConstraints>
+  <sds-addNoConstraintsHelp>Add an element that documents that there are no limitation for this
+    service.
+  </sds-addNoConstraintsHelp>
+  <sds-addUnknownConstraints>Unknown Limitation</sds-addUnknownConstraints>
+  <sds-addConstraints>Customizable constraints</sds-addConstraints>
+
+  <sds>
+    <noConditionsApply>No conditions apply</noConditionsApply>
+    <conditionsUnknown>Conditions unknown</conditionsUnknown>
+  </sds>
+
+  <sds-limitation>Limitation</sds-limitation>
+
+  <sds-section-custodian>Responsible custodian</sds-section-custodian>
+  <sds-addOperation>Add Operation</sds-addOperation>
+
+  <topologicalConsistency>Topološka doslednost</topologicalConsistency>
+  <conformity_code>Identifikator predpisa</conformity_code>
+  <conformity_codeSpace>Vir predpisa</conformity_codeSpace>
+  <codeSpace>Imenski prostor</codeSpace>
+  <code>Enolična označba vira</code>
+  <infoMaintenance>Informacija o vzdrževanju</infoMaintenance>
+  <crs>Koordinatni referenčni sistem</crs>
+
+  <trueValue>Da</trueValue>
+  <falseValue>Ne</falseValue>
+  <nilValue>Nedefinirano</nilValue>
+  <logo>logotip</logo>
+  <overview>pregled</overview>
+  <thumbnail>zavihek</thumbnail>
+  <north>sever</north>
+  <east>vzhod</east>
+  <south>jug</south>
+  <west>zahod</west>				   
+</strings>

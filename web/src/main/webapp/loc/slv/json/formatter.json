@@ -1,0 +1,15 @@
+{
+    "abstract": "Povzetek",
+    "complete": "Vsi elementi",
+    "hierarchy": "Raven",
+    "links": "Povezave",
+    "noUuidInLink": "Brez uuid v povezavi",
+    "overview": "Kratek pregled",
+    "parent": "Nadrejeni",
+    "testString": "Ta niz je tu za testiranje, ne briši ga",
+    "xml": "XML",
+    "uncategorizedKeywords" : "Nekategorizirano",
+    "uncategorized" : "Nekategorizirano",
+    "related-link": "Povezava"
+
+}
