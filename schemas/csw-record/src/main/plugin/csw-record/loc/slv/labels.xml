@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2001-2016 Food and Agriculture Organization of the
+  ~ United Nations (FAO-UN), United Nations World Food Programme (WFP)
+  ~ and United Nations Environment Programme (UNEP)
+  ~
+  ~ Tento program je slobodný softvér: môžete ho šíriť a upravovať podľa ustanovení Všeobecnej
+  ~ verejnej licencie GNU (GNU General Public Licence), vydávanej nadáciou Free Software Foundation,
+  ~ a to buď podľa 2. verzie tejto Licencie, alebo (podľa vášho uváženia) ktorejkoľvek neskoršej verzie.
+  ~
+  ~ Tento program je šírený v nádeji, že bude užitočný, avšak BEZ AKEJKOĽVEK ZÁRUKY. Neposkytujú
+  ~ sa ani odvodené záruky OBCHODOVATEĽNOSTI alebo VHODNOSTI PRE URČITÝ ÚČEL. Ďalšie
+  ~ podrobnosti hľadajte vo Všeobecnej verejnej licencii GNU.
+  ~
+  ~ Kópiu Všeobecnej verejnej licencie GNU ste mali dostať spolu s týmto programom. Ak sa tak nestalo,
+  ~ napíšte na: Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+  ~ USA.
+  ~
+  ~ Kontakt: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
+  ~ Rím - Taliansko. email: geonetwork@osgeo.org
+  -->
+
+<labels xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ows="http://www.opengis.net/ows"
+        xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:dct="http://purl.org/dc/terms/">
+  <!-- ==================================================== -->
+  <element name="csw:Record">
+    <label>Zapis</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:title">
+    <label>Naziv</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:creator">
+    <label>Avtor</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:subject">
+    <label>Zadeva, ključne besede</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:description">
+    <label>Opis</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:publisher">
+    <label>Izdajatelj</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:contributor">
+    <label>Sodelavec</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:date">
+    <label>Datum</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:type">
+    <label>Vrsta vira</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:format">
+    <label>Format</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:identifier">
+    <label>Identifikacija vira</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:source">
+    <label>Vir</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:language">
+    <label>Jezik</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:relation">
+    <label>Povezava</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:coverage">
+    <label>Zaloga vrednosti</label>
+    <description>Primer: "Sever 90, jug -90, vzhod 180, zahod -180. Svet."</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dc:rights">
+    <label>Upravljanje pravic</label>
+    <description/>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:modified">
+    <label>Datum spremembe</label>
+    <description>Dátum kedy boli metaúdaje modifikované.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:abstract">
+    <label>Povzetek</label>
+    <description>Charakteristika obsahu zdroja.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:spatial">
+    <label>Prostorske značilnosti</label>
+    <description>Priestorová charakteristika obsahu zdroja.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:audience">
+    <label>Uporabnik</label>
+    <description>Trieda entity, pre ktorú je zdroj určený alebo užitočný.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:accrualMethod">
+    <label>Metoda dodajanje</label>
+    <description>Metoda za dodajanje elementov.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:accrualPeriodicity">
+    <label>Periodičnost dodajanja</label>
+    <description>Periodičnost dodajanja elementov.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:accrualPolicy">
+    <label>Pravila dodajanja</label>
+    <description>Pravila dodajanja elementov.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:instructionalMethod">
+    <label>Učne metode</label>
+    <description>Metode za podporo izmenjavi izkušenj in veščin. 
+    </description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:provenance">
+    <label>Copyright</label>
+    <description>Vse pravice pridržane
+    </description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:rightsHolder">
+    <label>Upravitelj pravic</label>
+    <description>Upravitelj pravic za uporabo</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="ows:BoundingBox">
+    <label>Okvir</label>
+  </element>
+  <element name="ows:UpperCorner">
+    <label>Zgornji rob</label>
+  </element>
+  <element name="ows:LowerCorner">
+    <label>Spodnji rob</label>
+  </element>
+  <element name="crs">
+    <label>CRS</label>
+  </element>
+</labels>

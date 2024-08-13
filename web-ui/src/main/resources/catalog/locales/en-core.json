@@ -632,5 +632,6 @@
     "typeToConfirm": "Type the confirmation action word.",
     "metadataDeleteConfirmActionWordLabel": "Write <strong>DELETE</strong> to confirm the metadata removal. The action will take action inmediately.",
     "anonymousAccessCreatedError": "Error occurred while creating anonymous access: {{errorDescription}}",
-    "anonymousAccessCreatedWarning": "Make sure to copy the anonymous access link. You won't be able to see it again!"
+    "anonymousAccessCreatedWarning": "Make sure to copy the anonymous access link. You won't be able to see it again!",
+    "slv": "Slovenščina"
 }
