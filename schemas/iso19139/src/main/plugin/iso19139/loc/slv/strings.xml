@@ -37,7 +37,7 @@
   <!-- New strings added for the AngularJS editor -->
   <!-- View and tabs -->
   <advanced>Celotno</advanced>
-  <default>Enostavno</default>
+  <default>INSPIRE</default>
   <simple>Enostavno</simple>
   <inspire>INSPIRE</inspire>
   <inspire_sds>SDS</inspire_sds>
