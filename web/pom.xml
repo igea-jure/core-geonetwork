@@ -629,6 +629,12 @@
       <version>${xmlunit.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- dcat-ap plugin -->
+    <dependency>
+      <groupId>org.geonetwork-opensource.schemas</groupId>
+      <artifactId>gn-schema-dcat-ap</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -1139,6 +1145,13 @@
                     <artifactItem>
                       <groupId>org.geonetwork-opensource.schemas</groupId>
                       <artifactId>gn-schema-iso19115-3.2018</artifactId>
+                      <type>zip</type>
+                      <overWrite>false</overWrite>
+                      <outputDirectory>${schema-plugins.dir}</outputDirectory>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>org.geonetwork-opensource.schemas</groupId>
+                      <artifactId>gn-schema-dcat-ap</artifactId>
                       <type>zip</type>
                       <overWrite>false</overWrite>
                       <outputDirectory>${schema-plugins.dir}</outputDirectory>
