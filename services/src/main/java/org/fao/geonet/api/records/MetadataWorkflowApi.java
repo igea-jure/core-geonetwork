@@ -24,6 +24,8 @@
 package org.fao.geonet.api.records;
 
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -81,6 +83,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.fao.geonet.api.ApiParams.*;
 import static org.fao.geonet.kernel.setting.Settings.SYSTEM_METADATAPRIVS_PUBLICATION_NOTIFICATIONLEVEL;
@@ -158,11 +161,7 @@ public class MetadataWorkflowApi {
     RoleHierarchy roleHierarchy;
 
     // The restore function currently supports these states
-    static final Integer[] supportedRestoreStatuses = {
-        Integer.parseInt(StatusValue.Events.RECORDUPDATED),
-        Integer.parseInt(StatusValue.Events.RECORDPROCESSINGCHANGE),
-        Integer.parseInt(StatusValue.Events.RECORDDELETED),
-        Integer.parseInt(StatusValue.Events.RECORDRESTORED)};
+    static final StatusValue.Events[] supportedRestoreStatuses = StatusValue.Events.getSupportedRestoreStatuses();
 
     private enum State {
         BEFORE, AFTER
@@ -177,9 +176,18 @@ public class MetadataWorkflowApi {
         @Parameter(description = API_PARAM_RECORD_UUID, required = true) @PathVariable String metadataUuid,
         @RequestParam(required = false) boolean details,
         @Parameter(description = "Sort direction", required = false) @RequestParam(defaultValue = "DESC") Sort.Direction sortOrder,
+        @Parameter(description = "Use approved version or not", example = "true")
+        @RequestParam(required = false, defaultValue = "true")  Boolean approved,
         HttpServletRequest request) throws Exception {
         ServiceContext context = ApiUtils.createServiceContext(request);
-        AbstractMetadata metadata = ApiUtils.canViewRecord(metadataUuid, request);
+
+        AbstractMetadata metadata;
+        try {
+            metadata = ApiUtils.canViewRecord(metadataUuid, approved, request);
+        } catch (SecurityException e) {
+            Log.debug(API.LOG_MODULE_NAME, e.getMessage(), e);
+            throw new NotAllowedException(ApiParams.API_RESPONSE_NOT_ALLOWED_CAN_VIEW);
+        }
 
         String sortField = SortUtils.createPath(MetadataStatus_.changeDate);
 
@@ -200,9 +208,17 @@ public class MetadataWorkflowApi {
         @Parameter(description = "Type", required = true) @PathVariable StatusValueType type,
         @RequestParam(required = false) boolean details,
         @Parameter(description = "Sort direction", required = false) @RequestParam(defaultValue = "DESC") Sort.Direction sortOrder,
+        @Parameter(description = "Use approved version or not", example = "true")
+        @RequestParam(required = false, defaultValue = "true") Boolean approved,
         HttpServletRequest request) throws Exception {
         ServiceContext context = ApiUtils.createServiceContext(request);
-        AbstractMetadata metadata = ApiUtils.canViewRecord(metadataUuid, request);
+        AbstractMetadata metadata;
+        try {
+            metadata = ApiUtils.canViewRecord(metadataUuid, approved, request);
+        } catch (SecurityException e) {
+            Log.debug(API.LOG_MODULE_NAME, e.getMessage(), e);
+            throw new NotAllowedException(ApiParams.API_RESPONSE_NOT_ALLOWED_CAN_VIEW);
+        }
 
         String sortField = SortUtils.createPath(MetadataStatus_.changeDate);
 
@@ -224,8 +240,10 @@ public class MetadataWorkflowApi {
     @ResponseBody
     public MetadataWorkflowStatusResponse getStatus(
         @Parameter(description = API_PARAM_RECORD_UUID, required = true) @PathVariable String metadataUuid,
+        @Parameter(description = "Use approved version or not", example = "true")
+        @RequestParam(required = false, defaultValue = "true")  Boolean approved,
         HttpServletRequest request) throws Exception {
-        AbstractMetadata metadata = ApiUtils.canEditRecord(metadataUuid, request);
+        AbstractMetadata metadata = ApiUtils.canEditRecord(metadataUuid, approved, request);
         Locale locale = languageUtils.parseAcceptLanguage(request.getLocales());
         ResourceBundle messages = ApiUtils.getMessagesResourceBundle(request.getLocales());
         ServiceContext context = ApiUtils.createServiceContext(request, locale.getISO3Language());
@@ -576,7 +594,7 @@ public class MetadataWorkflowApi {
         method = RequestMethod.PUT
     )
     @PreAuthorize("hasAuthority('Editor')")
-    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Task closed."),
+    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Task closed.", content = {@Content(schema = @Schema(hidden = true))}),
         @ApiResponse(responseCode = "404", description = "Status not found."),
         @ApiResponse(responseCode = "403", description = ApiParams.API_RESPONSE_NOT_ALLOWED_CAN_EDIT)})
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -604,7 +622,7 @@ public class MetadataWorkflowApi {
     @io.swagger.v3.oas.annotations.Operation(summary = "Delete a record status", description = "")
     @RequestMapping(value = "/{metadataUuid}/status/{statusId:[0-9]+}.{userId:[0-9]+}.{changeDate}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('Administrator')")
-    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Status removed."),
+    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Status removed.", content = {@Content(schema = @Schema(hidden = true))}),
         @ApiResponse(responseCode = "404", description = "Status not found."),
         @ApiResponse(responseCode = "403", description = ApiParams.API_RESPONSE_NOT_ALLOWED_ONLY_ADMIN)})
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -631,7 +649,7 @@ public class MetadataWorkflowApi {
     @io.swagger.v3.oas.annotations.Operation(summary = "Delete all record status", description = "")
     @RequestMapping(value = "/{metadataUuid}/status", method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('Administrator')")
-    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Status removed."),
+    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Status removed.", content = {@Content(schema = @Schema(hidden = true))}),
         @ApiResponse(responseCode = "404", description = "Status not found."),
         @ApiResponse(responseCode = "403", description = ApiParams.API_RESPONSE_NOT_ALLOWED_ONLY_ADMIN)})
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -1047,15 +1065,15 @@ public class MetadataWorkflowApi {
     }
 
     private String extractCurrentStatus(MetadataStatus s) {
-        switch (Integer.toString(s.getStatusValue().getId())) {
-            case StatusValue.Events.ATTACHMENTADDED:
+        switch (StatusValue.Events.fromId(s.getStatusValue().getId())) {
+            case ATTACHMENTADDED:
                 return s.getCurrentState();
-            case StatusValue.Events.RECORDOWNERCHANGE:
-            case StatusValue.Events.RECORDGROUPOWNERCHANGE:
+            case RECORDOWNERCHANGE:
+            case RECORDGROUPOWNERCHANGE:
                 return ObjectJSONUtils.extractFieldFromJSONString(s.getCurrentState(), "owner", "name");
-            case StatusValue.Events.RECORDPROCESSINGCHANGE:
+            case RECORDPROCESSINGCHANGE:
                 return ObjectJSONUtils.extractFieldFromJSONString(s.getCurrentState(), "process");
-            case StatusValue.Events.RECORDCATEGORYCHANGE:
+            case RECORDCATEGORYCHANGE:
                 List<String> categories = ObjectJSONUtils.extractListOfFieldFromJSONString(s.getCurrentState(), "category",
                     "name");
                 StringBuilder categoriesAsString = new StringBuilder("[ ");
@@ -1064,7 +1082,7 @@ public class MetadataWorkflowApi {
                 }
                 categoriesAsString.append("]");
                 return categoriesAsString.toString();
-            case StatusValue.Events.RECORDVALIDATIONTRIGGERED:
+            case RECORDVALIDATIONTRIGGERED:
                 if (s.getCurrentState() == null) {
                     return "UNKNOWN";
                 } else if (s.getCurrentState().equals("1")) {
@@ -1078,11 +1096,11 @@ public class MetadataWorkflowApi {
     }
 
     private String extractPreviousStatus(MetadataStatus s) {
-        switch (Integer.toString(s.getStatusValue().getId())) {
-            case StatusValue.Events.ATTACHMENTDELETED:
+        switch (StatusValue.Events.fromId(s.getStatusValue().getId())) {
+            case ATTACHMENTDELETED:
                 return s.getPreviousState();
-            case StatusValue.Events.RECORDOWNERCHANGE:
-            case StatusValue.Events.RECORDGROUPOWNERCHANGE:
+            case RECORDOWNERCHANGE:
+            case RECORDGROUPOWNERCHANGE:
                 return ObjectJSONUtils.extractFieldFromJSONString(s.getPreviousState(), "owner", "name");
             default:
                 return "";
@@ -1228,20 +1246,31 @@ public class MetadataWorkflowApi {
     private String getValidatedStateText(MetadataStatus metadataStatus, State state, HttpServletRequest request, HttpSession httpSession) throws Exception {
 
         if (!StatusValueType.event.equals(metadataStatus.getStatusValue().getType())
-            || !ArrayUtils.contains(supportedRestoreStatuses, metadataStatus.getStatusValue().getId())) {
+            || !ArrayUtils.contains(supportedRestoreStatuses, StatusValue.Events.fromId(metadataStatus.getStatusValue().getId()))) {
             throw new NotAllowedException("Unsupported action on status type '" + metadataStatus.getStatusValue().getType()
                 + "' for metadata '" + metadataStatus.getUuid() + "'. Supports status type '"
-                + StatusValueType.event + "' with the status id '" + Arrays.toString(supportedRestoreStatuses) + "'.");
+                + StatusValueType.event + "' with the status id '" + Arrays.stream(supportedRestoreStatuses).map(StatusValue.Events::getId).collect(Collectors.toList()) + "'.");
         }
 
         String stateText;
+        MediaType stateFormat;
         if (state.equals(State.AFTER)) {
             stateText = metadataStatus.getCurrentState();
+            stateFormat = StatusValue.Events.fromId(metadataStatus.getStatusValue().getId()).getCurrentStateFormat();
         } else {
             stateText = metadataStatus.getPreviousState();
+            stateFormat = StatusValue.Events.fromId(metadataStatus.getStatusValue().getId()).getPreviousStateFormat();
         }
 
-        if (stateText == null) {
+        String xmlStateText;
+        if (stateFormat.equals(MediaType.APPLICATION_JSON)) {
+            // Any status with JSON format will have the XML stored in the field 'xmlRecord'
+            xmlStateText = ObjectJSONUtils.extractFieldFromJSONString(stateText, "xmlRecord");
+        } else {
+            xmlStateText = stateText;
+        }
+
+        if (xmlStateText == null) {
             throw new ResourceNotFoundException(
                 String.format("No data exists for previous state on metadata record '%s', user '%d' at date '%s'",
                     metadataStatus.getUuid(), metadataStatus.getUserId(), metadataStatus.getChangeDate()));
@@ -1256,10 +1285,10 @@ public class MetadataWorkflowApi {
         } catch (ResourceNotFoundException e) {
             // If metadata record does not exists then it was deleted so
             // we will only allow the administrator, owner to view the contents
-            checkCanViewStatus(stateText, httpSession);
+            checkCanViewStatus(xmlStateText, httpSession);
         }
 
-        return stateText;
+        return xmlStateText;
     }
 
     /**
