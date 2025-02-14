@@ -55,7 +55,7 @@
       </div>
     </div>
   </div>
-  <div class="row" data-ng-switch-default="">
+  <div data-ng-if="!isAccessConstraints" class="row" data-ng-switch-default="">
     <div class="col-xs-8">
       <input
         type="{{type}}"
@@ -70,6 +70,15 @@
         class="form-control"
         data-ng-model="config.selected"
         data-ng-options="o as o['#text'] disable when o.disabled for o in config.option"
+      ></select>
+    </div>
+  </div>
+  <div data-ng-if="isAccessConstraints" class="row" data-ng-switch-default="">
+    <div class="col-xs-12">
+      <select
+        class="form-control"
+        data-ng-model="config.selected"
+        data-ng-options="o as o['#text'] for o in config.option"
       ></select>
     </div>
   </div>

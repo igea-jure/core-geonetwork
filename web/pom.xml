@@ -1280,7 +1280,7 @@
       </activation>
       <properties>
         <env>dev</env>
-        <wro.debug>true</wro.debug>
+        <wro.debug>false</wro.debug>
       </properties>
     </profile>
     <profile>

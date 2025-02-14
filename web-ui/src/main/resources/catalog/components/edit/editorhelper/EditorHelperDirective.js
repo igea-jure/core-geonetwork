@@ -120,6 +120,9 @@
         link: function (scope, element, attrs) {
           // Retrieve the target field by name (general case)
           // or by id (template mode field).
+
+          scope.isAccessConstraints = scope.ref.contains("accessConstraints_anchor");
+
           var field = document.gnEditor[scope.ref] || $("#" + scope.ref).get(0),
             relatedAttributeField = document.gnEditor[scope.relatedAttr],
             relatedElementField = document.gnEditor[scope.relatedElement],
@@ -180,10 +183,12 @@
             scope.config.option = formats.concat(scope.config.option);
           }
 
+          var initialValueObject = null;
           // Check if current value is one of the suggestion
           var isInList = false;
           angular.forEach(scope.config.option, function (opt) {
             if (opt !== undefined && opt["@value"] === initialValue) {
+              initialValueObject = opt;
               isInList = true;
             }
           });
@@ -195,6 +200,9 @@
 
           // Set the initial value
           scope.config.selected = scope.config.defaultSelected;
+          if (initialValueObject) {
+            scope.config.selected = initialValueObject;
+          }
 
           scope.config.value =
             field.type === "number" ? parseFloat(field.value) : field.value;

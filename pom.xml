@@ -360,6 +360,13 @@
   <!-- =========================================================== -->
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>net.minidev</groupId>
+        <artifactId>json-smart</artifactId>
+        <version>2.3.1</version>
+      </dependency>
+
       <!-- rewrite url servletfilter -->
       <dependency>
         <groupId>org.tuckey</groupId>
@@ -1302,6 +1309,11 @@
   <!--     Dependencies to be inherited by all modules.            -->
   <!-- =========================================================== -->
   <dependencies>
+    <dependency>
+      <groupId>net.minidev</groupId>
+      <artifactId>json-smart</artifactId>
+      <version>2.3.1</version>
+    </dependency>
     <!-- This find bugs jars allows annotations like @Nullable and @Nonnull see the jsr305 -->
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
@@ -1503,7 +1515,7 @@
         GEONETWORK_DB_CONNECTION_PROPERTIES=
     -->
 
-    <!-- Instead of using db_type a specific config file can be specified  -->
+    <!-- Instead of using db_type a specific config file can be specified -->
     <db.type>${geonetwork.db.type:h2}</db.type>
     <db.config.file>../config-db/${db.type}.xml</db.config.file>
     <db.host>#{systemEnvironment['GEONETWORK_DB_HOST']?:'localhost'}</db.host>
@@ -1511,10 +1523,10 @@
     <db.name>#{systemEnvironment['GEONETWORK_DB_NAME']?:'~/gn'}</db.name>
     <db.username>#{systemEnvironment['GEONETWORK_DB_USERNAME']?:'www-data'}</db.username>
     <db.password>#{systemEnvironment['GEONETWORK_DB_PASSWORD']?:'www-data'}</db.password>
-    <db.connectionProperties>#{systemEnvironment['GEONETWORK_DB_CONNECTION_PROPERTIES']}</db.connectionProperties>
+    <db.connectionProperties>#{systemEnvironment['GEONETWORK_DB_CONNECTION_PROPERTIES']}</db.connectionProperties> 
    
 
-    <!-- PostgreSql
+    <!-- PostgreSql IGEA development 
     <db.type>postgres</db.type>
     <db.config.file>../config-db/${db.type}.xml</db.config.file>
     <db.host>192.168.253.15</db.host>
@@ -1522,8 +1534,8 @@
     <db.name>geonetwork</db.name>
     <db.username>gu_do_geonetwork</db.username>
     <db.password>gu_do_geonetwork</db.password>
-    <db.connectionProperties></db.connectionProperties>
-     -->
+    <db.connectionProperties></db.connectionProperties> -->
+     
 
     <db.pool.maxActive>30</db.pool.maxActive>
     <db.pool.maxIdle>10</db.pool.maxIdle>

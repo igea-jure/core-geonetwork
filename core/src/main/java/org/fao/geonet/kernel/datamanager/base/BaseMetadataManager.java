@@ -1023,6 +1023,10 @@ public class BaseMetadataManager implements IMetadataManager {
                     Geonet.File.UPDATE_FIXED_INFO_SUBTEMPLATE :
                     Geonet.File.UPDATE_FIXED_INFO);
             result = Xml.transform(result, styleSheet);
+
+            // apply custom-update.xsl
+            result = Xml.transform(result, metadataSchemaUtils.getSchemaDir(schema).resolve("custom-update.xsl"));
+
             return result;
         } else {
             LOGGER_DATA_MANAGER.debug("Autofixing is disabled, not applying update-fixed-info");
