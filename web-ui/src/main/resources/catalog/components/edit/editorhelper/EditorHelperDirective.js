@@ -202,7 +202,7 @@
           // Set the initial value
           scope.config.selected = scope.config.defaultSelected;
 
-          if(initialValueObject) {
+          if (initialValueObject) {
             scope.config.selected = initialValueObject;
           }
 
