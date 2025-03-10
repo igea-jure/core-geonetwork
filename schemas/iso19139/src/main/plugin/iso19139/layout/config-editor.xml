@@ -2076,6 +2076,11 @@
 
         <!-- Restrictions - datasets -->
         <section name="restrictionsSection" displayIfRecord="count(gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification) > 0">
+
+          <!-- Omejitve uporabe -->
+
+        <section
+          name="useLimitation">
           <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/
                 gmd:resourceConstraints/gmd:MD_Constraints/gmd:useLimitation"
@@ -2095,18 +2100,43 @@
               </snippet>
             </template>
           </action>
+        </section>
+
+          <!-- Omejitve javnega dostopa -->
+
+          <section
+            name="accessConstraints">
 
 
+          <field name="accessConstraints" templateModeOnly="true" del="."
+                 xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/
+	            gmd:resourceConstraints/gmd:MD_LegalConstraints[gmd:accessConstraints]/gmd:otherConstraints"
+                 if="count(gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints/gmd:MD_LegalConstraints[gmd:accessConstraints]/gmd:otherConstraints) > 0">
+            <template>
+              <values>
+                <key label="accessConstraints_anchor"
+                     xpath="gmx:Anchor/@xlink:href">
+                  <helper name="gmd:accessConstraintsAnchor" context="gmd:accessConstraintsHelper"/>
+                </key>
+              </values>
+              <snippet>
+                <gmd:otherConstraints>
+                  <gmx:Anchor xlink:href="{{accessConstraints_anchor}}"></gmx:Anchor>
+                </gmd:otherConstraints>
+              </snippet>
+            </template>
+          </field>
+          </section>
           <!-- Access constraints for metadata about data.
                Services have their own format, defined in the SDS tab -->
-          <field name="accessConstraints"
+          <!--<field name="accessConstraints"
                  xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/
             gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:otherConstraints"
-                 if="count(gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification) > 0"/>
+                 if="count(gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification) > 0"/>-->
 
           <action type="add" name="accessConstraints" or="resourceConstraints"  btnLabel="accessConstraints"
                   in="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification"
-                  if="count(gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification) > 0">
+                  if="count(gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints/gmd:MD_LegalConstraints[gmd:accessConstraints]/gmd:otherConstraints) > 0">
             <template>
               <snippet>
                 <gmd:resourceConstraints>
@@ -2125,6 +2155,7 @@
               </snippet>
             </template>
           </action>
+
         </section>
 
         <!-- Conformity - serviceType != other -->
