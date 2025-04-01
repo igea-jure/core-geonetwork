@@ -786,6 +786,22 @@
       <option value="EPSG">EPSG</option>
     </helper>
   </element>
+  <element name="gmd:accessConstraintsAnchor" context="gmd:accessConstraintsHelper">
+    <label></label>
+    <description></description>
+    <helper>
+      <dummy/>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations">No limitations</option>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1a">Confidentiality of public authority procedures</option>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b">International relations, public security, national defense</option>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1c">Court proceedings</option>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d">Business secret</option>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1e">Intellectual property rights</option>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f">Confidentiality of personal data</option>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1g">Protecting a person</option>
+      <option value="http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1h">Protection of environment</option>
+    </helper>
+  </element>
   <element name="gmd:collectiveTitle" id="371.0">
     <label>Collective title</label>
     <description>Common title with holdings note. NOTE title identifies elements of a series
