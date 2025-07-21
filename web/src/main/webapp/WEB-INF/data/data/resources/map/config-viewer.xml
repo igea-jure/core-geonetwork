@@ -1,8 +1,8 @@
 <ows-context:OWSContext xmlns:ows-context="http://www.opengis.net/ows-context" xmlns:ows="http://www.opengis.net/ows" version="0.3.1" id="ows-context-ex-1-v3">
 	<ows-context:General>
 		<ows:BoundingBox crs="EPSG:3857">
-			<ows:LowerCorner>1037250.00 5688000.00</ows:LowerCorner>
-			<ows:UpperCorner>2417000.00 5921750.00</ows:UpperCorner>
+			<ows:LowerCorner>1492258.157424 5687526.400643</ows:LowerCorner>
+			<ows:UpperCorner>1871178.452421 5926110.924303</ows:UpperCorner>
 		</ows:BoundingBox>
 	</ows-context:General>
 	
