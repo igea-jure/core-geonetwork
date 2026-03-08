@@ -179,7 +179,8 @@
   <!-- Indexing DQ report -->
   <xsl:template mode="index" match="gmd:DQ_DomainConsistency[count(ancestor::node()) =  1]">
     <xsl:variable name="title"
-                  select="gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/(gco:CharacterString|gmx:Anchor)"/>
+                  select="string-join(gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/
+                    (gco:CharacterString|gmx:Anchor|gmd:PT_FreeText//gmd:LocalisedCharacterString|gmd:PT_FreeText//gco:CharacterString)/text(), '')"/>
     <resourceTitleObject type="object">{
       "default": "<xsl:value-of select="util:escapeForJson($title)"/>"
       }</resourceTitleObject>
