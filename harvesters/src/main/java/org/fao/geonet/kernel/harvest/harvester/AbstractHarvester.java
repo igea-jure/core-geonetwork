@@ -1,5 +1,5 @@
 //=============================================================================
-//===	Copyright (C) 2001-2024 Food and Agriculture Organization of the
+//===	Copyright (C) 2001-2025 Food and Agriculture Organization of the
 //===	United Nations (FAO-UN), United Nations World Food Programme (WFP)
 //===	and United Nations Environment Programme (UNEP)
 //===
@@ -45,10 +45,14 @@ import org.fao.geonet.exceptions.OperationAbortedEx;
 import org.fao.geonet.exceptions.UnknownHostEx;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.kernel.MetadataIndexerProcessor;
+import org.fao.geonet.kernel.datamanager.IMetadataIndexer;
 import org.fao.geonet.kernel.datamanager.IMetadataManager;
+import org.fao.geonet.kernel.datamanager.IMetadataSchemaUtils;
 import org.fao.geonet.kernel.datamanager.IMetadataUtils;
 import org.fao.geonet.kernel.harvest.Common.OperResult;
 import org.fao.geonet.kernel.harvest.Common.Status;
+import org.fao.geonet.kernel.security.SecurityProviderConfiguration;
+import org.fao.geonet.kernel.security.SecurityProviderUtil;
 import org.fao.geonet.kernel.setting.HarvesterSettingsManager;
 import org.fao.geonet.kernel.setting.SettingManager;
 import org.fao.geonet.kernel.setting.Settings;
@@ -118,7 +122,12 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
     /**
      * Should we cancel the harvester?
      */
-    protected volatile AtomicBoolean cancelMonitor = new AtomicBoolean(false);
+    protected final AtomicBoolean cancelMonitor = new AtomicBoolean(false);
+
+    /**
+     * Contains all the errors that were thrown during harvesting and that may have caused the harvesting to abort
+     */
+    protected final List<HarvestError> errors = Collections.synchronizedList(new LinkedList<>());
 
     protected ServiceContext context;
 
@@ -128,6 +137,8 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
     protected DataManager dataMan;
     protected IMetadataManager metadataManager;
     protected IMetadataUtils metadataUtils;
+    protected IMetadataSchemaUtils metadataSchemaUtils;
+    protected IMetadataIndexer metadataIndexer;
 
     protected P params;
     protected T result;
@@ -145,10 +156,6 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
      * Exception that aborted the harvesting
      */
     private Throwable error;
-    /**
-     * Contains all the warnings and errors that didn't abort the execution, but were thrown during harvesting
-     */
-    private List<HarvestError> errors = Collections.synchronizedList(new LinkedList<>());
     private volatile boolean running = false;
 
     public static AbstractHarvester<?, ?> create(String type, ServiceContext context) throws BadParameterEx, OperationAbortedEx {
@@ -172,6 +179,8 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
         this.harvesterSettingsManager = context.getBean(HarvesterSettingsManager.class);
         this.settingManager = context.getBean(SettingManager.class);
         this.metadataManager = context.getBean(IMetadataManager.class);
+        this.metadataSchemaUtils = context.getBean(IMetadataSchemaUtils.class);
+        this.metadataIndexer = context.getBean(IMetadataIndexer.class);
     }
 
     public void add(Element node) throws BadInputEx, SQLException {
@@ -538,7 +547,7 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
      * Nested class to handle harvesting with fast indexing.
      */
     public class HarvestWithIndexProcessor extends MetadataIndexerProcessor {
-        Logger logger;
+        private final Logger logger;
 
         public HarvestWithIndexProcessor(DataManager dm, Logger logger) {
             super(dm);
@@ -556,6 +565,20 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
      * is created or updated according to user session.
      */
     private void login() throws Exception {
+
+        this.context.setIpAddress(null);
+
+        SecurityProviderUtil securityProviderUtil = SecurityProviderConfiguration.getSecurityProviderUtil();
+
+        // If the configuration has support for service account then login as the service account.
+        if (securityProviderUtil != null) {
+            if (securityProviderUtil.loginServiceAccount()) {
+                UserSession userSession = this.context.getUserSession();
+                if (userSession != null && userSession.isAuthenticated()) {
+                    return;
+                }
+            };
+        }
 
         String ownerId = getParams().getOwnerId();
         if (log.isDebugEnabled()) {
@@ -587,8 +610,6 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
         UserSession session = new UserSession();
         session.loginAs(user);
         this.context.setUserSession(session);
-
-        this.context.setIpAddress(null);
     }
 
     /**
@@ -657,11 +678,6 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
                         logger.error(t);
                         error = t;
                         errors.add(new HarvestError(context, t));
-                    } finally {
-                        List<HarvestError> harvesterErrors = getErrors();
-                        if (harvesterErrors != null) {
-                            errors.addAll(harvesterErrors);
-                        }
                     }
 
                     long elapsedTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime);
@@ -758,14 +774,8 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
         return res;
     }
 
-    /**
-     * Should be overriden to get a better insight on harvesting
-     * <p/>
-     * Returns the list of exceptions that ocurred during the harvesting but
-     * didn't really stop and abort the harvest.
-     */
     public List<HarvestError> getErrors() {
-        return Collections.synchronizedList(errors);
+        return Collections.unmodifiableList(errors);
     }
 
     public final String getType() {
@@ -784,7 +794,7 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
         params.create(node);
     }
 
-    private void doDestroy(final Resources resources) {
+    protected void doDestroy(final Resources resources) {
         removeIcon(resources, getParams().getUuid());
 
         context.getBean(SourceRepository.class).deleteById(getParams().getUuid());
@@ -896,11 +906,15 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
         /* Group selected by user who created or updated this node. */
         harvesterSettingsManager.add(ID_PREFIX + siteId, "ownerGroup", params.getOwnerIdGroup());
 
+        harvesterSettingsManager.add(ID_PREFIX + siteId, "apiKeyHeader", params.getApiKeyHeader());
+        harvesterSettingsManager.add(ID_PREFIX + siteId, "apiKey", params.getApiKey(), true);
+
         String useAccId = harvesterSettingsManager.add(ID_PREFIX + siteId, "useAccount", params.isUseAccount());
 
         harvesterSettingsManager.add(ID_PREFIX + useAccId, "username", params.getUsername());
         harvesterSettingsManager.add(ID_PREFIX + useAccId, "password", params.getPassword(), true);
 
+ 
         //--- setup options node ---------------------------------------
 
         harvesterSettingsManager.add(ID_PREFIX + optionsId, "every", params.getEvery());
