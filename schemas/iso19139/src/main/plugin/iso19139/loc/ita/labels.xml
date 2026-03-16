@@ -2028,10 +2028,10 @@
       </option>
       <option show="y" value="GLG:KML-2.0-http-get-map">Google Earth KML service (ver 2.0)
       </option>
-      <option value="OGC API - Coverages">OGC API - Coverages</option>
-      <option value="OGC API - Features">OGC API - Features</option>
-      <option value="OGC API - Maps">OGC API - Maps</option>
-      <option value="OGC API - Records">OGC API - Records</option>
+      <option value="OGC API Coverages">OGC API - Coverages</option>
+      <option value="OGC API Features">OGC API - Features</option>
+      <option value="OGC API Maps">OGC API - Maps</option>
+      <option value="OGC API Records">OGC API - Records</option>
       <option value="OGC:3DTILES">OGC-3DTiles Dataset</option>
       <option value="OGC:COG">OGC-Cloud Optimized GeoTIFF</option>
       <option show="-" value="OGC:CSW">OGC-CSW Catalogue Service for the Web
