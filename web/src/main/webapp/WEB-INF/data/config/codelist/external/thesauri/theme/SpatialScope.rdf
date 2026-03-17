@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:dcat="http://www.w3.org/ns/dcat#"
+         xmlns:adms="http://www.w3.org/ns/adms#"
+         xmlns:vann="http://purl.org/vocab/vann/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dct="http://purl.org/dc/terms/"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+  <rdf:Description rdf:about="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope">
+    <dct:identifier rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">http://inspire.ec.europa.eu/metadata-codelist/SpatialScope</dct:identifier>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/registry"/>
+    </dcat:isPartOf>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/metadata-codelist"/>
+    </dcat:isPartOf>
+    <owl:sameAs rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope:1"/>
+    <adms:last rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/metadata-codelist"/>
+    <skos:topConceptOf rdf:resource="http://inspire.ec.europa.eu/metadata-codelist"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2019-05-21</dct:created>
+    <dct:format rdf:resource="http://www.iana.org/assignments/media-types/application/rdf+xml"/>
+    <dct:accrualPeriodicity rdf:resource="http://publications.europa.eu/resource/authority/frequency/UNKNOWN"/>
+    <dct:title xml:lang="sl">Prostorski obseg</dct:title>
+    <dct:title xml:lang="en">Spatial scope</dct:title>
+    <skos:prefLabel xml:lang="sl">Prostorski obseg</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Spatial scope</skos:prefLabel>
+    <dct:description xml:lang="sl">Administrativna raven, ki jo zbirka podatkov namerava pokriti.</dct:description>
+    <dct:description xml:lang="en">Administrative level that the data set intends to cover.</dct:description>
+    <skos:definition xml:lang="sl">Administrativna raven, ki jo zbirka podatkov namerava pokriti.</skos:definition>
+    <skos:definition xml:lang="en">Administrative level that the data set intends to cover.</skos:definition>
+    <vann:usageNote xml:lang="en">The spatial scope can be different from the actual geographical coverage, e.g. a national coastline data set may cover only a fraction of the full spatial extent of a country. The spatial scope of the data set does not necessarily reflect the administrative level responsible for collecting and maintaining the data. The code list contains values governed at the level of INSPIRE legal acts (Legal (EU)) and values governed at the level of Technical Guidelines (Technical (EU)).</vann:usageNote>
+    <dct:hasPart rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national"/>
+    <dct:hasPart rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional"/>
+    <dct:hasPart rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local"/>
+    <dct:hasPart rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global"/>
+    <dct:hasPart rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/european"/>
+    <skos:hasTopConcept rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national"/>
+    <skos:hasTopConcept rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional"/>
+    <skos:hasTopConcept rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local"/>
+    <skos:hasTopConcept rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global"/>
+    <skos:hasTopConcept rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/european"/>
+    <rdfs:isDefinedBy rdf:resource="http://inspire.ec.europa.eu/registry/governance-level/eu-technical"/>
+    <adms:status rdf:resource="http://inspire.ec.europa.eu/registry/status/valid"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national">
+    <dct:identifier rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national</dct:identifier>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/registry"/>
+    </dcat:isPartOf>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/metadata-codelist"/>
+    </dcat:isPartOf>
+    <owl:sameAs rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national:3"/>
+    <adms:last rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national"/>
+    <adms:prev rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national:1"/>
+    <adms:prev rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national:2"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <skos:topConceptOf rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2019-05-22</dct:created>
+    <dct:title xml:lang="sl">Nacionalno</dct:title>
+    <skos:prefLabel xml:lang="sl">Nacionalno</skos:prefLabel>
+    <dct:description xml:lang="sl">Namen zbirke podatkov je zajeti nacionalno ozemlje.</dct:description>
+    <skos:definition xml:lang="sl">Namen zbirke podatkov je zajeti nacionalno ozemlje.</skos:definition>
+    <vann:usageNote xml:lang="sl">Zbirke podatkov, ki vsebujejo vse objekte določene teme na nacionalnem ozemlju, so zbirke podatkov nacionalnega obsega. Območje, ki ga zajema taka zbirka, se lahko razlikuje od dejanskega geografskega območja nacionalnega ozemlja. Nacionalno ozemlje je lahko razdeljeno na več enot, npr. regije, občine itd.</vann:usageNote>
+    <dct:title xml:lang="en">National</dct:title>
+    <skos:prefLabel xml:lang="en">National</skos:prefLabel>
+    <dct:description xml:lang="en">The data set aims to cover the national territory.</dct:description>
+    <skos:definition xml:lang="en">The data set aims to cover the national territory.</skos:definition>
+    <vann:usageNote xml:lang="en">Datasets that include all objects of a certain theme on the national territory are considered datasets of national scope. The coverage area may differ from the actual geographical extent. The national territory may be subdivided into multiple units such as regions or municipalities.</vann:usageNote>
+    <skos:broader rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <rdfs:isDefinedBy rdf:resource="http://inspire.ec.europa.eu/registry/governance-level/eu-legal"/>
+    <adms:status rdf:resource="http://inspire.ec.europa.eu/registry/status/valid"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional">
+    <dct:identifier rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional</dct:identifier>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/registry"/>
+    </dcat:isPartOf>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/metadata-codelist"/>
+    </dcat:isPartOf>
+    <owl:sameAs rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional:3"/>
+    <adms:last rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional"/>
+    <adms:prev rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional:1"/>
+    <adms:prev rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional:2"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <skos:topConceptOf rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2019-05-22</dct:created>
+    <dct:title xml:lang="sl">Regionalno</dct:title>
+    <skos:prefLabel xml:lang="sl">Regionalno</skos:prefLabel>
+    <dct:description xml:lang="sl">Namen zbirke podatkov je zajeti ozemlje ene ali več upravnih enot na podnacionalni ravni.</dct:description>
+    <skos:definition xml:lang="sl">Zbirka podatkov pokriva eno ali več regij znotraj države članice.</skos:definition>
+    <vann:usageNote xml:lang="sl">Regionalno ozemlje je sestavljeno iz več območij, kot so regije, pokrajine ali druge enote na podnacionalni ravni. Zbirke podatkov, ki zajemajo vse objekte določene teme v eni ali več takšnih enotah, so zbirke regionalnega obsega.</vann:usageNote>
+    <dct:title xml:lang="en">Regional</dct:title>
+    <skos:prefLabel xml:lang="en">Regional</skos:prefLabel>
+    <dct:description xml:lang="en">The data set aims to cover the territory of one or more administrative units at the sub-national level.</dct:description>
+    <skos:definition xml:lang="en">The data set covers one or more regions within a member state.</skos:definition>
+    <vann:usageNote xml:lang="en">A regional territory is composed of one or more areas such as regions, provinces or other sub-national units. Datasets covering all objects of a given theme in one or more such units are considered to have a regional scope.</vann:usageNote>
+    <skos:broader rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <rdfs:isDefinedBy rdf:resource="http://inspire.ec.europa.eu/registry/governance-level/eu-legal"/>
+    <adms:status rdf:resource="http://inspire.ec.europa.eu/registry/status/valid"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local">
+    <dct:identifier rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local</dct:identifier>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/registry"/>
+    </dcat:isPartOf>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/metadata-codelist"/>
+    </dcat:isPartOf>
+    <owl:sameAs rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local:3"/>
+    <adms:last rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local"/>
+    <adms:prev rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local:1"/>
+    <adms:prev rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local:2"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <skos:topConceptOf rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2019-05-22</dct:created>
+    <dct:title xml:lang="sl">Lokalno</dct:title>
+    <skos:prefLabel xml:lang="sl">Lokalno</skos:prefLabel>
+    <dct:description xml:lang="sl">Namen zbirke podatkov je zajeti ozemlje ene ali več lokalnih upravnih enot.</dct:description>
+    <skos:definition xml:lang="sl">Zbirka podatkov pokriva eno ali več občin ali podobnih lokalnih enot.</skos:definition>
+    <vann:usageNote xml:lang="sl">Lokalno ozemlje obsega eno ali več občin ali drugih primerljivih lokalnih skupnosti. Zbirke podatkov, ki pokrivajo vse objekte določene teme v takšnih enotah, so lokalnega obsega.</vann:usageNote>
+    <dct:title xml:lang="en">Local</dct:title>
+    <skos:prefLabel xml:lang="en">Local</skos:prefLabel>
+    <dct:description xml:lang="en">The data set aims to cover the territory of one or more local administrative units.</dct:description>
+    <skos:definition xml:lang="en">The data set covers one or more municipalities or similar local entities.</skos:definition>
+    <vann:usageNote xml:lang="en">A local territory comprises one or more municipalities or similar local communities. Datasets that cover all objects of a specific theme within these units are considered to have a local scope.</vann:usageNote>
+    <skos:broader rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <rdfs:isDefinedBy rdf:resource="http://inspire.ec.europa.eu/registry/governance-level/eu-technical"/>
+    <adms:status rdf:resource="http://inspire.ec.europa.eu/registry/status/valid"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global">
+    <dct:identifier rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global</dct:identifier>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/registry"/>
+    </dcat:isPartOf>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/metadata-codelist"/>
+    </dcat:isPartOf>
+    <owl:sameAs rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global:2"/>
+    <adms:last rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global"/>
+    <adms:prev rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global:1"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <skos:topConceptOf rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2019-05-22</dct:created>
+    <dct:title xml:lang="sl">Globalno</dct:title>
+    <skos:prefLabel xml:lang="sl">Globalno</skos:prefLabel>
+    <dct:description xml:lang="sl">Namen zbirke podatkov je zajeti celotno Zemljo.</dct:description>
+    <skos:definition xml:lang="sl">Zbirka podatkov pokriva globalno ozemlje, torej celoten planet.</skos:definition>
+    <vann:usageNote xml:lang="sl">Globalne zbirke podatkov vključujejo podatke, ki pokrivajo vse države ali večino sveta. Primeri vključujejo satelitske posnetke, globalne modele podnebja ipd.</vann:usageNote>
+    <dct:title xml:lang="en">Global</dct:title>
+    <skos:prefLabel xml:lang="en">Global</skos:prefLabel>
+    <dct:description xml:lang="en">The data set aims to cover the entire Earth.</dct:description>
+    <skos:definition xml:lang="en">The data set covers the global territory, i.e., the whole planet.</skos:definition>
+    <vann:usageNote xml:lang="en">Global datasets include data that cover all countries or most of the world. Examples include satellite imagery, global climate models, etc.</vann:usageNote>
+    <skos:broader rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <rdfs:isDefinedBy rdf:resource="http://inspire.ec.europa.eu/registry/governance-level/eu-technical"/>
+    <adms:status rdf:resource="http://inspire.ec.europa.eu/registry/status/valid"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global">
+    <dct:identifier rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global</dct:identifier>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/registry"/>
+    </dcat:isPartOf>
+    <dcat:isPartOf>
+      <dcat:Catalog rdf:about="http://inspire.ec.europa.eu/metadata-codelist"/>
+    </dcat:isPartOf>
+    <owl:sameAs rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global:2"/>
+    <adms:last rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global"/>
+    <adms:prev rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global:1"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <skos:topConceptOf rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2019-05-22</dct:created>
+    <dct:title xml:lang="sl">Globalno</dct:title>
+    <skos:prefLabel xml:lang="sl">Globalno</skos:prefLabel>
+    <dct:description xml:lang="sl">Namen zbirke podatkov je zajeti celotno Zemljo.</dct:description>
+    <skos:definition xml:lang="sl">Zbirka podatkov pokriva globalno ozemlje, torej celoten planet.</skos:definition>
+    <vann:usageNote xml:lang="sl">Globalne zbirke podatkov vključujejo podatke, ki pokrivajo vse države ali večino sveta. Primeri vključujejo satelitske posnetke, globalne modele podnebja ipd.</vann:usageNote>
+    <dct:title xml:lang="en">Global</dct:title>
+    <skos:prefLabel xml:lang="en">Global</skos:prefLabel>
+    <dct:description xml:lang="en">The data set aims to cover the entire Earth.</dct:description>
+    <skos:definition xml:lang="en">The data set covers the global territory, i.e., the whole planet.</skos:definition>
+    <vann:usageNote xml:lang="en">Global datasets include data that cover all countries or most of the world. Examples include satellite imagery, global climate models, etc.</vann:usageNote>
+    <skos:broader rdf:resource="http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"/>
+    <rdfs:isDefinedBy rdf:resource="http://inspire.ec.europa.eu/registry/governance-level/eu-technical"/>
+    <adms:status rdf:resource="http://inspire.ec.europa.eu/registry/status/valid"/>
+  </rdf:Description>
+  </rdf:RDF>
