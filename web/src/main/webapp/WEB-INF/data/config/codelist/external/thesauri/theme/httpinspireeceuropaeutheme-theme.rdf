@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <skos:ConceptScheme xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">GEMET - INSPIRE themes, version 1.0</dc:title>
+    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2008-06-01</dcterms:issued>
+    <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-06-01</dcterms:modified>
+  </skos:ConceptScheme>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/ad">
+    <skos:prefLabel xml:lang="en">Addresses</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Location of properties based on address identifiers, usually by road name, house number, postal code.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Naslovi</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Lokacija nepremičnin, ki temelji na identifikatorjih naslova, običajno z imenom ulice, hišno številko, poštno številko.</skos:scopeNote>
+    <skos:altLabel>ad</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/au">
+    <skos:prefLabel xml:lang="en">Administrative units</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Units of administration, dividing areas where Member States have and/or exercise jurisdictional rights, for local, regional and national governance, separated by administrative boundaries.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Upravne enote</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Upravne enote za lokalno, regionalno in nacionalno upravo, ki razdeljujejo območja, na katerih države članice imajo in/ali izvajajo jurisdikcijo, ločene z upravnimi mejami.</skos:scopeNote>
+    <skos:altLabel>au</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/rs">
+    <skos:prefLabel xml:lang="en">Coordinate reference systems</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Systems for uniquely referencing spatial information in space as a set of coordinates (x, y, z) and/or latitude and longitude and height, based on a geodetic horizontal and vertical datum.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Referenčni koordinatni sistemi</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Sistemi za izključno navajanje prostorskih informacij v prostoru v obliki niza koordinat (x, y, z) in/ali širine in dolžine ter višine, ki temeljijo na horizontalnem in vertikalnem geodetskem podatku.</skos:scopeNote>
+    <skos:altLabel>rs</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/gg">
+    <skos:prefLabel xml:lang="en">Geographical grid systems</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Harmonised multi-resolution grid with a common point of origin and standardised location and size of grid cells.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Geografska koordinatna mreža</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Usklajena večločljivostna mreža s skupno točko izvora in standardizirano lokacijo ter velikostjo mrežnih celic.</skos:scopeNote>
+    <skos:altLabel>gg</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/cp">
+    <skos:prefLabel xml:lang="en">Cadastral parcels</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Areas defined by cadastral registers or equivalent.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Katastrske parcele</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Področja, ki jih opredeljujejo zemljiški kataster ali enakovredni registri.</skos:scopeNote>
+    <skos:altLabel>cp</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/gn">
+    <skos:prefLabel xml:lang="en">Geographical names</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Names of areas, regions, localities, cities, suburbs, towns or settlements, or any geographical or topographical feature of public or historical interest.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Zemljepisna imena</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Imena območij, regij, krajev, velemest, predmestij, mest ali zaselkov ali kateri koli geografski ali topografski pojav javnega ali zgodovinskega pomena.</skos:scopeNote>
+    <skos:altLabel>gn</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/hy">
+    <skos:prefLabel xml:lang="en">Hydrography</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Hydrographic elements, including marine areas and all other water bodies and items related to them, including river basins and sub-basins. Where appropriate, according to the definitions set out in Directive 2000/60/EC of the European Parliament and of the Council of 23 October 2000 establishing a framework for Community action in the field of water policy (2) and in the form of networks.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Hidrografija</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Hidrografski elementi, ki vključujejo morska območja ter vsa druga vodna telesa in z njimi povezane dele, vključno s povodji in porečji. Po potrebi v skladu z opredelitvami v Direktivi 2000/60/ES Evropskega parlamenta in Sveta z dne 23. oktobra 2000 o določitvi okvira za ukrepe Skupnosti na področju vodne politike [2] in v obliki omrežij.</skos:scopeNote>
+    <skos:altLabel>hy</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/ps">
+    <skos:prefLabel xml:lang="en">Protected sites</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Area designated or managed within a framework of international, Community and Member States' legislation to achieve specific conservation objectives.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Zavarovana območja</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Področje, ki se določi ali upravlja v okviru mednarodnega prava in prava držav članic in Skupnosti z namenom, da se dosežejo posebni cilji ohranjanja.</skos:scopeNote>
+    <skos:altLabel>ps</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/tn">
+    <skos:prefLabel xml:lang="en">Transport networks</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Road, rail, air and water transport networks and related infrastructure. Includes links between different networks. Also includes the trans-European transport network as defined in Decision No 1692/96/EC of the European Parliament and of the Council of 23 July 1996 on Community Guidelines for the development of the trans-European transport network (1) and future revisions of that Decision.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Prometna omrežja</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Cestna, železniška, zračna in vodna prometna omrežja ter z njimi povezana infrastruktura. Vključuje povezave med različnimi omrežji. Vključuje tudi vseevropsko prometno omrežje, kakor je določeno v Odločbi št. 1692/96/ES Evropskega parlamenta in Sveta z dne 23. julija 1996 o smernicah Skupnosti za razvoj vseevropskega prometnega omrežja [1], in prihodnje preglede te odločbe.</skos:scopeNote>
+    <skos:altLabel>tn</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/el">
+    <skos:prefLabel xml:lang="en">Elevation</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Digital elevation models for land, ice and ocean surface. Includes terrestrial elevation, bathymetry and shoreline.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Digitalni model višin</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Digitalni model višin za kopensko, zaledenelo in oceansko površino. Vključuje nadmorske višine, batimetrijo in obalne mreže.</skos:scopeNote>
+    <skos:altLabel>el</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/ge">
+    <skos:prefLabel xml:lang="en">Geology</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Geology characterised according to composition and structure. Includes bedrock, aquifers and geomorphology.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Geologija</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Geologija je določena v skladu s sestavo in strukturo. Vključuje živo skalo, vodonosnike in geomorfologijo.</skos:scopeNote>
+    <skos:altLabel>ge</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/lc">
+    <skos:prefLabel xml:lang="en">Land cover</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Physical and biological cover of the earth's surface including artificial surfaces, agricultural areas, forests, (semi-)natural areas, wetlands, water bodies.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Pokrovnost tal</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Fizični in biološki pojavi na zemeljski površini, vključno z umetnimi površinami, kmetijskimi območji, gozdovi, (pol-)naravnimi območji, mokrišči, vodnimi telesi.</skos:scopeNote>
+    <skos:altLabel>lc</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/oi">
+    <skos:prefLabel xml:lang="en">Orthoimagery</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Geo-referenced image data of the Earth's surface, from either satellite or airborne sensors.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Ortofoto</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Geolocirani slikovni podatki zemeljske površine iz satelita ali senzorjev v zraku.</skos:scopeNote>
+    <skos:altLabel>oi</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/af">
+    <skos:prefLabel xml:lang="en">Agricultural and aquaculture facilities</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Farming equipment and production facilities (including irrigation systems, greenhouses and stables).</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Objekti in naprave za kmetijstvo in ribogojstvo</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Kmetijska oprema ter proizvodni objekti in naprave (vključno z namakalnimi sistemi, rastlinjaki in hlevi).</skos:scopeNote>
+    <skos:altLabel>af</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/am">
+    <skos:prefLabel xml:lang="en">Area management/restriction/regulation zones and reporting units</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Areas managed, regulated or used for reporting at international, European, national, regional and local levels. Includes dumping sites, restricted areas around drinking water sources, nitrate-vulnerable zones, regulated fairways at sea or large inland waters, areas for the dumping of waste, noise restriction zones, prospecting and mining permit areas, river basin districts, relevant reporting units and coastal zone management areas.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Območja upravljanja/zaprta območja/regulirana območja in poročevalske enote</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Območja, ki se upravljajo, urejajo ali uporabljajo za poročanje na mednarodni, evropski, nacionalni, regionalni in lokalni ravni. Vključujejo odlagališča odpadkov, zaprta območja okrog virov pitne vode, cone, občutljive na nitrate, urejene plovne poti po morju ali velikih celinskih vodah, območja za odlaganje odpadkov, cone z omejitvijo hrupa, območja, kjer je potrebno dovoljenje za iskanje rud in rudarjenje, predele povodij, ustrezne poročevalske enote in območja upravljanja obalnih con.</skos:scopeNote>
+    <skos:altLabel>am</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/ac">
+    <skos:prefLabel xml:lang="en">Atmospheric conditions</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Physical conditions in the atmosphere. Includes spatial data based on measurements, on models or on a combination thereof and includes measurement locations.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Ozračje</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Fizikalne razmere v atmosferi. Vključujejo prostorske podatke, ki temeljijo na merjenjih, vzorcih ali na kombinaciji le-teh, in merilne lokacije.</skos:scopeNote>
+    <skos:altLabel>ac</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/br">
+    <skos:prefLabel xml:lang="en">Bio-geographical regions</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Areas of relatively homogeneous ecological conditions with common characteristics.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Biogeografske regije</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Območja z relativno homogenimi ekološkimi razmerami s skupnimi značilnostmi.</skos:scopeNote>
+    <skos:altLabel>br</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/bu">
+    <skos:prefLabel xml:lang="en">Buildings</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Geographical location of buildings.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Stavbe</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Prostorska lega stavb.</skos:scopeNote>
+    <skos:altLabel>bu</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/er">
+    <skos:prefLabel xml:lang="en">Energy resources</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Energy resources including hydrocarbons, hydropower, bio-energy, solar, wind, etc., where relevant including depth/height information on the extent of the resource.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Energetski viri</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Energetski viri, vključno z ogljikovodiki, vodno energijo, bioenergijo, soncem, vetrom itd., kjer je to ustrezno vključno s podatki o globini/višini glede velikosti vira.</skos:scopeNote>
+    <skos:altLabel>er</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/ef">
+    <skos:prefLabel xml:lang="en">Environmental monitoring facilities</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Location and operation of environmental monitoring facilities includes observation and measurement of emissions, of the state of environmental media and of other ecosystem parameters (biodiversity, ecological conditions of vegetation, etc.) by or on behalf of public authorities.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Naprave in objekti za monitoring okolja</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Nahajanje in delovanje naprav in objektov za spremljanje okolja vključuje opazovanje in merjenje emisij, stanja okolja in drugih parametrov ekosistema (biološka raznolikost, ekološki pogoji vegetacije itd.) s strani javnih organov ali v njihovem imenu.</skos:scopeNote>
+    <skos:altLabel>ef</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/hb">
+    <skos:prefLabel xml:lang="en">Habitats and biotopes</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Geographical areas characterised by specific ecological conditions, processes, structure, and (life support) functions that physically support the organisms that live there. Includes terrestrial and aquatic areas distinguished by geographical, abiotic and biotic features, whether entirely natural or semi-natural.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Habitati in biotopi</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Geografska območja, za katera so značilne posebne ekološke razmere, procesi, struktura in funkcije, ki fizično omogočajo organizmom, da tam živijo. Vključujejo kopenska in vodna območja, ki se razlikujejo po geografskih, abiotskih in biotskih značilnostih, ne glede na to, ali so popolnoma naravna ali polnaravna.</skos:scopeNote>
+    <skos:altLabel>hb</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/hh">
+    <skos:prefLabel xml:lang="en">Human health and safety</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Geographical distribution of dominance of pathologies (allergies, cancers, respiratory diseases, etc.), information indicating the effect on health (biomarkers, decline of fertility, epidemics) or well-being of humans (fatigue, stress, etc.) linked directly (air pollution, chemicals, depletion of the ozone layer, noise, etc.) or indirectly (food, genetically modified organisms, etc.) to the quality of the environment.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Zdravje in varnost prebivalstva</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Geografska razporeditev pogostih patoloških pojavov (alergije, rakasta obolenja, obolenja dihalnih poti itd.), podatki o učinkih na zdravje (biološki označevalci, zmanjšana rodnost, epidemije) ali počutje ljudi (utrujenost, stres itd.), povezanih neposredno (onesnaženost zraka, kemikalije, tanjšanje ozonskega plašča, hrup itd.) ali posredno (hrana, genetsko spremenjeni organizmi itd.) s kakovostjo okolja.</skos:scopeNote>
+    <skos:altLabel>hh</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/lu">
+    <skos:prefLabel xml:lang="en">Land use</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Territory characterised according to its current and future planned functional dimension or socio-economic purpose (e.g. residential, industrial, commercial, agricultural, forestry, recreational).</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Namenska raba tal</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Ozemlje, opredeljeno glede na svojo sedanjo in v prihodnje načrtovano funkcionalno razsežnost ali socialno-ekonomski namen (npr. stanovanjski, industrijski, trgovinski, kmetijski, gozdni, rekreacijski).</skos:scopeNote>
+    <skos:altLabel>lu</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/mr">
+    <skos:prefLabel xml:lang="en">Mineral resources</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Mineral resources including metal ores, industrial minerals, etc., where relevant including depth/height information on the extent of the resource.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Mineralni viri</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Mineralni viri, vključno s kovinskimi rudami, industrijskimi mineralnimi surovinami itd. kjer je ustrezno, vključno s podatki o globini/višini glede velikosti vira.</skos:scopeNote>
+    <skos:altLabel>mr</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/nz">
+    <skos:prefLabel xml:lang="en">Natural risk zones</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Vulnerable areas characterised according to natural hazards (all atmospheric, hydrologic, seismic, volcanic and wildfire phenomena that, because of their location, severity, and frequency, have the potential to seriously affect society), e.g. floods, landslides and subsidence, avalanches, forest fires, earthquakes, volcanic eruptions.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Območja nevarnosti naravnih nesreč</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Ranljiva območja, opredeljena glede na naravna tveganja (vsi atmosferski, hidrološki, seizmični, vulkanski pojavi in požari, ki zaradi svoje lokacije, resnosti in pogostosti lahko resno ogrozijo družbo), npr. poplave, zemeljski plazovi in pogrezanje tal, snežni plazovi, gozdni požari, potresi, vulkanski izbruhi.</skos:scopeNote>
+    <skos:altLabel>nz</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/of">
+    <skos:prefLabel xml:lang="en">Oceanographic geographical features</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Physical conditions of oceans (currents, salinity, wave heights, etc.).</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Oceanogeografske značilnosti</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Fizikalne razmere oceanov (tokovi, slanost, višina valov itd.).</skos:scopeNote>
+    <skos:altLabel>of</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/pd">
+    <skos:prefLabel xml:lang="en">Population distribution — demography</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Geographical distribution of people, including population characteristics and activity levels, aggregated by grid, region, administrative unit or other analytical unit.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Porazdelitev prebivalstva – demografski podatki</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Geografska porazdelitev ljudi, vključno z značilnostmi populacije in ravnmi aktivnosti, razvrščenih po koordinatah, regiji, upravni enoti ali drugi analitični enoti.</skos:scopeNote>
+    <skos:altLabel>pd</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/pf">
+    <skos:prefLabel xml:lang="en">Production and industrial facilities</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Industrial production sites, including installations covered by Council Directive 96/61/EC of 24 September 1996 concerning integrated pollution prevention and control (1) and water abstraction facilities, mining, storage sites.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Proizvodni in industrijski objekti in naprave</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Območja za industrijsko proizvodnjo, vključno z obrati, ki jih zajema Direktiva Sveta 96/61/ES z dne 24. septembra 1996 o celovitem preprečevanju in nadzorovanju onesnaževanja [1] ter objekti in napravami za odvzem vode, rudniki, skladišči.</skos:scopeNote>
+    <skos:altLabel>pf</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/sr">
+    <skos:prefLabel xml:lang="en">Sea regions</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Physical conditions of seas and saline water bodies divided into regions and sub-regions with common characteristics.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Morske regije</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Fizikalne razmere morij in slanih vodnih teles, razdeljenih v regije in podregije s skupnimi značilnostmi.</skos:scopeNote>
+    <skos:altLabel>sr</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/so">
+    <skos:prefLabel xml:lang="en">Soil</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Soils and subsoil characterised according to depth, texture, structure and content of particles and organic material, stoniness, erosion, where appropriate mean slope and anticipated water storage capacity.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Tla</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Tla in sloji prsti pod površjem, določeni po debelini, teksturi, zgradbi in vsebnosti delcev in organskih snovi, kamnitosti, eroziji, po potrebi povprečni nagib in predvidene zmogljivosti vodnih zalog.</skos:scopeNote>
+    <skos:altLabel>so</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/sd">
+    <skos:prefLabel xml:lang="en">Species distribution</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Geographical distribution of occurrence of animal and plant species aggregated by grid, region, administrative unit or other analytical unit.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Porazdelitev vrst</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Geografska porazdelitev pojavljanja živalskih in rastlinskih vrst, razvrščenih po koordinatah, regiji, upravni enoti ali drugi analitični enoti.</skos:scopeNote>
+    <skos:altLabel>sd</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/su">
+    <skos:prefLabel xml:lang="en">Statistical units</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Units for dissemination or use of statistical information.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Statistični okoliši</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Enote za širjenje ali uporabo statističnih podatkov.</skos:scopeNote>
+    <skos:altLabel>su</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/us">
+    <skos:prefLabel xml:lang="en">Utility and governmental services</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Includes utility facilities such as sewage, waste management, energy supply and water supply, administrative and social governmental services such as public administrations, civil protection sites, schools and hospitals.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Komunalne in javne storitve</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Vključuje komunalne naprave kot so kanalizacija, ravnanje z odpadki, oskrba z energijo in preskrba z vodo, upravne in socialne vladne službe kot so javne uprave, sedeži civilne zaščite, šole in bolnišnice.</skos:scopeNote>
+    <skos:altLabel>us</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://inspire.ec.europa.eu/theme/mf">
+    <skos:prefLabel xml:lang="en">Meteorological geographical features</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">Weather conditions and their measurements; precipitation, temperature, evapotranspiration, wind speed and direction.</skos:scopeNote>
+    <skos:prefLabel xml:lang="sl">Meteorološke značilnosti</skos:prefLabel>
+    <skos:scopeNote xml:lang="sl">Vremenske razmere in njihova merjenja; padavine, temperatura, izhlapevanje, hitrost in smer vetra.</skos:scopeNote>
+    <skos:altLabel>mf</skos:altLabel>
+    <skos:inScheme rdf:resource="http://inspire.ec.europa.eu/theme" />
+  </skos:Concept>
+</rdf:RDF>
+
