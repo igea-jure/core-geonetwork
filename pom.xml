@@ -365,7 +365,7 @@
             <artifactId>json-smart</artifactId>
             <version>2.4.10</version>
         </dependency>
-    
+
       <!-- rewrite url servletfilter -->
       <dependency>
         <groupId>org.tuckey</groupId>
@@ -1591,7 +1591,7 @@
        * allow all for authenticated user
        * allow only host registered in metadata link table
     -->
-    <proxy.securityMode>DB_LINK_CHECK</proxy.securityMode>
+    <proxy.securityMode>NONE</proxy.securityMode>
     <!-- Hosts to exclude from http proxy access: typically localhost, intranet resources -->
     <proxy.excludeHosts>^(localhost|127\..*|0\..*|255\.255\.255\.255|.*\.local|.*\.localhost|0:0:0:0:0:0:1|::1)$</proxy.excludeHosts>
 
