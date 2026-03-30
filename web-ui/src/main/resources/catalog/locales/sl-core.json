@@ -267,7 +267,6 @@
     "spatialRepresentationType": "Tip prostorske predstavitve",
     "cl_spatialRepresentationType": "Tip prostorske predstavitve",
     "state": "Država",
-    "staticMap": "Statična karta",
     "surname": "Priimek",
     "title": "Naslov vira",
     "to": "Do",
@@ -587,5 +586,11 @@
     "mapLegend": "Legenda",
     "quality": "Kakovost",
     "download": "Prenosi",
-    "links": "Povezave"
+    "links": "Povezave",
+    "saveToFile": "Shrani v datoteko.",
+    "help": "Pomoč",
+    "userGuide": "Navodila za uporabnike",
+    "metadataProfile": "Metapodatkovni profil",
+    "administratorGuide": "Navodila za administratorje"
+
 }
