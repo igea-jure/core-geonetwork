@@ -33,6 +33,7 @@
     "gn-map-menu",
     "gn-contribute-menu",
     "gn-admin-menu",
+    "gn-help-menu",
     "gn-static-pages-list-viewer"
   ]);
 
@@ -106,6 +107,14 @@
       return {
         replace: true,
         templateUrl: "../../catalog/components/toolbar/partials/menu-admin.html"
+      };
+    }
+  ]);
+  module.directive("gnHelpMenu", [
+    function () {
+      return {
+        replace: true,
+        templateUrl: "../../catalog/components/toolbar/partials/menu-help.html"
       };
     }
   ]);

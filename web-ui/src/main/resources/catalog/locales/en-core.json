@@ -591,5 +591,9 @@
     "download": "Download",
     "links": "Links",
     "saveToFile": "Save to file.",
+    "help": "Help",
+    "userGuide": "User guide",
+    "metadataProfile": "Metadata profile",
+    "administratorGuide": "Administrator guide",
     "slv": "Slovenščina"
 }

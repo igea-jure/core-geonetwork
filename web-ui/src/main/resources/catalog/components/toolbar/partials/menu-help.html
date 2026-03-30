@@ -1,0 +1,43 @@
+<li class="dropdown" data-ng-show="true" role="menuitem">
+  <a
+    title="{{'help' | translate}}"
+    href
+    class="dropdown-toggle gn-menuheader-xs"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <span class="fa fa-fw fa-wrench hidden-xs"></span>
+    <span translate>help</span>
+    <span class="caret hidden-xs"></span>
+  </a>
+  <ul class="dropdown-menu gn-menu-xs">
+    <li class="gn-menuitem-xs" role="menuitem">
+      <a
+        data-ng-href="../../doc/pdf/Inspire_SI_metapodatkovni_sistem_uporabniki.pdf"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="fa fa-fw fa-medkit"></span><span translate>userGuide</span>
+      </a>
+    </li>
+    <li class="gn-menuitem-xs" role="menuitem">
+      <a
+        data-ng-href="../../doc/pdf/Inspire_SI_metapodatkovni_sistem_MP_profil.pdf"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="fa fa-fw fa-medkit"></span><span translate>metadataProfile</span>
+      </a>
+    </li>
+    <li data-ng-if="authenticated" class="gn-menuitem-xs" role="menuitem">
+      <a
+        data-ng-href="../../doc/pdf/private/Inspire_SI_metapodatkovni_sistem_upravljavci.pdf"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="fa fa-fw fa-medkit"></span><span translate>administratorGuide</span>
+      </a>
+    </li>
+  </ul>
+</li>
