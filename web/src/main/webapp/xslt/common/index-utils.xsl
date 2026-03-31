@@ -178,6 +178,25 @@
     <xsl:copy-of select="gn-fn-index:add-multilingual-field($fieldName, $elements, $languages, false(), false())"/>
   </xsl:function>
 
+  <xsl:function name="gn-fn-index:get-localized-text" as="xs:string?">
+    <xsl:param name="element" as="node()*"/>
+    <xsl:param name="languages" as="node()?"/>
+
+    <xsl:variable name="mainLanguage" select="$languages/lang[@id='default']/@value"/>
+    <xsl:variable name="mainLanguageLocale"
+                  select="concat('#', upper-case(util:twoCharLangCode($mainLanguage, 'EN')))"/>
+    <xsl:variable name="translation"
+                  select="normalize-space(string(($element//*:LocalisedCharacterString[@locale = $mainLanguageLocale])[1]))"/>
+    <xsl:variable name="default"
+                  select="normalize-space(string(($element//(*:CharacterString|*:Anchor))[1]))"/>
+    <xsl:variable name="firstTranslation"
+                  select="normalize-space(string(($element//*:LocalisedCharacterString)[1]))"/>
+
+    <xsl:value-of select="if ($translation != '') then $translation
+                          else if ($default != '') then $default
+                          else $firstTranslation"/>
+  </xsl:function>
+
   <xsl:function name="gn-fn-index:add-multilingual-field" as="node()*">
     <xsl:param name="fieldName" as="xs:string"/>
     <xsl:param name="elements" as="node()*"/>
@@ -289,9 +308,9 @@
 
               <value><xsl:value-of select="concat($doubleQuote, 'default', $doubleQuote, ':',
                                            $doubleQuote, util:escapeForJson(
-                                           if ($translations[@local = $mainLanguageId])
-                                           then $translations[@local = $mainLanguageId]
-                                           else $translations[1]), $doubleQuote)"/></value>
+                                            if ($translations[@locale = $mainLanguageId])
+                                            then $translations[@locale = $mainLanguageId]
+                                            else $translations[1]), $doubleQuote)"/></value>
             </xsl:if>
 
             <xsl:for-each select="$translations">

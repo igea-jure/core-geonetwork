@@ -341,12 +341,15 @@
             </xsl:for-each-group>
           </xsl:if>
 
-          <xsl:for-each select="gmd:identifier/*[normalize-space(string-join(gmd:code/(gco:CharacterString|gmx:Anchor|gmd:PT_FreeText//gmd:LocalisedCharacterString|gmd:PT_FreeText//gco:CharacterString)/text(), '')) != '']">
+          <xsl:for-each select="gmd:identifier/*">
+            <xsl:variable name="identifierCode" select="gn-fn-index:get-localized-text(gmd:code, $allLanguages)"/>
+            <xsl:if test="normalize-space($identifierCode) != ''">
             <resourceIdentifier type="object">{
-              "code": "<xsl:value-of select="util:escapeForJson(string-join(gmd:code/(gco:CharacterString|gmx:Anchor|gmd:PT_FreeText//gmd:LocalisedCharacterString|gmd:PT_FreeText//gco:CharacterString)/text(), ''))"/>",
-              "codeSpace": "<xsl:value-of select="string-join(gmd:codeSpace/(gco:CharacterString|gmx:Anchor|gmd:PT_FreeText//gmd:LocalisedCharacterString|gmd:PT_FreeText//gco:CharacterString)/text(), '')"/>",
+              "code": "<xsl:value-of select="util:escapeForJson($identifierCode)"/>",
+              "codeSpace": "<xsl:value-of select="util:escapeForJson(gn-fn-index:get-localized-text(gmd:codeSpace, $allLanguages))"/>",
               "link": "<xsl:value-of select="gmd:code/gmx:Anchor/@xlink:href"/>"
               }</resourceIdentifier>
+            </xsl:if>
           </xsl:for-each>
 
           <xsl:for-each select="gmd:edition/*">
@@ -939,8 +942,7 @@
                     select="if ($isService) then $eu9762009 else $eu10892010"/>
 
       <xsl:for-each-group select="gmd:dataQualityInfo/*/gmd:report/*/gmd:result"
-                          group-by="normalize-space(string-join(*/gmd:specification/gmd:CI_Citation/gmd:title/
-    (gco:CharacterString|gmx:Anchor|gmd:PT_FreeText//gmd:LocalisedCharacterString|gmd:PT_FreeText//gco:CharacterString)/text(), ''))">
+                          group-by="normalize-space(gn-fn-index:get-localized-text(*/gmd:specification/gmd:CI_Citation/gmd:title, $allLanguages))">
         <xsl:variable name="title" select="current-grouping-key()"/>
         <xsl:variable name="matchingEUText"
                       select="if ($inspireRegulationLaxCheck)
