@@ -574,7 +574,7 @@
         <directive data-gn-suggestion-list=""/>
       </sidePanel>
 
-      <tab id="inspire" default="true" mode="flat">
+      <tab id="inspire" default="true">
         <section name="identificationInfo">
           <!-- Metadata ID -->
           <field
@@ -591,6 +591,10 @@
           <field
             xpath="/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification/gmd:abstract"
             if="count(gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification) > 0"/>
+
+          <!-- Citation identifier (full Identifier block as in full view) -->
+          <field xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:identifier"
+                 notDisplayedIfMissing="true"/>
 
 
           <!-- Hierarchy Level -->

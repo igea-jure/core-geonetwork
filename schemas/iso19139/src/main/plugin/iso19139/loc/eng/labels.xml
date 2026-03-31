@@ -778,7 +778,7 @@
     <help>Value code (i.e. numeric)</help>
   </element>
   <element name="gmd:codeSpace" id="208.1">
-    <label>Codespace</label>
+    <label>Namespace</label>
     <description>Name or identifier of the person or organization responsible for
       namespace
     </description>
