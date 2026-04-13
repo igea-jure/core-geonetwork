@@ -596,7 +596,6 @@
           <field xpath="/gmd:MD_Metadata/gmd:identificationInfo/*/gmd:citation/gmd:CI_Citation/gmd:identifier"
                  notDisplayedIfMissing="true"/>
 
-
           <!-- Hierarchy Level -->
           <field xpath="/gmd:MD_Metadata/gmd:hierarchyLevel" />
 
@@ -1873,6 +1872,11 @@
             </template>
           </field>
 
+          <!-- Conformance specification citation identifier (dataset only) -->
+          <field xpath="/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/
+                   gmd:report/gmd:DQ_DomainConsistency/gmd:result/
+                   gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier"
+                 notDisplayedIfMissing="true"/>
 
           <action type="add" name="conformity" or="report"
                   btnLabel="conformity"
@@ -2072,7 +2076,6 @@
               </snippet>
             </template>
           </field>
-
 
           <action type="add" name="conformity" or="report"
                   btnLabel="conformity"

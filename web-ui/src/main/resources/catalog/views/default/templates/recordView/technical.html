@@ -85,10 +85,17 @@
       <i class="fa fa-fw fa-info"></i>
     </span>
     <div>
-      <h3 data-translate="">identifier</h3>
+      <h3 data-translate="">identifierCode</h3>
       <ul class="gn-comma-list">
         <li data-ng-repeat="i in mdView.current.record.resourceIdentifier">
-          <span data-ng-bind-html="i.code | linky"></span>
+          <span data-ng-if="i.code">
+            <span data-ng-bind-html="i.code | linky"></span>
+          </span>
+          <br data-ng-if="i.code && i.codeSpace" />
+          <span data-ng-if="i.codeSpace">
+            <strong data-translate="">identifierCodeSpace</strong>
+            <span data-ng-bind-html="i.codeSpace | linky"></span>
+          </span>
         </li>
       </ul>
     </div>
