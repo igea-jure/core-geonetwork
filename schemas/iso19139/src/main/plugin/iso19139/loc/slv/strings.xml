@@ -67,11 +67,8 @@
   <linkToPortal-help>Read here the full details and access to the data.</linkToPortal-help>
   <citationProposal>Citation proposal</citationProposal>
   <citationProposal-help>This proposal was automatically generated, check if the metadata authors did not specified custom citation requirements.</citationProposal-help>
-																														 
+  <citationAdditional>When using this resource in a publication, also cite the related work(s) with:</citationAdditional>
   <associatedResources>Associated resources</associatedResources>
-  <classificationOfSpatialDataAndServices>Razvrstitev prostorskih podatkov in storitev v zvezi s prostorskimi podatki</classificationOfSpatialDataAndServices>
-  <resolutions>Natančnost</resolutions>
-  <resolution>Natančnost</resolution>
 
   <!-- XSD error translation -->
   <invalidElement>Neveljaven element. Najdena je bila neveljavna vsebina, ki se začne z elementom:</invalidElement>
@@ -120,7 +117,6 @@
   <lineage>Poreklo</lineage>
   <spatialResolution>Prostorska ločljivost (merilo)</spatialResolution>
   <spatialDistance>Prostorska ločljivost (razdalja)</spatialDistance>
-  <spatialResolutionMain>Prostorska ločljivost</spatialResolutionMain>
   <accessConstraints>Omejitve javnega dostopa</accessConstraints>
   <useConstraints>Use constraints</useConstraints>
   <useLimitation>Omejitve uporabe</useLimitation>
@@ -129,17 +125,15 @@
     identifikatorja metapodatka (npr. http://www.organization.org/catalogue/5391bf69-44bc-4ea0-8cc0-6cf6c3bc81ae).
   </add-resource-idHelp>
   <add-extent-from-geokeywords>Izračunaj obseg iz ključnih besed</add-extent-from-geokeywords>
+  <add-one-extent-from-geokeywords>Add one extent from all keywords</add-one-extent-from-geokeywords>
   <add-extent-from-geokeywordsHelp>Analiziraj ključne besede tipa prostor in dodaj ujemajoč obseg.
-																							  
   </add-extent-from-geokeywordsHelp>
   <classificationSection>Razvrstitev prostorskih podatkov in storitev v zvezi s prostorskimi podatki</classificationSection>
   <temporalSection>Časovno sklicevanje</temporalSection>
   <restrictionsSection>Omejitev, povezana z dostopom in uporabo</restrictionsSection>
   <metadataSection>Metapodatki o metapodatkih</metadataSection>
   <responsibleOrganisationSection>Odgovorne organizacije</responsibleOrganisationSection>
-  <responsibleOrganisation>Odgovorne organizacije</responsibleOrganisation>
   <qualityAndValiditySection>Kakovost in veljavnost</qualityAndValiditySection>
-  <qualityAndValidity>Kakovost in veljavnost</qualityAndValidity>
   <spatialRepresentationType>Tip prostorske predstavitve</spatialRepresentationType>
   <topicCategory>Kategorija teme</topicCategory>
   <metadataLanguage>Metadata language</metadataLanguage>
@@ -147,13 +141,11 @@
   <otherConstraints>Other constraints</otherConstraints>
   <operatesOn>Povezani viri</operatesOn>
   <extent>Geografski prostorki obseg</extent>
-											   
+  <spatialExtent>Prostorski obseg</spatialExtent>
 
   <freeTextKeywords>Ključne besede</freeTextKeywords>
   <resource_url>URL</resource_url>
   <resource_protocol>Protocol</resource_protocol>
-  <resource_name>Naziv vira</resource_name>
-  <constraintsRelatedToAccessAndUse>Omejitev, povezana z dostopom in uporabo</constraintsRelatedToAccessAndUse>
 
   <addCrs>Projekcija</addCrs>
   <addCrs4936>ETRS89-XYZ</addCrs4936>
@@ -241,14 +233,6 @@
   <sds-section-custodian>Responsible custodian</sds-section-custodian>
   <sds-addOperation>Add Operation</sds-addOperation>
 
-  <topologicalConsistency>Topološka doslednost</topologicalConsistency>
-  <conformity_code>Identifikator predpisa</conformity_code>
-  <conformity_codeSpace>Vir predpisa</conformity_codeSpace>
-  <codeSpace>Imenski prostor</codeSpace>
-  <code>Enolična označba vira</code>
-  <infoMaintenance>Informacija o vzdrževanju</infoMaintenance>
-  <crs>Koordinatni referenčni sistem</crs>
-
   <trueValue>Da</trueValue>
   <falseValue>Ne</falseValue>
   <nilValue>Nedefinirano</nilValue>
@@ -258,5 +242,22 @@
   <north>sever</north>
   <east>vzhod</east>
   <south>jug</south>
-  <west>zahod</west>				   
+  <west>zahod</west>
+
+  <!-- Extra keys (not in eng/strings.xml), kept at end -->
+  <classificationOfSpatialDataAndServices>Razvrstitev prostorskih podatkov in storitev v zvezi s prostorskimi podatki</classificationOfSpatialDataAndServices>
+  <resolutions>Natančnost</resolutions>
+  <resolution>Natančnost</resolution>
+  <spatialResolutionMain>Prostorska ločljivost</spatialResolutionMain>
+  <responsibleOrganisation>Odgovorne organizacije</responsibleOrganisation>
+  <qualityAndValidity>Kakovost in veljavnost</qualityAndValidity>
+  <resource_name>Naziv vira</resource_name>
+  <constraintsRelatedToAccessAndUse>Omejitev, povezana z dostopom in uporabo</constraintsRelatedToAccessAndUse>
+  <topologicalConsistency>Topološka doslednost</topologicalConsistency>
+  <conformity_code>Identifikator predpisa</conformity_code>
+  <conformity_codeSpace>Vir predpisa</conformity_codeSpace>
+  <codeSpace>Imenski prostor</codeSpace>
+  <code>Enolična označba vira</code>
+  <infoMaintenance>Informacija o vzdrževanju</infoMaintenance>
+  <crs>Koordinatni referenčni sistem</crs>
 </strings>
