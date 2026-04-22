@@ -944,6 +944,18 @@
       <xsl:for-each-group select="gmd:dataQualityInfo/*/gmd:report/*/gmd:result"
                           group-by="normalize-space(gn-fn-index:get-localized-text(*/gmd:specification/gmd:CI_Citation/gmd:title, $allLanguages))">
         <xsl:variable name="title" select="current-grouping-key()"/>
+        <xsl:variable name="conformityCode"
+                      select="normalize-space(gn-fn-index:get-localized-text(
+                                */gmd:specification/gmd:CI_Citation/gmd:identifier/*/gmd:code,
+                                $allLanguages))"/>
+        <xsl:variable name="conformityCodeSpace"
+                      select="upper-case(normalize-space(gn-fn-index:get-localized-text(
+                                */gmd:specification/gmd:CI_Citation/gmd:identifier/*/gmd:codeSpace,
+                                $allLanguages)))"/>
+        <xsl:variable name="generatedConformityLink"
+                      select="if ($conformityCodeSpace = 'SOP' and $conformityCode != '')
+                              then concat('https://pisrs.si/pregledPredpisa?sop=', $conformityCode)
+                              else ''"/>
         <xsl:variable name="matchingEUText"
                       select="if ($inspireRegulationLaxCheck)
                               then daobs:search-in-contains($legalTextList/*, $title)
@@ -961,11 +973,19 @@
         <xsl:if test="string($title)">
           <specificationConformance type="object">{
             "title": "<xsl:value-of select="util:escapeForJson($title)" />",
+            <xsl:if test="$conformityCode != ''">
+              "code": "<xsl:value-of select="util:escapeForJson($conformityCode)" />",
+            </xsl:if>
+            <xsl:if test="$conformityCodeSpace != ''">
+              "codeSpace": "<xsl:value-of select="util:escapeForJson($conformityCodeSpace)" />",
+            </xsl:if>
             <xsl:if test="gn-fn-index:is-isoDate((*/gmd:specification/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date)[1])">
               "date": "<xsl:value-of select="(*/gmd:specification/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date)[1]" />",
             </xsl:if>
-            <xsl:if test="*/gmd:specification/*/gmd:title/*/@xlink:href">
-              "link": "<xsl:value-of select="*/gmd:specification/*/gmd:title/*/@xlink:href"/>",
+            <xsl:if test="$generatedConformityLink != '' or */gmd:specification/*/gmd:title/*/@xlink:href">
+              "link": "<xsl:value-of select="if ($generatedConformityLink != '')
+                                               then $generatedConformityLink
+                                               else */gmd:specification/*/gmd:title/*/@xlink:href"/>",
             </xsl:if>
             <xsl:if test="*/gmd:explanation/*/text() != ''">
               "explanation": "<xsl:value-of select="util:escapeForJson((*/gmd:explanation/*/text())[1])" />",
