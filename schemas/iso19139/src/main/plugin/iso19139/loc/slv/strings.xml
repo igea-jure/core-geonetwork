@@ -233,6 +233,9 @@
   <sds-section-custodian>Responsible custodian</sds-section-custodian>
   <sds-addOperation>Add Operation</sds-addOperation>
 
+  <conformity_code>Identifikator predpisa</conformity_code>
+  <conformity_codeSpace>Vir predpisa</conformity_codeSpace>
+
   <trueValue>Da</trueValue>
   <falseValue>Ne</falseValue>
   <nilValue>Nedefinirano</nilValue>
@@ -254,8 +257,6 @@
   <resource_name>Naziv vira</resource_name>
   <constraintsRelatedToAccessAndUse>Omejitev, povezana z dostopom in uporabo</constraintsRelatedToAccessAndUse>
   <topologicalConsistency>Topološka doslednost</topologicalConsistency>
-  <conformity_code>Identifikator predpisa</conformity_code>
-  <conformity_codeSpace>Vir predpisa</conformity_codeSpace>
   <codeSpace>Imenski prostor</codeSpace>
   <code>Enolična označba vira</code>
   <infoMaintenance>Informacija o vzdrževanju</infoMaintenance>

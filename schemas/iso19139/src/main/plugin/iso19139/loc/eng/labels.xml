@@ -798,6 +798,15 @@
       <option value="EPSG">EPSG</option>
     </helper>
   </element>
+  <element name="gmd:codeSpace" id="208.1"
+           context="/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier/gmd:RS_Identifier/gmd:codeSpace">
+    <label>Namespace</label>
+    <description>Name or identifier of the person or organization responsible for namespace</description>
+    <helper>
+      <option value="SOP">SOP</option>
+      <option value="EU">EU</option>
+    </helper>
+  </element>
   <element name="gmd:collectiveTitle" id="371.0">
     <label>Collective title</label>
     <description>Common title with holdings note. NOTE title identifies elements of a series

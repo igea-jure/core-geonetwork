@@ -1752,6 +1752,18 @@
                 <key label="conformity_date"
                      xpath="gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date"
                      use="gn-date-picker"/>
+                <key label="conformity_code"
+                     xpath="gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier/*/gmd:code/gco:CharacterString"
+                     tooltip="gmd:code|gmd:RS_Identifier"/>
+                <key label="conformity_codeSpace"
+                     xpath="gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier/*/gmd:codeSpace/gco:CharacterString"
+                     tooltip="gmd:codeSpace|gmd:RS_Identifier">
+                  <helper name="gmd:codeSpace"
+                          context="/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier/gmd:RS_Identifier/gmd:codeSpace"/>
+                </key>
+                <key label="explanation"
+                     xpath="gmd:DQ_ConformanceResult/gmd:explanation/gco:CharacterString"
+                     tooltip="gmd:explanation"/>
                 <key label="pass"
                      xpath="gmd:DQ_ConformanceResult/gmd:pass/gco:Boolean"
                      use="gn-checkbox-with-nilreason">
@@ -1784,7 +1796,19 @@
                         </gmd:date>
                         <gn:copy select="gmd:edition"/>
                         <gn:copy select="gmd:editionDate"/>
-                        <gn:copy select="gmd:identifier"/>
+                        <gmd:identifier>
+                          <gmd:RS_Identifier>
+                            <gn:copy select="gmd:authority"/>
+                            <gmd:code>
+                              <gco:CharacterString>{{conformity_code}}</gco:CharacterString>
+                              <gn:copy select="gmd:PT_FreeText"/>
+                            </gmd:code>
+                            <gmd:codeSpace>
+                              <gco:CharacterString>{{conformity_codeSpace}}</gco:CharacterString>
+                            </gmd:codeSpace>
+                            <gn:copy select="gmd:version"/>
+                          </gmd:RS_Identifier>
+                        </gmd:identifier>
                         <gn:copy select="gmd:citedResponsibleParty"/>
                         <gn:copy select="gmd:presentationForm"/>
                         <gn:copy select="gmd:series"/>
@@ -1794,7 +1818,9 @@
                         <gn:copy select="gmd:ISSN"/>
                       </gmd:CI_Citation>
                     </gmd:specification>
-                    <gn:copy select="gmd:explanation"/>
+                    <gmd:explanation>
+                      <gco:CharacterString>{{explanation}}</gco:CharacterString>
+                    </gmd:explanation>
                     {{pass}}
                   </gmd:DQ_ConformanceResult>
                 </gmd:result>
@@ -1821,6 +1847,18 @@
                 <key label="conformity_date"
                      xpath="gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date"
                      use="gn-date-picker"/>
+                <key label="conformity_code"
+                     xpath="gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier/*/gmd:code/gco:CharacterString"
+                     tooltip="gmd:code|gmd:RS_Identifier"/>
+                <key label="conformity_codeSpace"
+                     xpath="gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier/*/gmd:codeSpace/gco:CharacterString"
+                     tooltip="gmd:codeSpace|gmd:RS_Identifier">
+                  <helper name="gmd:codeSpace"
+                          context="/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report/gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier/gmd:RS_Identifier/gmd:codeSpace"/>
+                </key>
+                <key label="explanation"
+                     xpath="gmd:DQ_ConformanceResult/gmd:explanation/gco:CharacterString"
+                     tooltip="gmd:explanation"/>
                 <key label="pass"
                      xpath="gmd:DQ_ConformanceResult/gmd:pass/gco:Boolean"
                      use="gn-checkbox-with-nilreason">
@@ -1854,7 +1892,19 @@
                         </gmd:date>
                         <gn:copy select="gmd:edition"/>
                         <gn:copy select="gmd:editionDate"/>
-                        <gn:copy select="gmd:identifier"/>
+                        <gmd:identifier>
+                          <gmd:RS_Identifier>
+                            <gn:copy select="gmd:authority"/>
+                            <gmd:code>
+                              <gco:CharacterString>{{conformity_code}}</gco:CharacterString>
+                              <gn:copy select="gmd:PT_FreeText"/>
+                            </gmd:code>
+                            <gmd:codeSpace>
+                              <gco:CharacterString>{{conformity_codeSpace}}</gco:CharacterString>
+                            </gmd:codeSpace>
+                            <gn:copy select="gmd:version"/>
+                          </gmd:RS_Identifier>
+                        </gmd:identifier>
                         <gn:copy select="gmd:citedResponsibleParty"/>
                         <gn:copy select="gmd:presentationForm"/>
                         <gn:copy select="gmd:series"/>
@@ -1864,19 +1914,15 @@
                         <gn:copy select="gmd:ISSN"/>
                       </gmd:CI_Citation>
                     </gmd:specification>
-                    <gn:copy select="gmd:explanation"/>
+                    <gmd:explanation>
+                      <gco:CharacterString>{{explanation}}</gco:CharacterString>
+                    </gmd:explanation>
                     {{pass}}
                   </gmd:DQ_ConformanceResult>
                 </gmd:result>
               </snippet>
             </template>
           </field>
-
-          <!-- Conformance specification citation identifier (dataset only) -->
-          <field xpath="/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/
-                   gmd:report/gmd:DQ_DomainConsistency/gmd:result/
-                   gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:identifier"
-                 notDisplayedIfMissing="true"/>
 
           <action type="add" name="conformity" or="report"
                   btnLabel="conformity"
