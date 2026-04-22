@@ -24,8 +24,23 @@
              }"
         ></i>
       </span>
-      <a data-ng-if="::c.link" data-ng-href="{{c.link}}">{{c.title}}</a>
-      <span data-ng-if="::!c.link">{{c.title}}</span>
+      <a
+        data-ng-if="::((c.codeSpace === 'SOP' && c.code) || (c.codeSpace === 'EU' && c.code) || c.link)"
+        data-ng-href="{{
+          (c.codeSpace === 'SOP' && c.code) ?
+            ('https://pisrs.si/pregledPredpisa?sop=' + c.code) :
+          (c.codeSpace === 'EU' && c.code) ?
+            ('https://eur-lex.europa.eu/legal-content/' + ((lang === 'slv' || lang === 'sl') ? 'SL' : 'EN') + '/TXT/?uri=' + c.code) :
+            c.link
+        }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{c.title}}</a
+      >
+      <span
+        data-ng-if="::!((c.codeSpace === 'SOP' && c.code) || (c.codeSpace === 'EU' && c.code) || c.link)"
+        >{{c.title}}</span
+      >
     </li>
   </ul>
 </div>
