@@ -281,25 +281,7 @@
     -->
 
 
-    <for name="gmd:descriptiveKeywords" addDirective="data-gn-thesaurus-selector">
-      <!--
-      Example of configuration to disable free text keywords in the thesaurus selector
-      <directiveAttributes data-allow-free-text-keywords="false" />
 
-      To restrict the list of thesaurus allowed, set the include attribute
-      for the directive:
-      <directiveAttributes data-include="external.theme.httpinspireeceuropaeutheme-theme,external.place.regions"/>
-
-      Exclude a thesaurus:
-      <directiveAttributes data-include="-external.place.regions"/>
-
-      Exclude all thesaurus already used in the metadata:
-      -->
-      <directiveAttributes data-include="xpath::string-join(*
-                                          //gmd:thesaurusName/*/gmd:identifier/*/
-                                            gmd:code/gmx:Anchor/
-                                              concat('-', substring-after(text()[. != ''], 'geonetwork.thesaurus.')), ',')"/>
-    </for>
   </fields>
 
 
@@ -1375,38 +1357,23 @@
             <!-- Keywords without thesaurus information of type theme -->
             <field
               xpath="/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification/
-              gmd:descriptiveKeywords[not(gmd:MD_Keywords/gmd:thesaurusName)]"
-              or="descriptiveKeywords"
-              in="/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification"/>
+              gmd:descriptiveKeywords[not(gmd:MD_Keywords/gmd:thesaurusName)]"/>
 
             <field
               xpath="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/
-              gmd:descriptiveKeywords[not(gmd:MD_Keywords/gmd:thesaurusName)]"
-              or="descriptiveKeywords"
-              in="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification"/>
-
-            <action type="add" btnLabel="descriptiveKeywords"
-                    name="descriptiveKeywords"
-                    or="descriptiveKeywords"
-                    in="/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification"
-                    addDirective="data-gn-thesaurus-selector">
-              <directiveAttributes data-include="xpath::string-join(*
-                                          //gmd:thesaurusName/*/gmd:identifier/*/
-                                            gmd:code/gmx:Anchor/
-                                              concat('-', substring-after(text()[. != ''], 'geonetwork.thesaurus.')), ',')"/>
-            </action>
-
-            <action type="add" btnLabel="descriptiveKeywords"
-                    name="descriptiveKeywords"
-                    or="descriptiveKeywords"
-                    in="/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification"
-                    addDirective="data-gn-thesaurus-selector">
-              <directiveAttributes data-include="xpath::string-join(*
-                                          //gmd:thesaurusName/*/gmd:identifier/*/
-                                            gmd:code/gmx:Anchor/
-                                              concat('-', substring-after(text()[. != ''], 'geonetwork.thesaurus.')), ',')"/>
-            </action>
+              gmd:descriptiveKeywords[not(gmd:MD_Keywords/gmd:thesaurusName)]"/>
           </section>
+
+          <action type="add" btnLabel="descriptiveKeywords"
+                  name="descriptiveKeywords"
+                  or="descriptiveKeywords"
+                  in="/gmd:MD_Metadata/gmd:identificationInfo/*"
+                  addDirective="data-gn-thesaurus-selector">
+            <directiveAttributes data-include="xpath::string-join(*
+                                        //gmd:thesaurusName/*/gmd:identifier/*/
+                                          gmd:code/gmx:Anchor/
+                                            concat('-', substring-after(text()[. != ''], 'geonetwork.thesaurus.')), ',')"/>
+          </action>
         </section>
 
         <section name="bboxesSection">
