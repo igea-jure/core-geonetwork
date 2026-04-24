@@ -246,4 +246,6 @@
   <east>east</east>
   <south>south</south>
   <west>west</west>
+
+  <descriptiveKeywords>Keywords</descriptiveKeywords>
 </strings>

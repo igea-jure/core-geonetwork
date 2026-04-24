@@ -42,7 +42,7 @@
   <inspire>INSPIRE</inspire>
   <inspire_sds>SDS</inspire_sds>
 
-  <keywordFrom></keywordFrom>
+  <keywordFrom>Ključne besede - </keywordFrom>
   <resource>Vir</resource>
   <xml>XML pogled</xml>
   <metadata>Metapodatek</metadata>
@@ -246,6 +246,8 @@
   <east>vzhod</east>
   <south>jug</south>
   <west>zahod</west>
+
+  <descriptiveKeywords>Ključne besede</descriptiveKeywords>
 
   <!-- Extra keys (not in eng/strings.xml), kept at end -->
   <classificationOfSpatialDataAndServices>Razvrstitev prostorskih podatkov in storitev v zvezi s prostorskimi podatki</classificationOfSpatialDataAndServices>
