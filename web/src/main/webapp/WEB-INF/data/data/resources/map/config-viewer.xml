@@ -2,19 +2,48 @@
                         xmlns:ows="http://www.opengis.net/ows"
                         version="0.3.1" id="ows-context-ex-1-v3">
   <ows-context:General>
-    <ows:BoundingBox crs="EPSG:3857">
+    <!--<ows:BoundingBox crs="EPSG:3857">
       <ows:LowerCorner>-8604130.477526832 -320097.07393612247</ows:LowerCorner>
       <ows:UpperCorner>8948257.201654762 8720263.135408245</ows:UpperCorner>
+    </ows:BoundingBox>-->
+    <ows:BoundingBox crs="EPSG:3794">
+      <ows:LowerCorner>359500 30500</ows:LowerCorner>
+      <ows:UpperCorner>625500 214000</ows:UpperCorner>
     </ows:BoundingBox>
   </ows-context:General>
   <ows-context:ResourceList>
-    <ows-context:Layer name="{type=osm}"
+    <!--<ows-context:Layer name="{type=osm}"
                        group="Background layers"
                        hidden="false"
                        opacity="1">
       <ows:Title>OpenStreetMap
       </ows:Title>
+    </ows-context:Layer>-->
+
+    <!-- WMTS layer -->
+    <ows-context:Layer queryable="false"
+                       name="{type=wmts,name=SI.GURS.DK:OSK}"
+                       hidden="false" opacity="1" group="Background layers">
+      <ows:Title>SI.GURS.DK:OSK</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMTS">
+        <ows-context:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    xlink:href="https://ipi.eprostor.gov.si/gwc-si-gurs-dts/service/wmts?SERVICE=WMTS&amp;REQUEST=GetCapabilities"/>
+      </ows-context:Server>
+      <ows-context:StyleList/>
     </ows-context:Layer>
+
+    <!-- WMS layer -->
+    <ows-context:Layer queryable="false"
+                       name="SI.GURS.ZPDZ:DOF025"
+                       hidden="true" opacity="1" group="Background layers">
+      <ows:Title>SI.GURS.ZPDZ:DOF025</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMS">
+        <ows-context:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    xlink:href="https://ipi.eprostor.gov.si/wms-si-gurs-dts/ows?service=WMS&amp;request=GetCapabilities"/>
+      </ows-context:Server>
+      <ows-context:StyleList/>
+    </ows-context:Layer>
+
     <!--Uncomment the code bellow to add support to MS bing maps; don't forget to add a valid bingKey on the
     settings!-->
     <!--
