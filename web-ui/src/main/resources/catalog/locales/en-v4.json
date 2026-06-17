@@ -467,5 +467,6 @@
   "mdWebsite": "Website",
   "mdOrganization": "Organization",
   "mdAddress": "Address",
-  "mdPhone": "Phone"
+  "mdPhone": "Phone",
+  "measureScopeDescription": "Data layer"
 }

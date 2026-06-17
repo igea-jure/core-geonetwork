@@ -153,23 +153,23 @@
     <_condition>Prevzemi obveznost/pogoj iz referenčnega vira</_condition>
   </element>
   <element name="gmd:DQ_AbsoluteExternalPositionalAccuracy" id="117.0">
-    <label>Absolutna zunanja pozicijska natančnost</label>
+    <label>Absolutna položajna točnost</label>
     <description>Closeness of reported coordinate values to values accepted as or being
       true
     </description>
   </element>
   <element name="gmd:DQ_AccuracyOfATimeMeasurement" id="121.0">
-    <label>Natančnost časovne meritve</label>
+    <label>Točnost izmere časa</label>
     <description>Correctness of the temporal references of an item (reporting of error in time
       measurement)
     </description>
   </element>
   <element name="gmd:DQ_CompletenessCommission" id="109.0">
-    <label>Popolnost</label>
+    <label>Presežek</label>
     <description>Excess data present in the dataset, as described by the scope</description>
   </element>
   <element name="gmd:DQ_CompletenessOmission" id="110.0">
-    <label>Popolna izpustitev podatkov</label>
+    <label>Primanjkljaj</label>
     <description>Data absent from the dataset, as described by the scope</description>
   </element>
   <element name="gmd:DQ_ConceptualConsistency" id="112.0">
@@ -189,7 +189,7 @@
     </description>
   </element>
   <element name="gmd:DQ_DomainConsistency" id="113.0">
-    <label>Vsebinska skladnost</label>
+    <label>Domenska skladnost</label>
     <description>Adherence of values to the value domains</description>
   </element>
   <element name="gmd:DQ_EvaluationMethodTypeCode">
@@ -199,23 +199,23 @@
     </description>
   </element>
   <element name="gmd:DQ_FormatConsistency" id="114.0">
-    <label>Skladnost formata</label>
+    <label>Formatna skladnost</label>
     <description>Degree to which data is stored in accordance with the physical structure of the
       dataset, as described by the scope
     </description>
   </element>
   <element name="gmd:DQ_GriddedDataPositionalAccuracy" id="118.0">
-    <label>Natančnost pozicij podatkov v mreži</label>
+    <label>Položajna točnost mrežnih podatkov</label>
     <description>Closeness of gridded data position values to values accepted as or being
       true
     </description>
   </element>
   <element name="gmd:DQ_NonQuantitativeAttributeAccuracy" id="126.0">
-    <label>Nekoličinski atribut natančnosti</label>
+    <label>Pravilnost nekvantitativnih atributov</label>
     <description>Correctness of non-quantitative attributes</description>
   </element>
   <element name="gmd:DQ_QuantitativeAttributeAccuracy" id="127.0">
-    <label>Količinski atribut natančnosti</label>
+    <label>Točnost kvantitativnih atributov</label>
     <description>Accuracy of quantitative attributes</description>
   </element>
   <element name="gmd:DQ_QuantitativeResult" id="133.0">
@@ -225,7 +225,7 @@
     </description>
   </element>
   <element name="gmd:DQ_RelativeInternalPositionalAccuracy" id="119.0">
-    <label>Relativna notranja pozicijska natančnost</label>
+    <label>Relativna položajna točnost</label>
     <description>Closeness of the relative positions of features in the scope to their
       respective relative positions accepted as or being true
     </description>
@@ -238,21 +238,21 @@
     </help>
   </element>
   <element name="gmd:DQ_TemporalConsistency" id="122.0">
-    <label>Časovna usklajenost</label>
+    <label>Časovna skladnost</label>
     <description>Correctness of ordered events or sequences, if reported</description>
   </element>
   <element name="gmd:DQ_TemporalValidity" id="123.0">
-    <label>Časovna pravilnost</label>
+    <label>Časovna veljavnost</label>
     <description>Validity of data specified by the scope with respect to time</description>
   </element>
   <element name="gmd:DQ_ThematicClassificationCorrectness" id="125.0">
-    <label>Pravilnost klasifikacije</label>
+    <label>Pravilnost tematske klasifikacije</label>
     <description>Comparison of the classes assigned to features or their attributes to a
       universe of discourse
     </description>
   </element>
   <element name="gmd:DQ_TopologicalConsistency" id="115.0">
-    <label>Topološka doslednost</label>
+    <label>Topološka skladnost</label>
     <description>Correctness of the explicitly encoded topological characteristics of the
       dataset as described by the scope
     </description>

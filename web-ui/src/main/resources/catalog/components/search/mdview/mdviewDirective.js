@@ -653,6 +653,7 @@
             description: false,
             value: false,
             type: false,
+            scopeDescription: false,
             date: false
           };
           for (var idx in scope.measures) {

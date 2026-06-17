@@ -1057,6 +1057,8 @@
                         select="(gmd:valueUnit//(gml:identifier|gml320:identifier))[1]"/>
           <xsl:variable name="description"
                         select="(../../gmd:measureDescription/gco:CharacterString)[1]"/>
+          <xsl:variable name="scopeDescription"
+                        select="normalize-space(string-join(ancestor::gmd:DQ_DataQuality/gmd:scope/*/(gmd:levelDescription|gmd:MD_ScopeDescription)//gco:CharacterString, ' '))"/>
           <xsl:variable name="measureDate"
                         select="(../../gmd:dateTime/gco:DateTime)[1]"/>
           <xsl:variable name="measureDateZulu"
@@ -1066,6 +1068,9 @@
             <xsl:if test="$description != ''">
               "description": "<xsl:value-of select="util:escapeForJson($description)"/>",
             </xsl:if>
+            <xsl:if test="$scopeDescription != ''">
+              "scopeDescription": "<xsl:value-of select="util:escapeForJson($scopeDescription)"/>",
+            </xsl:if>
             <xsl:if test="$measureDateZulu != ''">
               "date": "<xsl:value-of select="util:escapeForJson($measureDate)"/>",
             </xsl:if>
@@ -1074,7 +1079,7 @@
             <xsl:if test="$unit != ''">
               "unit": "<xsl:value-of select="util:escapeForJson($unit)"/>",
             </xsl:if>
-            "type": "<xsl:value-of select="local-name(.)"/>"
+            "type": "<xsl:value-of select="local-name(../..)"/>"
             }
           </measure>
 
