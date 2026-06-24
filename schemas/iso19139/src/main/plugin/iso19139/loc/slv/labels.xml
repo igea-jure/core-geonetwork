@@ -2297,6 +2297,7 @@
       <option value="OGC:SOS">OGC-SOS Sensor Observation Service</option>
       <option value="OGC:SPS">OGC-SPS Sensor Planning Service</option>
       <option value="OGC:SAS">OGC-SAS Sensor Alert Service</option>
+      <option value="OGC:STAC">OGC-STAC SpatioTemporal Asset Catalog</option>
       <option value="OGC:WCS">OGC-WCS Web Coverage Service</option>
       <option value="OGC:WCS-1.1.0-http-get-capabilities">OGC-WCS Web Coverage Service (ver 1.1.0)</option>
       <option value="OGC:WCTS">OGC-WCTS Web Coordinate Transformation Service</option>
