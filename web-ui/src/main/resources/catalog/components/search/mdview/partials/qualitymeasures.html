@@ -2,7 +2,9 @@
   <thead>
     <tr>
       <td data-ng-if="columnVisibility['type']" data-translate="">measureType</td>
-      <td data-ng-if="columnVisibility['scopeDescription']" data-translate="">measureScopeDescription</td>
+      <td data-ng-if="columnVisibility['scopeDescription']" data-translate="">
+        measureScopeDescription
+      </td>
       <td data-ng-if="columnVisibility['name']" data-translate="">measureName</td>
       <td data-ng-if="columnVisibility['description']">
         {{(columnVisibility['name'] ? 'measureDescription' : 'measureName') | translate}}
