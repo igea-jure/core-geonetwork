@@ -532,9 +532,10 @@ INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (61,'ara','Record del
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (62,'ara','Record imported.');
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (63,'ara','Record restored.');
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (100,'ara','DOI creation requested.');
+INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (101,'ara','Scheduled publication');
 
 
-INSERT INTO SelectionsDes (iddes, langid, label) VALUES (0,'ara','Preferred records');
+INSERT INTO SelectionsDes (iddes, langid, label) VALUES (0,'ara','Favorite records');
 INSERT INTO SelectionsDes (iddes, langid, label) VALUES (1,'ara','Watch list');
 
 INSERT INTO GUF_RatingCriteriaDes (iddes, langid, label) VALUES (-1,'ara', 'Average');

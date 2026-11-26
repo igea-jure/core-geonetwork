@@ -220,9 +220,9 @@
                 <i class="fa fa-fw fa-cog"></i>
                 <span><xsl:value-of select="$schemaStrings/providedBy"/></span>
               </h2>
-              <img class="gn-source-logo"
+              <img class="gn-provider-logo"
                    alt="{$schemaStrings/logo}"
-                   src="{$nodeUrl}../images/logos/{$source}.png" />
+                   src="{$nodeUrl}{$providerlogo}" />
             </section>
 
             <xsl:if test="$isSocialbarEnabled">
@@ -571,7 +571,7 @@
     </xsl:variable>
 
     <!-- The matching nodes when using evaluate loose their context, re-calculate it -->
-    <xsl:variable name="originalNodes" select="$metadata//*[deep-equal(., $nodes/*)]"/>
+    <xsl:variable name="originalNodes" select="$metadata//*[some $n in $nodes/* satisfies deep-equal(., $n)]"/>
 
     <xsl:for-each select="$originalNodes">
       <xsl:apply-templates mode="render-field">

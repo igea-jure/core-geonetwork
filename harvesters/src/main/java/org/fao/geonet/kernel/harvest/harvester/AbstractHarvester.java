@@ -29,15 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import org.fao.geonet.Logger;
 import org.fao.geonet.constants.Geonet;
 import org.fao.geonet.csw.common.exceptions.InvalidParameterValueEx;
-import org.fao.geonet.domain.AbstractMetadata;
-import org.fao.geonet.domain.Group;
-import org.fao.geonet.domain.HarvestHistory;
-import org.fao.geonet.domain.HarvestHistory_;
-import org.fao.geonet.domain.ISODate;
-import org.fao.geonet.domain.Profile;
-import org.fao.geonet.domain.Source;
-import org.fao.geonet.domain.SourceType;
-import org.fao.geonet.domain.User;
+import org.fao.geonet.domain.*;
 import org.fao.geonet.exceptions.BadInputEx;
 import org.fao.geonet.exceptions.BadParameterEx;
 import org.fao.geonet.exceptions.JeevesException;
@@ -51,8 +43,10 @@ import org.fao.geonet.kernel.datamanager.IMetadataSchemaUtils;
 import org.fao.geonet.kernel.datamanager.IMetadataUtils;
 import org.fao.geonet.kernel.harvest.Common.OperResult;
 import org.fao.geonet.kernel.harvest.Common.Status;
+import org.fao.geonet.kernel.search.index.BatchOpsMetadataReindexer;
 import org.fao.geonet.kernel.security.SecurityProviderConfiguration;
 import org.fao.geonet.kernel.security.SecurityProviderUtil;
+import org.fao.geonet.kernel.search.submission.batch.BatchingDeletionSubmitter;
 import org.fao.geonet.kernel.setting.HarvesterSettingsManager;
 import org.fao.geonet.kernel.setting.SettingManager;
 import org.fao.geonet.kernel.setting.Settings;
@@ -128,6 +122,10 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
      * Contains all the errors that were thrown during harvesting and that may have caused the harvesting to abort
      */
     protected final List<HarvestError> errors = Collections.synchronizedList(new LinkedList<>());
+    /**
+     * true if this harvester is currenly reindexing, false otherwise
+     */
+    private final AtomicBoolean reindexing = new AtomicBoolean(false);
 
     protected ServiceContext context;
 
@@ -287,9 +285,12 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
 
                 final Specification<? extends AbstractMetadata> ownedByHarvester = Specification.where(MetadataSpecs.hasHarvesterUuid(getParams().getUuid()));
                 Set<String> sources = new HashSet<>();
-                for (Integer metadataId : metadataRepository.findAllIdsBy(ownedByHarvester)) {
-                    sources.add(metadataUtils.findOne(metadataId).getSourceInfo().getSourceId());
-                    metadataManager.deleteMetadata(context, "" + metadataId);
+                List<Integer> allIdsBy = metadataRepository.findAllIdsBy(ownedByHarvester);
+                try (BatchingDeletionSubmitter submitter = new BatchingDeletionSubmitter(allIdsBy.size())) {
+                    for (Integer metadataId : allIdsBy) {
+                        sources.add(metadataUtils.findOne(metadataId).getSourceInfo().getSourceId());
+                        metadataManager.deleteMetadata(context, "" + metadataId, submitter);
+                    }
                 }
 
                 // Remove all sources related to the harvestUuid if they are not linked to any record anymore
@@ -507,6 +508,30 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
         }
     }
 
+    /**
+     * Reindexes all records of this harvester
+     * @return False is another harvester was running, True if the reindexing was successful
+     * @throws Exception If the indexing failed
+     */
+    public boolean reindex() throws Exception {
+        String harvesterUUID = getParams().getUuid();
+        final Specification<Metadata> specification = (Specification<Metadata>) MetadataSpecs.hasHarvesterUuid(harvesterUUID);
+
+        var wasRunning = reindexing.compareAndExchange(false, true);
+        if (wasRunning) {
+            return false;
+        }
+
+        try {
+            List<Integer> listToReindex = metadataUtils.findAllIdsBy(specification);
+            BatchOpsMetadataReindexer reindexer = new BatchOpsMetadataReindexer(dataMan, listToReindex);
+            reindexer.process(settingManager.getSiteId());
+        } finally {
+            reindexing.compareAndExchange(true, false);
+        }
+        return true;
+    }
+
     public String getID() {
         return id;
     }
@@ -518,6 +543,7 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
         Element info = node.getChild("info");
 
         info.addContent(new Element("running").setText(running + ""));
+        info.addContent(new Element("reindexing").setText(reindexing + ""));
 
         //--- harvester specific info
         doAddInfo(node);
@@ -914,7 +940,7 @@ public abstract class AbstractHarvester<T extends HarvestResult, P extends Abstr
         harvesterSettingsManager.add(ID_PREFIX + useAccId, "username", params.getUsername());
         harvesterSettingsManager.add(ID_PREFIX + useAccId, "password", params.getPassword(), true);
 
- 
+
         //--- setup options node ---------------------------------------
 
         harvesterSettingsManager.add(ID_PREFIX + optionsId, "every", params.getEvery());

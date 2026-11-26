@@ -25,6 +25,8 @@ package org.fao.geonet.util;
 
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.cache.Cache;
@@ -53,6 +55,7 @@ import org.fao.geonet.api.records.attachments.FilesystemStoreResourceContainer;
 import org.fao.geonet.api.records.attachments.Store;
 import org.fao.geonet.constants.Geonet;
 import org.fao.geonet.domain.*;
+import org.fao.geonet.exceptions.OperationNotAllowedEx;
 import org.fao.geonet.kernel.*;
 import org.fao.geonet.kernel.datamanager.base.BaseMetadataUtils;
 import org.fao.geonet.kernel.search.CodeListTranslator;
@@ -97,6 +100,7 @@ import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -410,6 +414,39 @@ public final class XslUtil {
     }
 
     /**
+     * Build a JavaScript expression for an optional inline UI configuration.
+     *
+     * Returns a {@code JSON.parse(...)} call when the value is a JSON object,
+     * or an empty string otherwise so the caller can fall back to a default.
+     */
+    public static String toUiConfigArg(String config) {
+        if (StringUtils.isBlank(config)) {
+            return "";
+        }
+        try {
+            ObjectMapper mapper = new ObjectMapper()
+                .enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
+            JsonNode node = mapper.readTree(config);
+            if (node == null || !node.isObject()) {
+                return "";
+            }
+            String literal = mapper.writeValueAsString(mapper.writeValueAsString(node));
+            return "JSON.parse(" + escapeForScriptContext(literal) + ")";
+        } catch (JsonProcessingException e) {
+            return "";
+        }
+    }
+
+    private static String escapeForScriptContext(String value) {
+        return value
+            .replace("&", "\\u0026")
+            .replace("<", "\\u003c")
+            .replace(">", "\\u003e")
+            .replace(String.valueOf((char) 0x2028), "\\u2028")
+            .replace(String.valueOf((char) 0x2029), "\\u2029");
+    }
+
+    /**
      * Get a setting value
      */
     public static String getSettingValue(String key) {
@@ -708,15 +745,29 @@ public final class XslUtil {
         return "";
     }
 
-    /**
-     * Try to preserve some HTML layout to text layout.
-     *
-     * Replace br tag by new line, li by new line with leading *.
-     */
-    public static String htmlElement2textReplacer(String html) {
-        return html
-            .replaceAll("<br */?>", System.getProperty("line.separator"))
-            .replaceAll("<li>(.*)</li>", System.getProperty("line.separator") + "* $1");
+    public static String htmlElement2textReplacer(String htmlRaw) {
+        String separator = "\n";
+        String htmlWithoutNewlines = htmlRaw.replaceAll("[\n\r]", "");
+        org.jsoup.nodes.Document doc = Jsoup.parse(htmlWithoutNewlines);
+
+        // Handle <li> tags: prepend a bullet (*) to each item
+        doc.select("li:not(:empty)").prepend(separator + "* ");
+
+        // Handle <p> tags: append an empty string (ensure it becomes block-level)
+        doc.select("p:not(:empty)").prepend(separator).append(separator);
+
+        // Handle <h1-h6> tags: prepend # to the header
+        doc.select("h1:not(:empty), h2:not(:empty), h3:not(:empty), h4:not(:empty), h5:not(:empty), h6:not(:empty)").prepend(separator + "# ").append(separator);
+
+        // Handle <a> tags: append the URL in parentheses after the link text
+        for (org.jsoup.nodes.Element element : doc.select("a")) {
+            String text = element.text();
+            String link = element.attr("href");
+            if (!text.equals(link)) {
+                element.text(text + " (" + link + ")");
+            }
+        }
+        return doc.wholeText().trim();
     }
     public static String html2text(String html) {
         return Jsoup.parse(html).wholeText();
@@ -927,10 +978,10 @@ public final class XslUtil {
     }
 
     /**
-     * Return 2 iso lang code from a 3 iso lang code. If any error occurs return "".
+     * Return 2 iso lang code (ISO 639-1 two-letter code) from a 3 iso lang code. If any error occurs return "".
      *
-     * @param iso3LangCode The 2 iso lang code
-     * @return The related 3 iso lang code
+     * @param iso3LangCode The 3 chars iso lang code
+     * @return The related 2 chars iso lang code
      */
     public static
     @Nonnull
@@ -1127,16 +1178,74 @@ public final class XslUtil {
      * Retrieve a metadata record. Use this function only
      * to retrieve records visible for current user. This
      * does not make any security checks.
+     *
+     * This is used by internal processes (eg. indexing) which
+     * may run asynchronously with no user session bound to the
+     * current thread. Do NOT expose this function to untrusted
+     * XSLT (eg. formatters) - use {@link #getRecordIfViewable(String)}
+     * instead which enforces the view privilege for the current user.
+     *
+     * @param uuid Metadata uuid identifier
+     * @return Metadata document, null if doesn´t exist
      */
     public static Node getRecord(String uuid) {
         return getRecord(uuid, null);
     }
     public static Node getRecord(String uuid, String schema) {
+        return getRecord(uuid, schema, false);
+    }
+
+    /**
+     * Retrieve a metadata record, only if it is visible to the current user
+     * (ie. the user is granted the view operation on the record), similar to
+     * {@code ApiUtils#canViewRecord}. Returns {@code null} if the record does
+     * not exist or is not visible to the current user (or if there is no
+     * user session bound to the current thread to check against).
+     *
+     * This is the function that should be exposed to untrusted XSLT (eg.
+     * formatters) that may be used to retrieve records other than the one
+     * currently being processed.
+     *
+     * @param uuid Metadata uuid identifier
+     * @return Metadata document, null if doesn´t exist or not visible to the current user
+     */
+    public static Node getRecordIfViewable(String uuid) {
+        return getRecordIfViewable(uuid, null);
+    }
+    public static Node getRecordIfViewable(String uuid, String schema) {
+        return getRecord(uuid, schema, true);
+    }
+
+    private static Node getRecord(String uuid, String schema, boolean checkPrivilege) {
         ApplicationContext applicationContext = ApplicationContextHolder.get();
         DataManager dataManager = applicationContext.getBean(DataManager.class);
         try {
             String id = dataManager.getMetadataId(uuid);
             if (id != null) {
+                if (checkPrivilege) {
+                    ServiceContext context = ServiceContext.get();
+                    if (context == null) {
+                        Log.warning(Geonet.GEONETWORK, String.format(
+                            "XslUtil getRecordIfViewable warning: Can't retrieve record %s. No service context available to check user privileges.",
+                            uuid));
+                        return null;
+                    }
+                    try {
+                        Lib.resource.checkPrivilege(context, id, ReservedOperation.view);
+                    } catch (OperationNotAllowedEx | AccessDeniedException e) {
+                        // The current user is not allowed to view this record. This is an
+                        // expected outcome (eg. a formatter referencing a record the viewer
+                        // can't see), not a failure, so log at debug and return null instead
+                        // of falling through to the error path below.
+                        if (Log.isDebugEnabled(Geonet.GEONETWORK)) {
+                            Log.debug(Geonet.GEONETWORK, String.format(
+                                "XslUtil getRecordIfViewable: record %s is not viewable by the current user.",
+                                uuid));
+                        }
+                        return null;
+                    }
+                }
+
                 Element metadata = dataManager.getMetadata(id);
                 String metadataSchema = dataManager.getMetadataSchema(id);
 

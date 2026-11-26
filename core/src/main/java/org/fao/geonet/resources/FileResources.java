@@ -27,6 +27,9 @@ import javax.servlet.ServletContext;
 public class FileResources extends Resources {
     @Override
     protected @Nullable Path findImagePath(String imageName, Path logosDir) throws IOException {
+        if (!Files.isDirectory(logosDir)) {
+            return null;
+        }
         if (imageName.indexOf('.') > -1) {
             final Path imagePath = logosDir.resolve(imageName);
             if (Files.exists(imagePath)) {
@@ -36,7 +39,7 @@ public class FileResources extends Resources {
             try (DirectoryStream<Path> possibleLogos = Files.newDirectoryStream(logosDir, imageName + ".*")) {
                 for (final Path next: possibleLogos) {
                     String ext = FilenameUtils.getExtension(next.getFileName().toString());
-                    if (IMAGE_EXTENSIONS.contains(ext.toLowerCase())) {
+                    if (IMAGE_EXTENSIONS.contains(ext.toLowerCase()) || "svg".equalsIgnoreCase(ext)) {
                         return next;
                     }
                 }

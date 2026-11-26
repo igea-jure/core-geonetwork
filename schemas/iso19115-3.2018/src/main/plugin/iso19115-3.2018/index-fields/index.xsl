@@ -213,6 +213,23 @@
         <dateStamp><xsl:value-of select="date-util:convertToISOZuluDateTime(normalize-space(.))"/></dateStamp>
       </xsl:for-each>
 
+      <!-- Creation date: only read it if the setting SYSTEM_METADATA_RECORD_CREATION_DATE_FROM_XML is set to "true"; otherwise the record creation date is taken from the database -->
+      <xsl:if test="util:getSettingValue('system/metadata/recordCreationDateFromXml') = 'true'">
+        <xsl:for-each select="(mdb:dateInfo/
+                                cit:CI_Date[cit:dateType/cit:CI_DateTypeCode/@codeListValue = 'creation']/
+                                  cit:date/*[gn-fn-index:is-isoDate(.)])[1]">
+          <createDate><xsl:value-of select="date-util:convertToISOZuluDateTime(normalize-space(.))"/></createDate>
+        </xsl:for-each>
+      </xsl:if>
+
+      <!-- Publication date -->
+      <xsl:for-each select="(mdb:dateInfo/
+                              cit:CI_Date[cit:dateType/cit:CI_DateTypeCode/@codeListValue = 'publication']/
+                                cit:date/*[gn-fn-index:is-isoDate(.)])[1]">
+
+        <publicationDate><xsl:value-of select="text()"/></publicationDate>
+      </xsl:for-each>
+
 
       <xsl:copy-of select="gn-fn-index:add-field('mainLanguage', $mainLanguage)"/>
 
@@ -1185,13 +1202,13 @@
                       select="mrl:processStep/*[mrl:description/gco:CharacterString != '']"/>
         <xsl:for-each select="$processSteps">
           <xsl:variable name="stepDateTimeZulu"
-                        select="date-util:convertToISOZuluDateTime(normalize-space(mrl:stepDateTime))"/>
+                        select="date-util:convertToISOZuluDateTime(normalize-space(mrl:stepDateTime//gml:timePosition/text()))"/>
 
           <processSteps type="object">{
             "descriptionObject": <xsl:value-of select="gn-fn-index:add-multilingual-field(
                                 'description', mrl:description, $allLanguages, true())"/>
             <xsl:if test="$stepDateTimeZulu != ''">
-              ,"date": "<xsl:value-of select="mrl:stepDateTime//gml:timePosition/text()"/>"
+              ,"date": "<xsl:value-of select="$stepDateTimeZulu"/>"
             </xsl:if>
             ,"source": [
             <xsl:for-each select="mrl:source/*[mrl:description/gco:CharacterString != '']">

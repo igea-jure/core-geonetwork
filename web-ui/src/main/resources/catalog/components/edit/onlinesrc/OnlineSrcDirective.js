@@ -1184,7 +1184,6 @@
                       url: fields.url,
                       protocol: linkToEdit.protocol,
                       mimeType: linkToEdit.mimeType,
-                      mimeTypeStrategy: "mimeType",
                       name: fields.name,
                       desc: fields.desc,
                       applicationProfile: linkToEdit.applicationProfile,
@@ -1198,7 +1197,6 @@
                     scope.params.linkType = typeConfig;
                     scope.params.protocol = null;
                     scope.params.mimeType = "";
-                    scope.mimeTypeStrategy = "mimeType";
                     scope.params.name = "";
                     scope.params.desc = "";
                     initMultilingualFields();
@@ -1383,6 +1381,15 @@
                     processParams[key] = scope.params[key];
                   }
                 });
+
+                // mimeTypeStrategy is a configuration option and not a user input.
+                // Take it from the link type configuration rather than from the form
+                // state, which is reset on protocol change and may be turned into a
+                // multilingual object on a multilingual record.
+                var mimeTypeStrategy = scope.params.linkType.fields.mimeTypeStrategy;
+                if (angular.isDefined(mimeTypeStrategy)) {
+                  processParams.mimeTypeStrategy = mimeTypeStrategy.value || "mimeType";
+                }
 
                 if (scope.isEditing) {
                   processParams.updateKey = scope.editingKey;
@@ -1799,7 +1806,7 @@
                 if (newValue !== oldValue) {
                   scope.config.multilingualFields = [];
                   angular.forEach(newValue.fields, function (f, k) {
-                    if (f.isMultilingual !== false) {
+                    if (scope.isMdMultilingual && f.isMultilingual !== false) {
                       scope.config.multilingualFields.push(k);
                     }
                   });
@@ -1970,6 +1977,12 @@
                     // ie. dataset, series, ...
                     searchParams["-resourceType"] = "service";
                   }
+
+                  scope.searchObj.filters = gnOnlinesrc.getSearchFilterForType(
+                    gnCurrentEdit,
+                    scope.mode
+                  );
+
                   scope.$broadcast("resetSearch", searchParams);
                   scope.layers = [];
 
@@ -2187,16 +2200,19 @@
      *  <li>feature catalog</li>
      *  <li>source dataset</li>
      * </ul>
-     * The directive contains a search form allowing one local selection.
+     * The directive contains a search form allowing a local selection.
+     * Several records can be selected, except for the parent mode as
+     * only one parent is allowed by the schemas.
      *
      * On submit, the metadata is saved, the link is added,
      * then the form and online resource list are refreshed.
      */
     .directive("gnLinkToMetadata", [
       "gnOnlinesrc",
+      "gnCurrentEdit",
       "$translate",
       "gnGlobalSettings",
-      function (gnOnlinesrc, $translate, gnGlobalSettings) {
+      function (gnOnlinesrc, gnCurrentEdit, $translate, gnGlobalSettings) {
         return {
           restrict: "A",
           scope: {},
@@ -2206,12 +2222,14 @@
               pre: function preLink(scope) {
                 scope.searchObj = gnOnlinesrc.getSearchConfig();
                 scope.modelOptions = angular.copy(gnGlobalSettings.modelOptions);
-                scope.selectRecords = [];
+                scope.selection = [];
               },
               post: function postLink(scope, iElement, iAttrs) {
                 scope.mode = iAttrs["gnLinkToMetadata"];
                 scope.popupid = "#linkto" + scope.mode + "-popup";
                 scope.btn = {};
+                // Only one parent is allowed by the schemas.
+                scope.multiple = scope.mode !== "parent";
 
                 scope.updateParams = function () {
                   scope.searchObj.params.any = scope.searchObj.any;
@@ -2220,36 +2238,52 @@
                 /**
                  * Checks if there are selected records and the selected records have a title.
                  *
-                 * @param selectRecords
+                 * @param selection
                  * @returns {boolean}
                  */
-                scope.canEnableLinkButton = function (selectRecords) {
-                  if (
-                    !selectRecords ||
-                    !Array.isArray(selectRecords) ||
-                    selectRecords.length < 1
-                  )
+                scope.canEnableLinkButton = function (selection) {
+                  if (!selection || !Array.isArray(selection) || selection.length < 1)
                     return false;
 
                   // Check if the metadata titles are defined
-                  for (var i = 0; i < selectRecords.length; i++) {
-                    if (!selectRecords[i].title && !selectRecords[i].resourceTitle)
-                      return false;
+                  for (var i = 0; i < selection.length; i++) {
+                    if (!selection[i].title && !selection[i].resourceTitle) return false;
                   }
 
                   return true;
                 };
 
+                scope.isInSelection = function (uuid) {
+                  for (var i = 0; i < scope.selection.length; i++) {
+                    if (scope.selection[i].uuid === uuid) {
+                      return true;
+                    }
+                  }
+                  return false;
+                };
+
                 scope.addToSelection = function (record) {
-                  scope.selectRecords.length = 0;
-                  scope.selectRecords.push(record);
+                  if (!scope.multiple) {
+                    scope.selection.length = 0;
+                  } else if (record.uuid && scope.isInSelection(record.uuid)) {
+                    return;
+                  }
+                  scope.selection.push(record);
                 };
 
                 scope.removeFromSelection = function (record) {
-                  var index = scope.selectRecords.indexOf(record);
+                  var index = scope.selection.indexOf(record);
                   if (index > -1) {
-                    scope.selectRecords.splice(index, 1);
+                    scope.selection.splice(index, 1);
                   }
+                };
+
+                /**
+                 * Call the batch process to link the selected records
+                 * to the current edited metadata.
+                 */
+                scope.linkToResource = function () {
+                  return gnOnlinesrc.linkToMd(scope.mode, scope.selection, scope.popupid);
                 };
 
                 /**
@@ -2270,14 +2304,18 @@
                   $("#linktomd-search input").val("");
                   scope.searchObj.any = "";
 
+                  scope.searchObj.filters = gnOnlinesrc.getSearchFilterForType(
+                    gnCurrentEdit,
+                    scope.mode
+                  );
+
                   var searchParams =
                     scope.config.sources && scope.config.sources.metadataStore
                       ? scope.config.sources.metadataStore.params || {}
                       : {};
                   scope.$broadcast("resetSearch", searchParams);
-                  scope.selectRecords = [];
+                  scope.selection = [];
                 });
-                scope.gnOnlinesrc = gnOnlinesrc;
               }
             };
           }
@@ -2304,9 +2342,9 @@
      */
     .directive("gnLinkToSibling", [
       "gnOnlinesrc",
+      "gnCurrentEdit",
       "gnGlobalSettings",
-      "gnOnlinesrcConfig",
-      function (gnOnlinesrc, gnGlobalSettings, gnOnlinesrcConfig) {
+      function (gnOnlinesrc, gnCurrentEdit, gnGlobalSettings) {
         return {
           restrict: "A",
           scope: {},
@@ -2322,7 +2360,6 @@
               },
               post: function postLink(scope, iElement, iAttrs) {
                 scope.popupid = iAttrs["gnLinkToSibling"];
-
                 /**
                  * Register a method on popup open to reset
                  * the search form and trigger a search.
@@ -2331,6 +2368,11 @@
                   if (config && !angular.isObject(config)) {
                     config = angular.fromJson(config);
                   }
+
+                  scope.searchObj.filters = gnOnlinesrc.getSearchFilterForType(
+                    gnCurrentEdit,
+                    "siblings"
+                  );
 
                   scope.config = {
                     associationTypeForced: angular.isDefined(
@@ -2375,13 +2417,7 @@
                   if (scope.searchObj.any == "") {
                     scope.$broadcast("resetSearch");
                   } else {
-                    var addWildcard =
-                      scope.searchObj.any.indexOf('"') === -1 &&
-                      scope.searchObj.any.indexOf("*") === -1 &&
-                      scope.searchObj.any.indexOf("q(") !== 0;
-                    scope.searchObj.params.any = addWildcard
-                      ? "*" + scope.searchObj.any + "*"
-                      : scope.searchObj.any;
+                    scope.searchObj.params.any = scope.searchObj.any;
                   }
                 };
 

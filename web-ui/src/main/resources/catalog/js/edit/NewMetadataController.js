@@ -127,7 +127,7 @@
             resourceType: {
               terms: {
                 field: "resourceType",
-                exclude: ["map-static", "theme", "place"],
+                exclude: ["theme", "place"],
                 missing: "other"
               }
             }
@@ -289,7 +289,7 @@
       } else if ($routeParams.from) {
         $scope.resourceTitle = "createCopyOf";
       } else {
-        $scope.resourceTitle = "createA";
+        $scope.resourceTitle = "createARecord";
       }
 
       $scope.cancelCreateMetadata = function () {

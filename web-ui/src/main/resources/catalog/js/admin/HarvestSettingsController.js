@@ -528,6 +528,27 @@
             }
           );
       };
+      $scope.reindexHarvesterRecord = function () {
+        return $http
+          .post(
+            "../api/harvesters/" +
+              $scope.harvesterSelected.site.uuid +
+              "/reindex?source=" +
+              gnConfig["system.site.siteId"]
+          )
+          .then(
+            function (response) {
+              $scope.harvesterSelected = {};
+              $scope.harvesterUpdated = false;
+              $scope.harvesterNew = false;
+              $scope.$parent.loadHarvesters();
+            },
+            function (response) {
+              console.log(response.data);
+            }
+          );
+      };
+
       $scope.assignHarvestedRecordToLocalNode = function () {
         $http
           .post(
@@ -656,6 +677,7 @@
             pageSizeParam: "",
             pageFromParam: "",
             recordIdPath: "",
+            recordIdPathMode: "",
             toISOConversion: "schema:iso19115-3.2018:convert/fromSPARQL-DCAT"
           }
         },
@@ -666,6 +688,7 @@
             pageSizeParam: "limit",
             pageFromParam: "offset",
             recordIdPath: "/dataset/dataset_id",
+            recordIdPathMode: "jsonpointer",
             toISOConversion: "schema:iso19115-3.2018:convert/fromJsonOpenDataSoft"
           }
         },
@@ -676,6 +699,7 @@
             pageSizeParam: "limit",
             pageFromParam: "page",
             recordIdPath: "/id",
+            recordIdPathMode: "jsonpointer",
             toISOConversion: "schema:iso19115-3.2018:convert/stac-to-iso19115-3"
           }
         },
@@ -686,6 +710,7 @@
             pageSizeParam: "",
             pageFromParam: "",
             recordIdPath: "mdb:metadataIdentifier/*/mcc:code/*/text()",
+            recordIdPathMode: "xpath",
             toISOConversion: ""
           }
         },
@@ -696,6 +721,7 @@
             pageSizeParam: "",
             pageFromParam: "",
             recordIdPath: "gmd:fileIdentifier/*/text()",
+            recordIdPathMode: "xpath",
             toISOConversion: ""
           }
         }
@@ -1139,21 +1165,6 @@
         ) {
           wfsGetFeatureXSLT();
           loadHarvesterTemplates();
-        }
-      });
-
-      // Z3950 GetFeature harvester
-      $scope.harvesterZ3950repositories = null;
-      var loadHarvesterZ3950Repositories = function () {
-        $http
-          .get("info?_content_type=json&type=z3950repositories", { cache: true })
-          .then(function (response) {
-            $scope.harvesterZ3950repositories = response.data.z3950repositories;
-          });
-      };
-      $scope.$watch("harvesterSelected.site.repositories", function () {
-        if ($scope.harvesterSelected && $scope.harvesterSelected["@type"] === "z3950") {
-          loadHarvesterZ3950Repositories();
         }
       });
 

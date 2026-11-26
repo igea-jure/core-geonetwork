@@ -138,7 +138,15 @@
             showSearch: true,
             showSocialBarInFooter: true,
             showMosaic: true,
+            // Random mosaic: records matching this query (used when mosaicRecords is empty)
+            mosaicQuery: "-cl_status.key:obsolete",
+            // Curated mosaic: list of {uuid, link}. An empty link opens the record page.
+            // Only links inside the application (starting with #/) are allowed.
+            mosaicRecords: [],
+            // Mosaic layout: "gallery" (full width, mixed sizes) or "grid" (same size tiles, max 4 per row)
+            mosaicLayout: "gallery",
             showMaps: true,
+            showWelcomeMessage: false,
             facetConfig: {
               "th_httpinspireeceuropaeutheme-theme_tree.key": {
                 terms: {
@@ -690,6 +698,10 @@
                 sortOrder: ""
               },
               {
+                sortBy: "resourceTitleObject.default.sort",
+                sortOrder: "desc"
+              },
+              {
                 sortBy: "rating",
                 sortOrder: "desc"
               },
@@ -871,6 +883,11 @@
             disabledTools: {
               processes: false,
               addLayers: false,
+              addLayersWms: false,
+              addLayersWmts: false,
+              addLayersWfs: false,
+              addLayersEsriRest: false,
+              addLayersKml: false,
               projectionSwitcher: false,
               layers: false,
               legend: false,
@@ -1006,6 +1023,7 @@
             isUserRecordsOnly: false,
             minUserProfileToCreateTemplate: "",
             isFilterTagsDisplayed: false,
+            showFileStoreSize: true,
             fluidEditorLayout: true,
             createPageTpl: "../../catalog/templates/editor/new-metadata-horizontal.html",
             editorIndentType: "",
@@ -1199,6 +1217,10 @@
                 sortOrder: ""
               },
               {
+                sortBy: "resourceTitleObject.default.sort",
+                sortOrder: "desc"
+              },
+              {
                 sortBy: "recordOwner",
                 sortOrder: ""
               },
@@ -1364,6 +1386,7 @@
           "switcherProjectionList",
           "cookieWarning",
           "facetConfig",
+          "mosaicRecords",
           "searchOptions",
           "graticuleOgcService",
           "geocoder",
@@ -1882,9 +1905,14 @@
 
       // login url and form action with hash reference to the current page
       $scope.signInFormLinkWithHash =
-        $scope.gnCfg.mods.authentication.signinUrl + "#" + $location.url();
+        ($scope.gnCfg.mods.authentication.signinUrl ||
+          "../../{{node}}/{{lang}}/catalog.signin") +
+        "#" +
+        $location.url();
       $scope.signInFormActionWithHash =
-        $scope.gnCfg.mods.authentication.signinAPI + "#" + $location.url();
+        ($scope.gnCfg.mods.authentication.signinAPI || "../../signin") +
+        "#" +
+        $location.url();
 
       // when the login input have focus, do not close the dropdown/popup
       $scope.focusLoginPopup = function () {
@@ -1997,23 +2025,37 @@
                   : "";
             return angular.isFunction(this[fnName]) ? this[fnName]() : false;
           },
-          canPublishMetadata: function () {
+          canPublishMetadata: function (groupId) {
+            if (this.isAdministrator()) {
+              return true;
+            }
+
             var profile =
                 gnConfig["metadata.publication.profilePublishMetadata"] || "Reviewer",
               fnName =
                 profile !== ""
-                  ? "is" + profile[0].toUpperCase() + profile.substring(1) + "OrMore"
+                  ? "is" + profile[0].toUpperCase() + profile.substring(1) + "ForGroup"
                   : "";
-            return angular.isFunction(this[fnName]) ? this[fnName]() : false;
+            if (groupId === undefined || groupId === null) {
+              return false;
+            }
+            return angular.isFunction(this[fnName]) ? this[fnName](groupId) : false;
           },
-          canUnpublishMetadata: function () {
+          canUnpublishMetadata: function (groupId) {
+            if (this.isAdministrator()) {
+              return true;
+            }
+
             var profile =
                 gnConfig["metadata.publication.profileUnpublishMetadata"] || "Reviewer",
               fnName =
                 profile !== ""
-                  ? "is" + profile[0].toUpperCase() + profile.substring(1) + "OrMore"
+                  ? "is" + profile[0].toUpperCase() + profile.substring(1) + "ForGroup"
                   : "";
-            return angular.isFunction(this[fnName]) ? this[fnName]() : false;
+            if (groupId === undefined || groupId === null) {
+              return false;
+            }
+            return angular.isFunction(this[fnName]) ? this[fnName](groupId) : false;
           },
           // The md provide the information about
           // if the current user can edit records or not
@@ -2186,11 +2228,21 @@
       });
 
       $scope.allowPublishInvalidMd = function () {
-        return gnConfig["metadata.workflow.allowPublishInvalidMd"];
+        return gnConfig["metadata.publication.allowPublishInvalidMd"];
       };
 
       $scope.allowPublishNonApprovedMd = function () {
         return gnConfig["metadata.workflow.allowPublishNonApprovedMd"];
+      };
+
+      // Whether the metadata type requires validation before it can be
+      // published. This mirrors the backend MetadataType.requiresValidation
+      // logic: templates and sub-templates are incomplete by design and are
+      // therefore never validated, so they must not be blocked from being
+      // published because they are "invalid". Only normal
+      // records (isTemplate === "n") require validation.
+      $scope.metadataTypeRequiresValidation = function (md) {
+        return !md.isTemplate || md.isTemplate === "n";
       };
 
       $scope.getPublicationOptionClass = function (
@@ -2224,7 +2276,7 @@
       ) {
         var publicationOptionTitle = "";
         if (!md.isPublished(pubOption)) {
-          if (md.isValid()) {
+          if (!$scope.metadataTypeRequiresValidation(md) || md.isValid()) {
             publicationOptionTitle = "mdvalid";
           } else {
             if (

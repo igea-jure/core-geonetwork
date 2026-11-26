@@ -532,9 +532,10 @@ INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (61,'fre','Fiche supp
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (62,'fre','Fiche importée.');
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (63,'fre','Fiche restaurée.');
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (100,'fre','Demande de création de DOI');
+INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (101,'fre','Publication programmée');
 
 
-INSERT INTO SelectionsDes (iddes, langid, label) VALUES (0,'fre','Fiches préférées');
+INSERT INTO SelectionsDes (iddes, langid, label) VALUES (0,'fre','Fiches favorites');
 INSERT INTO SelectionsDes (iddes, langid, label) VALUES (1,'fre','Fiches observées');
 
 INSERT INTO GUF_RatingCriteriaDes (iddes, langid, label) VALUES (-1,'fre', 'Moyenne');

@@ -30,7 +30,7 @@
   <parent>
     <groupId>org.geonetwork-opensource</groupId>
     <artifactId>geonetwork</artifactId>
-    <version>4.4.10-SNAPSHOT</version>
+    <version>4.4.14-SNAPSHOT</version>
   </parent>
 
 
@@ -54,6 +54,10 @@
   <!-- FIXME set common dependencies to the root pom.xml  -->
   <dependencies>
     <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
     </dependency>
@@ -68,6 +72,10 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-jul</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-layout-template-json</artifactId>
     </dependency>
     <dependency>
       <groupId>org.tuckey</groupId>
@@ -140,19 +148,6 @@
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-webmvc-core</artifactId>
     </dependency>
-    <!-- Z39.50, SRU  stuff (ie: Spring, CQL, ...)  -->
-    <dependency>
-      <groupId>org.dspace</groupId>
-      <artifactId>cql-java</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jzkit</groupId>
-      <artifactId>a2j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>marc4j</groupId>
-      <artifactId>marc4j</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>org.geotools</groupId>
@@ -214,10 +209,6 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-email</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -289,6 +280,12 @@
       <groupId>org.mapfish.print</groupId>
       <artifactId>print-lib</artifactId>
       <exclusions>
+        <!-- print-lib does not use PDFBox; the pdfbox-tools 3.0.8 it pulls in clashes with
+             pdfbox.version (3.0.3, set by fop-pdf-images). Re-check on print-lib upgrades. -->
+        <exclusion>
+          <groupId>org.apache.pdfbox</groupId>
+          <artifactId>pdfbox-tools</artifactId>
+        </exclusion>
         <exclusion>
           <groupId>com.lowagie</groupId>
           <artifactId>itext</artifactId>
@@ -431,26 +428,6 @@
     <dependency>
       <groupId>lizard</groupId>
       <artifactId>lizard-tiff</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>jzkit</groupId>
-      <artifactId>jzkit-core</artifactId>
-      <version>3.r260.geonetwork.patch.1</version>
-    </dependency>
-    <dependency>
-      <groupId>jzkit</groupId>
-      <artifactId>jzkit-service</artifactId>
-      <version>3.r260.geonetwork.patch.1</version>
-    </dependency>
-    <dependency>
-      <groupId>jzkit</groupId>
-      <artifactId>jzkit-z3950-server</artifactId>
-      <version>3.r260.geonetwork.patch.1</version>
-    </dependency>
-    <dependency>
-      <groupId>jzkit</groupId>
-      <artifactId>jzkit-z3950-plugin</artifactId>
-      <version>3.r260.geonetwork.patch.1</version>
     </dependency>
     <dependency>
       <groupId>jakarta</groupId>

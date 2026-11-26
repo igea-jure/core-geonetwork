@@ -532,9 +532,10 @@ INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (61,'dan','Record sle
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (62,'dan','Record importeret.');
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (63,'dan','Record genskabt.');
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (100,'dan','DOI oprettelsesanmodning');
+INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (101,'dan','Scheduled publication');
 
 
-INSERT INTO SelectionsDes (iddes, langid, label) VALUES (0,'dan','Foretrukne poster');
+INSERT INTO SelectionsDes (iddes, langid, label) VALUES (0,'dan','Favoritposter');
 INSERT INTO SelectionsDes (iddes, langid, label) VALUES (1,'dan','Overvågningsliste');
 
 INSERT INTO GUF_RatingCriteriaDes (iddes, langid, label) VALUES (-1,'dan', 'Gennemsnit');

@@ -29,6 +29,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jeeves.constants.Jeeves;
 import jeeves.server.UserSession;
 import jeeves.server.context.ServiceContext;
 import jeeves.server.dispatchers.guiservices.XmlFile;
@@ -55,10 +56,12 @@ import org.fao.geonet.kernel.datamanager.base.BaseMetadataStatus;
 import org.fao.geonet.kernel.metadata.StatusActions;
 import org.fao.geonet.kernel.metadata.StatusActionsFactory;
 import org.fao.geonet.kernel.search.IndexingMode;
+import org.fao.geonet.kernel.search.submission.DirectIndexSubmitter;
 import org.fao.geonet.kernel.setting.SettingManager;
 import org.fao.geonet.kernel.setting.Settings;
 import org.fao.geonet.repository.*;
 import org.fao.geonet.repository.specification.MetadataValidationSpecs;
+import org.fao.geonet.util.XslUtil;
 import org.fao.geonet.utils.Log;
 import org.fao.geonet.utils.Xml;
 import org.jdom.Element;
@@ -82,8 +85,8 @@ import java.util.*;
 
 import static jeeves.guiservices.session.Get.getSessionAsXML;
 import static org.fao.geonet.api.ApiParams.*;
-import static org.fao.geonet.kernel.setting.Settings.METADATA_WORKFLOW_AUTOMATIC_UNPUBLISH_INVALID_MD;
-import static org.fao.geonet.kernel.setting.Settings.METADATA_WORKFLOW_FORCE_VALIDATION_ON_MD_SAVE;
+import static org.fao.geonet.kernel.setting.Settings.METADATA_PUBLICATION_AUTOMATIC_UNPUBLISH_INVALID_MD;
+import static org.fao.geonet.kernel.setting.Settings.METADATA_SAVE_FORCE_VALIDATION_ON_MD_SAVE;
 import static org.fao.geonet.repository.specification.OperationAllowedSpecs.*;
 import static org.springframework.data.jpa.domain.Specification.where;
 
@@ -372,7 +375,7 @@ public class MetadataEditingApi {
         if (terminate) {
             Log.trace(Geonet.DATA_MANAGER, " > Closing editor");
 
-            boolean forceValidationOnMdSave = sm.getValueAsBool(METADATA_WORKFLOW_FORCE_VALIDATION_ON_MD_SAVE);
+            boolean forceValidationOnMdSave = sm.getValueAsBool(METADATA_SAVE_FORCE_VALIDATION_ON_MD_SAVE);
 
             boolean reindex = false;
 
@@ -389,9 +392,10 @@ public class MetadataEditingApi {
             // Automatically change the workflow state after save
             if (isEnabledWorkflow) {
                 boolean isAllowedSubmitApproveInvalidMd = sm.getValueAsBool(Settings.METADATA_WORKFLOW_ALLOW_SUBMIT_APPROVE_INVALID_MD);
+                boolean metadataTypeRequiresValidation = metadata.getDataInfo().getType().requiresValidation;
                 if (((status.equals(StatusValue.Status.SUBMITTED))
                     || (status.equals(StatusValue.Status.APPROVED)))
-                    && !isAllowedSubmitApproveInvalidMd) {
+                    && !isAllowedSubmitApproveInvalidMd && metadataTypeRequiresValidation) {
 
                     if (!forceValidationOnMdSave) {
                         validator.doValidate(metadata, context.getLanguage());
@@ -453,13 +457,14 @@ public class MetadataEditingApi {
                 reindex = true;
             }
 
-            boolean automaticUnpublishInvalidMd = sm.getValueAsBool(METADATA_WORKFLOW_AUTOMATIC_UNPUBLISH_INVALID_MD);
+            boolean automaticUnpublishInvalidMd = sm.getValueAsBool(METADATA_PUBLICATION_AUTOMATIC_UNPUBLISH_INVALID_MD);
+            boolean metadataTypeRequiresValidation = metadata.getDataInfo().getType().requiresValidation;
             boolean isUnpublished = false;
 
             // Unpublish the metadata automatically if the setting
             // automaticUnpublishInvalidMd is enabled and
             // the metadata becomes invalid
-            if (automaticUnpublishInvalidMd) {
+            if (automaticUnpublishInvalidMd && metadataTypeRequiresValidation) {
                 final OperationAllowedRepository operationAllowedRepo = context
                     .getBean(OperationAllowedRepository.class);
 
@@ -486,7 +491,7 @@ public class MetadataEditingApi {
 
             if (reindex) {
                 Log.trace(Geonet.DATA_MANAGER, " > Reindexing record");
-                metadataIndexer.indexMetadata(id, true, IndexingMode.full);
+                metadataIndexer.indexMetadata(id, DirectIndexSubmitter.INSTANCE, IndexingMode.full);
             }
 
             // Reindex the metadata table record to update the field _statusWorkflow that contains the composite
@@ -495,7 +500,7 @@ public class MetadataEditingApi {
                 Metadata metadataApproved = metadataRepository.findOneByUuid(metadata.getUuid());
 
                 if (metadataApproved != null) {
-                    metadataIndexer.indexMetadata(String.valueOf(metadataApproved.getId()), true, IndexingMode.full);
+                    metadataIndexer.indexMetadata(String.valueOf(metadataApproved.getId()), DirectIndexSubmitter.INSTANCE, IndexingMode.full);
                 }
             }
 
@@ -695,6 +700,7 @@ public class MetadataEditingApi {
         gui.addContent(new Element("reqService").setText(embedded ? "embedded" : "md.edit"));
         String iso3langCode = languageUtils.getIso3langCode(request.getLocales());
         gui.addContent(new Element("language").setText(iso3langCode));
+        gui.addContent(new Element(Jeeves.Elem.LANGUAGE_2_CHARS).setText(XslUtil.twoCharLangCode(iso3langCode)));
         gui.addContent(getSchemaStrings(schema, context));
 
         Element requestParams = new Element("request");

@@ -41,18 +41,22 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.fao.geonet.ApplicationContextHolder;
 import org.fao.geonet.api.ApiParams;
 import org.fao.geonet.api.ApiUtils;
+import org.fao.geonet.domain.AbstractMetadata;
 import org.fao.geonet.domain.MetadataResource;
 import org.fao.geonet.domain.MetadataResourceVisibility;
 import org.fao.geonet.domain.MetadataResourceVisibilityConverter;
 import org.fao.geonet.events.history.AttachmentAddedEvent;
 import org.fao.geonet.events.history.AttachmentDeletedEvent;
+import org.fao.geonet.kernel.datamanager.IMetadataIndexer;
+import org.fao.geonet.kernel.datamanager.IMetadataManager;
+import org.fao.geonet.kernel.search.IndexingMode;
+import org.fao.geonet.kernel.search.submission.DirectIndexSubmitter;
 import org.fao.geonet.kernel.setting.SettingManager;
 import org.fao.geonet.kernel.setting.Settings;
 import org.fao.geonet.util.FileMimetypeChecker;
 import org.fao.geonet.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -72,6 +76,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
@@ -96,16 +101,34 @@ public class AttachmentsApi {
     private final ApplicationContext appContext = ApplicationContextHolder.get();
     private Store store;
 
-    @Autowired
-    FileMimetypeChecker fileMimetypeChecker;
-    @Autowired
-    SettingManager settingManager;
+    private FileMimetypeChecker fileMimetypeChecker;
+    private SettingManager settingManager;
+    private IMetadataManager metadataManager;
+    private IMetadataIndexer metadataIndexer;
 
     public AttachmentsApi() {
     }
 
     public AttachmentsApi(Store store) {
         this.store = store;
+    }
+
+    public AttachmentsApi(Store store, IMetadataManager metadataManager, IMetadataIndexer metadataIndexer) {
+        this.store = store;
+        this.metadataManager = metadataManager;
+        this.metadataIndexer = metadataIndexer;
+    }
+
+    @Autowired
+    public AttachmentsApi(
+        FileMimetypeChecker fileMimetypeChecker,
+        SettingManager settingManager,
+        IMetadataManager metadataManager,
+        IMetadataIndexer metadataIndexer) {
+        this.fileMimetypeChecker = fileMimetypeChecker;
+        this.settingManager = settingManager;
+        this.metadataManager = metadataManager;
+        this.metadataIndexer = metadataIndexer;
     }
 
     /**
@@ -252,12 +275,13 @@ public class AttachmentsApi {
             content = @Content(schema = @Schema(type = "string", format = "binary"))),
         @ApiResponse(responseCode = "403", description = "Operation not allowed. "
             + "User needs to be able to download the resource.")})
-    public ResponseEntity<Resource> getResource(
+    public void getResource(
         @Parameter(description = "The metadata UUID", required = true, example = "43d7c186-2187-4bcd-8843-41e575a5ef56") @PathVariable String metadataUuid,
         @Parameter(description = "The resource identifier (ie. filename)", required = true) @PathVariable String resourceId,
         @Parameter(description = "Use approved version or not", example = "true") @RequestParam(required = false, defaultValue = "true") Boolean approved,
         @Parameter(description = "Size (only applies to images). From 1px to 2048px.", example = "200") @RequestParam(required = false) Integer size,
-        @Parameter(hidden = true) HttpServletRequest request
+        @Parameter(hidden = true) HttpServletRequest request,
+        @Parameter(hidden = true) HttpServletResponse response
     ) throws Exception {
         ServiceContext context = ApiUtils.createServiceContext(request);
         ApiUtils.canViewRecord(metadataUuid, request);
@@ -267,7 +291,8 @@ public class AttachmentsApi {
         MetadataResource resourceMetadata = store.getResourceMetadata(context, metadataUuid, resourceId, approved);
 
         if (resourceMetadata == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return;
         }
 
         String fileName = resourceMetadata.getFilename();
@@ -277,15 +302,14 @@ public class AttachmentsApi {
         String fileETag = "\"" + DigestUtils.md5Hex(fileName + fileSize + resourceMetadata.getVersion() + fileLastModifiedDate) + "\"";
 
         // Set common headers
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setCacheControl(CacheControl.noCache());
-        responseHeaders.setLastModified(fileLastModifiedDate);
-        responseHeaders.setETag(fileETag);
-        responseHeaders.set(HttpHeaders.ACCEPT_RANGES, "bytes");
+        response.setHeader(HttpHeaders.CACHE_CONTROL, CacheControl.noCache().getHeaderValue());
+        response.setDateHeader(HttpHeaders.LAST_MODIFIED, fileLastModifiedDate);
+        response.setHeader(HttpHeaders.ETAG, fileETag);
+        response.setHeader(HttpHeaders.ACCEPT_RANGES, "bytes");
 
         // Check if the request is not modified based on ETag or Last-Modified
-        if (new ServletWebRequest(request).checkNotModified(fileETag, fileLastModifiedDate)) {
-            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).headers(responseHeaders).build();
+        if (new ServletWebRequest(request, response).checkNotModified(fileETag, fileLastModifiedDate)) {
+            return;
         }
 
         HttpRange range = null;
@@ -300,10 +324,9 @@ public class AttachmentsApi {
             }
         } catch (IllegalArgumentException e) {
             // invalid range -> 416 with real size
-            return ResponseEntity.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE)
-                .header(HttpHeaders.CONTENT_RANGE, "bytes */" + fileSize)
-                .headers(responseHeaders)
-                .build();
+            response.setStatus(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value());
+            response.setHeader(HttpHeaders.CONTENT_RANGE, "bytes */" + fileSize);
+            return;
         }
 
         // If the request is a range request, check the If-Range header
@@ -331,46 +354,43 @@ public class AttachmentsApi {
 
         // If the resource is an image and a size is requested, resize the image and return it
         if (fileMediaType.getType().equals("image") && size != null) {
-            Store.ResourceHolder resourceHolder = store.getResource(context, metadataUuid, resourceId, approved);
-            return serveResizedImage(resourceHolder.getResource(), fileName, responseHeaders, size);
+            try (Store.ResourceHolder resourceHolder = store.getResource(context, metadataUuid, resourceId, approved)) {
+                serveResizedImage(resourceHolder.getResource(), fileName, fileETag, size, response);
+            }
+            return;
         }
 
         // Set headers for downloads
-        responseHeaders.setContentType(fileMediaType);
-        responseHeaders.setContentDisposition(ContentDisposition.attachment().filename(fileName).build());
+        response.setContentType(fileMediaType.toString());
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, ContentDisposition.attachment().filename(fileName).build().toString());
 
         // Get the resource or a range of it
-        Store.ResourceHolder resourceHolder;
         if (range != null) {
             // Get the range start and end
             long start = range.getRangeStart(fileSize);
             long end = range.getRangeEnd(fileSize);
             // Get the resource for the requested range
-            resourceHolder = store.getResourceWithRange(context, metadataUuid, resourceId, approved, start, end);
-            // If the resource is not a file (ie. a stream) we must serve it manually
-            if (!resourceHolder.getResource().isFile()) {
-                responseHeaders.setContentLength(end - start + 1);
-                responseHeaders.set(HttpHeaders.CONTENT_RANGE, "bytes " + start + "-" + end + "/" + fileSize);
-                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
-                    .headers(responseHeaders)
-                    .body(resourceHolder.getResource());
+            try (Store.ResourceHolder resourceHolder = store.getResourceWithRange(
+                context, metadataUuid, resourceId, approved, start, end)) {
+                response.setStatus(HttpStatus.PARTIAL_CONTENT.value());
+                response.setHeader(HttpHeaders.CONTENT_RANGE, "bytes " + start + "-" + end + "/" + fileSize);
+                response.setContentLengthLong(end - start + 1);
+                streamResource(resourceHolder.getResource(), response);
             }
         } else {
             // Get the full resource
-            resourceHolder = store.getResource(context, metadataUuid, resourceId, approved);
-            responseHeaders.setContentLength(fileSize);
+            try (Store.ResourceHolder resourceHolder = store.getResource(context, metadataUuid, resourceId, approved)) {
+                response.setStatus(HttpStatus.OK.value());
+                response.setContentLengthLong(fileSize);
+                streamResource(resourceHolder.getResource(), response);
+            }
         }
-
-        // If no range is requested or the resource is a file we can let Spring handle the range request
-        return ResponseEntity.ok()
-            .headers(responseHeaders)
-            .body(resourceHolder.getResource());
     }
 
 
-    @io.swagger.v3.oas.annotations.Operation(summary = "Update the metadata resource visibility")
+    @io.swagger.v3.oas.annotations.Operation(summary = "Update the metadata resource visibility and/or the resource name")
     @PreAuthorize("hasAuthority('Editor')")
-    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Attachment visibility updated."),
+    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Attachment updated."),
         @ApiResponse(responseCode = "403", description = ApiParams.API_RESPONSE_NOT_ALLOWED_CAN_EDIT)})
     @RequestMapping(value = "/{resourceId:.+}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -378,11 +398,35 @@ public class AttachmentsApi {
     public MetadataResource patchResource(
         @Parameter(description = "The metadata UUID", required = true, example = "43d7c186-2187-4bcd-8843-41e575a5ef56") @PathVariable String metadataUuid,
         @Parameter(description = "The resource identifier (ie. filename)", required = true) @PathVariable String resourceId,
-        @Parameter(description = "The visibility", required = true, example = "public") @RequestParam(required = true) MetadataResourceVisibility visibility,
+        @Parameter(description = "The visibility", example = "public") @RequestParam(required = false) MetadataResourceVisibility visibility,
+        @Parameter(description = "The new resource name") @RequestParam(required = false) String newResourceName,
         @Parameter(description = "Use approved version or not", example = "true") @RequestParam(required = false, defaultValue = "false") Boolean approved,
         @Parameter(hidden = true) HttpServletRequest request) throws Exception {
         ServiceContext context = ApiUtils.createServiceContext(request);
-        return store.patchResourceStatus(context, metadataUuid, resourceId, visibility, approved);
+
+        AbstractMetadata metadata = ApiUtils.canViewRecord(metadataUuid, request);
+
+        if (visibility == null && newResourceName == null) {
+            throw new IllegalArgumentException("Either visibility or new resource name must be provided.");
+        }
+
+        MetadataResource metadataResource = null;
+        if (newResourceName != null) {
+            MetadataResource previousResource = store.getResourceMetadata(context, metadataUuid, resourceId, approved);
+            metadataResource = store.renameResource(context, metadataUuid, resourceId, newResourceName, approved);
+
+            if (previousResource != null && metadataResource != null && metadata != null && metadata.getData() != null) {
+                // Update the metadata references to the resource
+                metadata.setData(metadata.getData().replace(previousResource.getUrl(), metadataResource.getUrl()));
+                metadataManager.save(metadata);
+                metadataIndexer.indexMetadata(String.valueOf(metadata.getId()), DirectIndexSubmitter.INSTANCE, IndexingMode.full);
+            }
+            resourceId = newResourceName;
+        }
+        if (visibility != null) {
+            metadataResource = store.patchResourceStatus(context, metadataUuid, resourceId, visibility, approved);
+        }
+        return metadataResource;
     }
 
     @io.swagger.v3.oas.annotations.Operation(summary = "Delete a metadata resource")
@@ -413,12 +457,16 @@ public class AttachmentsApi {
      *
      * @param resource Resource representing the original image
      * @param originalImageName Original filename of the image
-     * @param responseHeaders HTTP headers to be set in the response
+     * @param originalETag Original resource ETag used to generate resized image ETag
      * @param size Desired size for the resized image (in pixels)
+     * @param response Current HTTP response
      * @throws IOException If an I/O error occurs while reading or writing the image
      */
-    private ResponseEntity<Resource> serveResizedImage(Resource resource,
-                                                       String originalImageName, HttpHeaders responseHeaders, int size) throws IOException {
+    private void serveResizedImage(Resource resource,
+                                   String originalImageName,
+                                   String originalETag,
+                                   int size,
+                                   HttpServletResponse response) throws IOException {
         if (size < MIN_IMAGE_SIZE || size > MAX_IMAGE_SIZE) {
             throw new IllegalArgumentException(String.format(
                 "Image can only be resized from %d to %d. You requested %d.",
@@ -436,16 +484,31 @@ public class AttachmentsApi {
             String pngFilename = originalImageName.substring(0, originalImageName.lastIndexOf('.')) + ".png";
 
             // Resized image headers
-            responseHeaders.setContentType(MediaType.IMAGE_PNG);
-            responseHeaders.setContentDisposition(ContentDisposition.attachment().filename(pngFilename).build());
-            responseHeaders.setContentLength(outputStream.size());
-            responseHeaders.setLastModified(System.currentTimeMillis());
+            response.setStatus(HttpStatus.OK.value());
+            response.setContentType(MediaType.IMAGE_PNG_VALUE);
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+                ContentDisposition.attachment().filename(pngFilename).build().toString());
+            response.setContentLength(outputStream.size());
+            response.setDateHeader(HttpHeaders.LAST_MODIFIED, System.currentTimeMillis());
 
             // Generate a new ETag based on the original ETag and the size
-            String originalETag = responseHeaders.getETag();
-            responseHeaders.setETag("\"" + DigestUtils.md5Hex(originalETag + size) + "\"");
+            response.setHeader(HttpHeaders.ETAG, "\"" + DigestUtils.md5Hex(originalETag + size) + "\"");
 
-            return ResponseEntity.ok().headers(responseHeaders).body(new ByteArrayResource(outputStream.toByteArray()));
+            OutputStream servletOutput = response.getOutputStream();
+            outputStream.writeTo(servletOutput);
+            servletOutput.flush();
+        }
+    }
+
+    private void streamResource(Resource resource, HttpServletResponse response) throws IOException {
+        try (InputStream inputStream = resource.getInputStream()) {
+            OutputStream outputStream = response.getOutputStream();
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            outputStream.flush();
         }
     }
 }

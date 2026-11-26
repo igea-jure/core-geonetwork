@@ -532,9 +532,10 @@ INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (61,'swe','Post rader
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (62,'swe','Post importerad.');
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (63,'swe','Post återställd.');
 INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (100,'swe','Begäran att skapa DOI');
+INSERT INTO StatusValuesDes  (iddes, langid, label) VALUES (101,'swe','Scheduled publication');
 
 
-INSERT INTO SelectionsDes (iddes, langid, label) VALUES (0,'swe','Föredragna poster');
+INSERT INTO SelectionsDes (iddes, langid, label) VALUES (0,'swe','Favoritposter');
 INSERT INTO SelectionsDes (iddes, langid, label) VALUES (1,'swe','Bevakningslista');
 
 INSERT INTO GUF_RatingCriteriaDes (iddes, langid, label) VALUES (-1,'swe', 'Medeltal');

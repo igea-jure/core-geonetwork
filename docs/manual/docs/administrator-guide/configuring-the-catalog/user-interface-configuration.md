@@ -25,6 +25,8 @@ To add a new configuration, such as for a sub-portal (see [Portal configuration]
 ## General options
 
 -   **Humanize dates**: check this box to show dates in a human-friendly format. If not set, the full date will be shown.
+-   **Date format**: Define the format for dates using Moment.js syntax (e.g. `DD-MM-YYYY`).
+-   **Timezone**: Define the timezone to use for displaying dates. Default is `Browser` timezone.
 
 ![](img/ui-settings-humanizedate.png)
 
@@ -32,6 +34,9 @@ To add a new configuration, such as for a sub-portal (see [Portal configuration]
 
 -   **Footer**: Select this checkbox to determine whether the GeoNetwork footer is shown. If not set, no footer will be visible.
 -   **Social bar**: Select this check box to show the social media bar in the footer.
+-   **Show application info and links**: If enabled, shows information about the application version and links to the GeoNetwork website and documentation in the footer.
+-   **Footer custom menu items**: List of static page IDs associated with the footer section to display.
+-   **RSS feeds**: List of RSS feeds links to display when the OGC API Records service is enabled.
 
 ![](img/ui-settings-footer.png)
 
@@ -39,6 +44,11 @@ To add a new configuration, such as for a sub-portal (see [Portal configuration]
 
 -   **Top toolbar**: Select this check box to determine whether the GeoNetwork top toolbar will be shown. If not set, no toolbar will be visible.
 -   **List of languages**: Choose the languages from the list that should be available for translating the interface strings (available from the dropdown list in the top toolbar). If only one language remains, then no dropdown will be shown. Note that additional languages can be added, if translations are available, by selecting the `+` button below the list and adding the appropriate ISO codes.
+-   **Fluid header layout**: If enabled, the header uses the full width of the browser.
+-   **Show the catalog name in the Top menu**: If enabled, the name of the catalog will be shown in the top toolbar.
+-   **Is header fixed**: If enabled, the header will remain fixed at the top of the page when scrolling.
+-   **Show portal switcher**: If enabled, the portal switcher is displayed in the header (if multiple portals are available).
+-   **Header custom menu items**: Use this setting to control the order of the default menu items and any static pages configured for the header. The default menus are: `gn-site-name-menu`, `gn-portal-switcher`, `gn-search-menu`, `gn-map-menu`, `gn-contribute-menu`, `gn-admin-menu`.
 
 ![](img/ui-settings-toptoolbar.png)
 
@@ -51,6 +61,22 @@ To add a new configuration, such as for a sub-portal (see [Portal configuration]
 
 -   **Home page**: Select this check box to determine whether the Logo and Link to the Home Page are visible in the top toolbar. If not set, no logo and link is shown.
 -   **Application URL**: Define the URL for the home page. In the majority of cases this can be left as the default.
+-   **Show search box**: Select this check box to determine whether the search box is visible on the home page.
+-   **Show social bar in footer**: Select this check box to show the social media bar in the footer of the home page.
+-   **Show mosaic**: Select this check box to determine whether the featured records mosaic is visible on the home page. Clicking an image opens the record page, unless a link is configured in **Overview mosaic records**. Images that fail to load (eg. a broken overview link) are not displayed; for random records, another record is displayed instead.
+-   **Overview mosaic search query**: Search query used to pick random records for the mosaic (8 with the grid layout, 9 with the gallery layout) when no **Overview mosaic records** are configured. Only records with an overview are used, and each record contributes one image (its first overview); an image is never shown twice. Default (also used when the query is empty) is `-cl_status.key:obsolete`, to exclude obsolete records. For example, use `resourceType:dataset` to only show datasets.
+-   **Overview mosaic records**: List of records to always display in the mosaic, instead of random ones. For each entry, set:
+    -   **UUID**: the identifier of the record. The first overview of the record is used as image.
+    -   **Link** (optional): the page to open when clicking the image. If empty, the record page is opened. The link must start with `#/` and opens a page of the catalog in the user language, for example `#/search?any=land%20cover` for a pre-filtered search. Other links (eg. full URLs) are ignored and the record page is opened instead.
+
+    Use the arrows to change the order of the images.
+
+    Records that do not exist, have no overview, that the current user is not allowed to view, or that are outside the filter of the current portal (when the home page of a sub-portal is displayed) are not displayed. This means private records can be added to the list: they are only displayed to users who can view them. Note that the user interface configuration is public, so the UUIDs in this list can be read by anyone (but not the content of the records).
+-   **Overview mosaic layout**: Both layouts are displayed on a grey band.
+    -   **Gallery** (default): the images are displayed with different sizes, using the full width of the page.
+    -   **Grid**: the images are displayed with the same size in a centred area, with at most 4 images per row (eg. 6 images are displayed as 2 rows of 3, 7 images as a row of 4 and a row of 3).
+-   **Show maps**: Select this check box to determine whether the maps panel is visible on the home page.
+-   **Show welcome message in home page**: Select this check box to display a welcome message at the top of the home page. The message is configured in [Languages and translations](languages-and-translations.md#home-welcome-message) with the key `home-welcome-message` for the main portal, or `home-welcome-message-{portal}` for a sub-portal (for example `home-welcome-message-inspire`). Each sub-portal can enable or disable its own message. The message is not displayed in languages without a translation.
 -   **Fluid container for Home and Search**: Select this check box to determine whether the search box is full width in the browser page or if it is fixed width and centred.
 
 ![](img/ui-settings-homepage.png)
@@ -60,7 +86,11 @@ To add a new configuration, such as for a sub-portal (see [Portal configuration]
 -   **Search application**: Select this check box to determine whether the search application is visible in the top toolbar. If not set, no link is shown.
 -   **Application URL**: Define the URL for the search application. In the majority of cases this can be left as the default.
 -   **Number of records per page**: Define the options to determine the number of records shown per page of results, and the default.
--   **Facet configuration**: See [Configuring faceted search](../../customizing-application/configuring-faceted-search.md)). The configuration are defined using JSON following Elasticsearch API (See <https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket.html>.
+-   **Search language strategy**: Define how the search should handle multilingual content (e.g., search in UI language, search in all languages, etc.).
+-   **Autocompletion configuration**: Define the configuration for the search autocompletion (JSON).
+-   **Display status in footer**: Define for which record statuses a status label should be displayed in the results footer.
+-   **Show batch dropdown**: Select this check box to show the batch action dropdown in the search results.
+-   **Facet configuration**: See [Configuring faceted search](../../customizing-application/configuring-faceted-search.md). The configurations are defined using JSON following the [Elasticsearch Aggregations API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket.html).
 
 ![](img/ui-settings-searchpage.png)
 
@@ -101,9 +131,19 @@ To add a new configuration, such as for a sub-portal (see [Portal configuration]
 -   **Enabled**: If checked the user will have the ability to create and save custom searches in the search tab. This functionality will be visible above the facets list on the left.
 -   **Display featured user searches panel in home page**: If this is also enabled, an additional tab will be shown on the home page alongside `Latest news` and `Most popular`.
 
-### Saved Selections
+### Favorites (saved selections)
 
--   **Enabled**: If checked the user will have the ability to save a selection of records in the search tab.
+Favorites allow users to mark records as favorites, so they can easily find them again in the **Favorites** panel on the search page. When enabled, an **Add to ...** button is shown on each record in the search results.
+
+The following lists are available:
+
+-   **Favorite records**: Records the user wants to find again. For anonymous users, this list is stored in the browser. For registered users, it is stored in the catalog and available from any browser.
+-   **Watch list**: Only for registered users. Users are notified by email when a record in their watch list is updated.
+-   **Map list**: Records with map layers (WMS or ESRI REST) that can be added to the map in one action. This list is not kept after the page is reloaded.
+
+Settings:
+
+-   **Enabled**: If checked the user will have the ability to add records to their favorites from the search results.
 
 ![](img/ui-settings-searchresults3.png)
 
@@ -113,6 +153,12 @@ This section describes how an administrator can configure the different maps in 
 
 -   **Map Application**: The initial checkbox allows the main map tab to be disabled. In this case there will be no map tab shown in the top toolbar but the mini map and extent map described above will still be visible.
 -   **Application URL**: This defines the URL for the map tab. In the majority of cases this can be left as the default.
+-   **Single tile WMS**: If enabled, WMS layers are requested as a single tile instead of multiple tiles.
+-   **User preference persistence**: This option determines the behaviour of cookies related to the map. The various options are listed below ('', 'sessionStorage', or 'localStorage').
+-   **WPS sources**: Define the sources for WPS services (e.g., 'url', 'recent').
+-   **Default tool**: Define the tool that is active by default in the map viewer.
+-   **Default tool after map load**: Define the tool that is opened after the map is loaded.
+-   **Auto fit on layer**: If enabled, the map automatically fits the extent of the loaded layers.
 
 ### External viewer
 
@@ -123,7 +169,6 @@ This section describes how an administrator can configure the different maps in 
 
 ![](img/ui-settings-mappage.png)
 
--   **User preference persistence**: This option determines the behaviour of cookies related to the map. The various options are listed below.
 -   **Bing Map Key**: If this option is filled in, then it is possible to use Bing Maps as base layers within the map application. You must get your own key for this to work.
 
 ![](img/ui-settings-mappage2.png)
@@ -146,7 +191,7 @@ You can configure each map with different layers and projections.
 
     ![](img/ui-settings-mapprojection2.png)
 
-    In order to enable a new projection it must be defined here using the **proj4** syntax, which can be found for many EPSG-listed projections at, for example, <https://epsg.io>. Additionall, the default bounding box extent, maximum bounding box extent and allowed resolutions (if required) can be defined.
+    In order to enable a new projection it must be defined here using the **proj4** syntax, which can be found for many EPSG-listed projections at, for example, [epsg.io](https://epsg.io). Additionally, the default bounding box extent, maximum bounding box extent and allowed resolutions (if required) can be defined.
 
     Ensure that the coordinates inserted are in the correct units for the projection and are local to the projection. A list of resolutions is only relevant if the main map layer has a XYZ source that does not follow the common tiling pattern.
 
@@ -156,12 +201,57 @@ You can configure each map with different layers and projections.
 
     !!! info "Important"
 
-    If the configuration of a projection is incomplete or invalid, the map may fail to load.
+        If the configuration of a projection is incomplete or invalid, the map may fail to load.
 
-
-    If a projection is defined which is not supported by the source of the map layer, the map application will reproject map images at the client side. This may cause unexpected behaviour, such as rotated or distorted labels.
+        If a projection is defined which is not supported by the source of the map layer, the map application will reproject map images at the client side. This may cause unexpected behaviour, such as rotated or distorted labels.
 
 -   **Optional Map Viewer Tools** The checkboxes in this section define the tools available to the user in the right toolbar of the main map. Elements that are not checked are not visible.
+
+    Below **Add layers**, the sub-options **WMS service**, **WMTS service**, **WFS service**, **ArcGIS REST service** and **Files (KML, KMZ, GPX, GeoJSON, TopoJSON)** define the sources available in the **Add layers** panel. They can only be changed when **Add layers** is checked. When all the services are unchecked, the **Services** tab is hidden. When **Files** is unchecked, the **Files** tab is hidden and files can no longer be dropped on the map.
+
+    ![](img/ui-settings-maptools-addlayers.png)
+
+    These options only control the **Add layers** panel.
+
+    ![](img/ui-settings-maptools-addlayers-panel.png)
+    
+    For WMS and WMTS links in records, they apply as follows:
+
+    -   A link to a service without a layer name opens the service in the **Add layers** panel, so the user can pick a layer. If that service type is disabled, the map shows a warning, for example "Adding WMS services is disabled in this catalog", and the panel does not open. In ISO19139, this is an online resource with a service protocol and no name:
+
+        ```xml
+        <gmd:onLine>
+          <gmd:CI_OnlineResource>
+            <gmd:linkage>
+              <gmd:URL>https://example.org/geoserver/wms</gmd:URL>
+            </gmd:linkage>
+            <gmd:protocol>
+              <gco:CharacterString>OGC:WMS</gco:CharacterString>
+            </gmd:protocol>
+          </gmd:CI_OnlineResource>
+        </gmd:onLine>
+        ```
+
+    -   A link that names a layer adds that layer straight to the map, even when its service type is disabled. In ISO19139, the layer name goes in `gmd:name`:
+
+        ```xml
+        <gmd:onLine>
+          <gmd:CI_OnlineResource>
+            <gmd:linkage>
+              <gmd:URL>https://example.org/geoserver/wms</gmd:URL>
+            </gmd:linkage>
+            <gmd:protocol>
+              <gco:CharacterString>OGC:WMS</gco:CharacterString>
+            </gmd:protocol>
+            <gmd:name>
+              <gco:CharacterString>topp:states</gco:CharacterString>
+            </gmd:name>
+          </gmd:CI_OnlineResource>
+        </gmd:onLine>
+        ```
+
+    WFS and ArcGIS REST links in records are not affected by these options.
+
 -   **OGC Service to use as a graticule**: This is optional and allows the use of an external service to display the graticule on the map.
 
 ### Viewer Map Configuration {#user-interface-config-viewermap}
@@ -215,8 +305,34 @@ This section defines the configuration for the map shown when editing a record. 
 
 ## Record View
 
--   **Record view**:
 -   **Show Social bar**: If enabled, the social media bar is enabled in record view.
+-   **Is default contact view enabled**: If enabled, shows the default contact view for records.
+-   **Show Status watermark**: Define for which record statuses a watermark should be displayed in the background of the record view.
+-   **Show Status top bar**: Define for which record statuses a status bar should be displayed at the top of the record view.
+-   **Show Citation**: If enabled, shows the record citation. You can also define a condition (JSON) for when to show it.
+-   **Sort keywords alphabetically**: If enabled, keywords are sorted alphabetically in the record view.
+-   **Thesaurus keywords to highlight**: Choose thesaurus that you want keywords to be displayed as badges.
+-   **Location thesaurus**: Choose thesaurus for location keywords.
+-   **Internal thesaurus**: Choose thesaurus for internal keywords.
+-   **Collection table config**: Define the configuration for the collection table (labels and columns).
+-   **Distribution config**: Define the configuration for the distribution section (layout and sections).
+-   **Related records facets config**: Define the configuration for facets of related records.
+-   **Record View custom menu items**: Use this setting to control the order of the default record view actions and any static pages configured for the record view toolbar. By default, the record view toolbar uses the following menu keys:
+
+    ``` json
+    ["gn-recordview-favorite-menu",
+     "gn-recordview-edit-menu",
+     "gn-recordview-delete-menu",
+     "gn-recordview-manage-menu",
+     "gn-recordview-download-menu",
+     "gn-recordview-display-menu"]
+    ```
+
+    If this list is empty, only those default entries are shown and static pages are not added automatically.
+
+    Custom static pages can be inserted between these default entries. Static pages used there must be created for the `RECORD_VIEW_MENU` section and referenced by page identifier (for example `documentation`). The `gn-` prefix is reserved for built-in entries and should not be used for custom page identifiers. See [Static pages](static-pages.md).
+
+    The `gn-recordview-manage-menu` entry contains record management actions and is only shown to users with editor privileges or above. The `gn-recordview-download-menu` entry contains download and export actions and is available whenever a record is displayed. The `gn-recordview-favorite-menu` entry adds or removes the record from the user favorites and is only shown when [Saved Selections](#favorites-saved-selections) are enabled.
 
 ## Editor Application
 
@@ -224,30 +340,35 @@ This section defines the configuration for the map shown when editing a record. 
 -   **Application URL**: This is the URL to the editor application and can generally be left as the default.
 -   **Only my records**: If this checkbox is enabled then the "Only my records" checkbox in the editor dashboard will be checked by default.
 -   **Display filters in dashboard**: If enabled, the currently selected facets will be shown above the search results in both the editor dashboard the batch editor page.
+-   **Display file size in the file store**: If enabled, display the size of each uploaded file in the metadata editor's online resources file store panel.
 -   **Fluid container for the Editor**: If enabled, the editor application will have a full width container. If disabled it will have a fixed width and centered container.
 -   **New metadata page layout**: Choose from the options for the layout of the `add new metadata` page. The default is `Horizontal` but a vertical layout can be chosen, or a custom layout based on a supplied template.
 -   **Editor page indent type**: Choose from the options for the indent style when editing a record. The default is for minimal indents, select `Colored indents` to use the style shown below:
+-   **Workflow search record types**: Define which record types to include in the workflow search (e.g., 'n' for metadata, 'e' for entries).
+-   **Facets configuration**: Define the configuration for facets in the editor board. See [Configuring faceted search](../../customizing-application/configuring-faceted-search.md). The configurations are defined using JSON following the [Elasticsearch Aggregations API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket.html).
+
+## Workflow assist
+
+- **List of workflow assist applications**: Configure external applications to assist in the workflow.
 
 ![](img/ui-settings-indent.png)
 
+## Cookie Warning
+
+-   **Cookie Warning**: If enabled, shows a cookie warning to users.
+-   **Cookie warning more info link**: Define the URL for the "More info" link in the cookie warning.
+-   **Cookie warning reject link**: Define the URL for the "Reject" link in the cookie warning.
+
 ## Admin console
 
--   **Admin console**:
+-   **Admin console**: If enabled the admin pages are available to users with the appropriate privileges. If not enabled the admin tab is not shown in the top toolbar.
 -   **Application URL**: Set the application URL for the admin console. In general this should be left as the default.
+-   **Facets configuration**: Define the configuration for facets in the admin console. See [Configuring faceted search](../../customizing-application/configuring-faceted-search.md). The configurations are defined using JSON following the [Elasticsearch Aggregations API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket.html).
 
-## Sign in application
+## Authentication
 
--   **Sign in application**:
--   **Application URL**: Set the application URL for the sign in page. In general this should be left as the default.
-
-## Sign out application
-
--   **Application URL**: Set the application URL for the sign out. In general this should be left as the default.
-
-## Search application
-
--   **Search application**:
--   **Application URL**: Set the application URL for the search page. In general this should be left as the default.
+-   **Sign in application URL**: Set the application URL for the sign in page. In general this should be left as the default.
+-   **Sign out application URL**: Set the application URL for the sign out. In general this should be left as the default.
 
 ## JSON Configuration
 

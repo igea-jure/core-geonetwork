@@ -38,6 +38,7 @@ import org.fao.geonet.kernel.UpdateDatestamp;
 import org.fao.geonet.kernel.schema.MetadataSchema;
 import org.fao.geonet.kernel.schema.MultilingualSchemaPlugin;
 import org.fao.geonet.kernel.schema.SchemaPlugin;
+import org.fao.geonet.kernel.search.submission.DirectIndexSubmitter;
 import org.fao.geonet.lib.Lib;
 import org.fao.geonet.schema.iso19139.ISO19139Namespaces;
 import org.fao.geonet.utils.Log;
@@ -731,7 +732,9 @@ public class AjaxEditUtils extends EditUtils {
         editLib.contractElements(md);
         String parentUuid = null;
         md = dataManager.updateFixedInfo(schema, Optional.of(Integer.valueOf(id)), null, md, parentUuid, UpdateDatestamp.NO, context);
-        Processor.processXLink(md, this.context);
+        if (xmlSerializer.resolveXLinks()) {
+            Processor.processXLink(md, this.context);
+        }
 
         //--- do the validation on the metadata
         return metadataValidator.doValidate(session, schema, id, md, lang, false).one();
@@ -780,7 +783,7 @@ public class AjaxEditUtils extends EditUtils {
         String changeDate = null;
         xmlSerializer.update(id, md, changeDate, false, null, context);
 
-        dataManager.indexMetadata(id, true);
+        dataManager.indexMetadata(id, DirectIndexSubmitter.INSTANCE);
 
         return true;
     }
@@ -825,7 +828,7 @@ public class AjaxEditUtils extends EditUtils {
         String changeDate = null;
         xmlSerializer.update(id, md, changeDate, false, null, context);
 
-        dataManager.indexMetadata(id, true);
+        dataManager.indexMetadata(id, DirectIndexSubmitter.INSTANCE);
 
         return true;
     }
